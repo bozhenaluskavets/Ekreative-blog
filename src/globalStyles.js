@@ -1,22 +1,17 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
     * {
         margin: 0;
         padding: 0;
-        font-family: Quicksand;
+        font-family: 'Poppins', sans-serif;
         text-decoration: none;
-        background-color: #252525;
     }
 
     a {
-        color: #fff;
+        color: rgb(0, 0, 0);
         transition: 0.3s;
-    }
-
-    a:hover {
-        color: rgb(177, 190, 159);
     }
 `;
 
@@ -27,24 +22,25 @@ export const Container = styled.div`
 `
 
 export const Title = styled.h1`
-    color: #fff;
+    color: rgb(0, 0, 0);
     text-align: center;
     font-size: 40px;
-    font-weight: 200;
+    font-weight: 400;
     width: 100%;
 `
 
 export const Input = styled.input`
-    color: #fff;
+    color: rgb(0, 0, 0);
     font-size: 20px;
     padding: 20px;
     cursor: pointer;
-    margin-bottom: 20px;
-    border: solid 1px rgba(177, 190, 159, 0.665);
+    margin-bottom: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.6);
     border-radius: 5px;
+    border-radius: 22% 78% 53% 77% / 87% 40% 80% 43%;
     :focus {
         outline: none;
-        border: solid 1px rgba(204, 215, 188, 1);
+        border: solid 1px rgba(192, 192, 192, 1);
     }
     ::-webkit-inner-spin-button{
         -webkit-appearance: none; 
@@ -57,18 +53,25 @@ export const Input = styled.input`
 `
 
 export const Button = styled.button`
-    color: #fff;
+    color: rgba(255, 255, 255, 1);
     border-radius: 5px;
     font-size: 25px;
     padding: 20px;
     cursor: pointer;
-    border: solid 1px rgba(204, 215, 188, 1);
-    transition: 0.3s;
-    background-color:  rgba(174, 190, 150, 1);
-
-    :disabled {
-        color: rgba(204, 215, 188, 0.375);
-        background-color:  rgba(208, 218, 193, 0.444);
-        border: solid 1px transparent;
+    transition: .3s;
+    border: transparent;
+    border-radius: 22% 78% 23% 47% / 37% 20% 80% 63%;
+    color: rgba(255, 255, 255, 0.7);
+    background-color:  rgba(0, 0, 0, 0.3);
+    
+    :hover {
+        background-color:  rgba(0, 0, 0, 0.8);
+        border-radius: 81% 19% 66% 34% / 35% 24% 76% 65%;
     }
+`
+
+export const Error = styled.p`
+    color: rgb(186, 0, 0);
+    font-size: 15px;
+    padding: 0 0 20px;
 `

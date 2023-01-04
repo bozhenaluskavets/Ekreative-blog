@@ -1,1 +1,1 @@
-export const API_URL = 'https://ekreative-json-server.herokuapp.com';
+export const API_URL = 'http://127.0.0.1:3040';

@@ -20,6 +20,4 @@ export const fetchPostDetails = createAsyncThunk('posts/fetchPostDetails', async
     return postDetails;
 })
 
-export const { } = postDetailsSlice.actions
-
 export default postDetailsSlice.reducer

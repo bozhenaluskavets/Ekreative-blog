@@ -14,6 +14,5 @@ export default configureStore({
     postDetails: postDetailsSlice,
     announcements: announcementsSlice,
     announcementDetails: announcementsDetailsSlice,
-    
   }
 })

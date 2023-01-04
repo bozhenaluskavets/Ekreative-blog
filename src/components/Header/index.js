@@ -18,7 +18,7 @@ export const Header = () => {
     return (
         <Container>
             <Nav>
-            <Extra><Link to={'/'}>Home</Link></Extra>
+                <Extra><Link to={'/'}>Home</Link></Extra>
                 <Items>
                     <Item>
                         <Link to={'/register'} onClick={clearLS()}>Register</Link>

@@ -1,15 +1,8 @@
-const authDataHandler = () => {
-
-    const setToken = (token) => {
-        window.localStorage.setItem('token', token);
-    }
-
-    const getToken = () => {
-        const token = window.localStorage.getItem('token');
-        return token
-    }
-
-    return { setToken, getToken }
+export const setToken = (token) => {
+    window.localStorage.setItem('token', token);
 }
 
-export const tokenService = authDataHandler();
+export const getToken = () => {
+    const token = window.localStorage.getItem('token');
+    return token
+}

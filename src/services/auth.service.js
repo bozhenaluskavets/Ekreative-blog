@@ -1,5 +1,5 @@
 import { API_URL } from "./api";
-import { tokenService } from "./token.service";
+// import { tokenService } from "./token.service";
 
 export const registerUserRequest = async (data) => {
     const response = await fetch(`${API_URL}/users`,
@@ -38,14 +38,14 @@ export const loginUserRequest = async (data) => {
     return { body, isError };
 }
 
-export const checkToken = () => {
-    const token = tokenService.getToken();
-    return fetch(`${API_URL}/users`,
-        {
-            method: 'GET',
-            headers: { 
-                'Content-Type': 'application/json', "Authorization": `Bearer ${token}`
-            }
-        }
-    );
-}
+// export const checkToken = () => {
+//     const token = tokenService.getToken();
+//     return fetch(`${API_URL}/users`,
+//         {
+//             method: 'GET',
+//             headers: { 
+//                 'Content-Type': 'application/json', "Authorization": `Bearer ${token}`
+//             }
+//         }
+//     );
+// }

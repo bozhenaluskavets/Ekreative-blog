@@ -20,6 +20,4 @@ export const fetchAnnouncementDetails = createAsyncThunk('announcements/fetchAnn
     return announcementDetails;
 })
 
-export const { } = announcementDetailsSlice.actions
-
 export default announcementDetailsSlice.reducer

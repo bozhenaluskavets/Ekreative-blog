@@ -23,6 +23,4 @@ export const uiSlice = createSlice({
   }
 })
 
-export const {  } = uiSlice.actions
-
 export default uiSlice.reducer

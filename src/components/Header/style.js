@@ -1,17 +1,23 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    box-shadow: 0 5px 10px -4px rgb(177, 190, 159);
+    box-shadow: 0 5px 10px -4px rgb(0, 0, 0);
     z-index: 100000;
     position: fixed;
     width: 100%;
     top: 0;
     padding: 25px 20%;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 1);
+    margin-bottom: 100px;
 `
 
 export const Nav = styled.nav`
     display: flex;
     align-items: baseline;
+    a:hover {
+        color: rgba(101, 101, 101, 1);
+    }
 `
 
 export const Items = styled.div`

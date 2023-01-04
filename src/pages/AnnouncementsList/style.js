@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Content = styled.div`
-    margin-top: 15vh;
+    padding-top: 15vh;
     display: flex;
     flex-wrap: wrap;
 `
@@ -21,9 +21,12 @@ export const Announcement = styled.div`
     transition: 0.3s;
     position: relative;
     cursor: pointer;
-    box-shadow: rgba(177, 190, 159, 0.808) 0px 0px 8px 0px;
+    cursor: pointer;
+    border-radius: 22% 74% 24% 75% / 42% 91% 10% 42%;
+    background-color: #ebebeb;
     :hover {
-        box-shadow: rgba(255, 255, 255, 0.808) 0px 0px 11px 0px;
+        border-radius: 81% 19% 66% 34% / 35% 24% 76% 65%;
+        background-color: #d1d1d1;
     }
 `
 
@@ -33,14 +36,14 @@ export const Items = styled.div`
 `
 
 export const Item = styled.p`
-    color: #fff;
+    color: rgba(0, 0, 0);
     font-size: 20px;
     letter-spacing: 1.5px;
     margin-bottom: 15px;
 `
 
 export const Extra = styled.h5`
-    color: #fff;
+    color: rgba(0, 0, 0);
     letter-spacing: 1.5px;
     font-size: 25px;
     text-align: center;

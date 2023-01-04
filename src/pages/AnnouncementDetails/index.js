@@ -33,6 +33,5 @@ export const AnnouncementDetails = () => {
                 <Text>{details.body}</Text>
             </Announcement>
         </Container>
-
     )
 }

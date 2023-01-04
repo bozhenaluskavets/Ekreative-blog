@@ -1,61 +1,55 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Container, Input, Title } from "../../globalStyles";
-import { loginUser, removeError } from "../../store/slices/auth";
-import { Errors } from "../Register/style";
+import { useForm } from "react-hook-form";
+import { Button, Container, Error, Input, Title } from "../../globalStyles";
 import { Content, Form } from "./style";
 
 export const Login = () => {
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState('');
-
-    const dispatch = useDispatch();
-
-    const reduxData = useSelector((state) => {
-        return {
-            error: state.auth.error
-        }
-    })
-
-    const onSubmit = (event) => {
-        setErrors('')
-        event.preventDefault();
-        const loginData = { email, password };
-
-        let regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!regEx.test(email) && email !== '') {
-            setErrors('Email is not valid');
-            return
-        }
-        dispatch(loginUser(loginData))
-    }
-
-    const showErrors = () => {
-        if (errors?.length) {
-            return errors
-        }
-        return reduxData.error;
-    }
-
-    const removeErrors = () => {
-        dispatch(removeError())
-    }
-
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        mode: 'all'
+    });
 
     return (
         <Container>
             <Content>
                 <Title>Log in</Title>
-                <Form>
-                    <Input type="email" placeholder="Email" value={email} onChange={event => setEmail(event.target.value)} onClick={removeErrors()}/>
-                    <Input type="password" placeholder="Password" value={password} minLength={8} onChange={event => setPassword(event.target.value)} onClick={removeErrors()} />
-                    <Errors>{ showErrors() }</Errors>
-                    <Button disabled={!(email, password)} onClick={onSubmit}>Log in</Button>
+                <Form
+                    aria-autocomplete="off"
+                    onSubmit={handleSubmit((data) => console.log(data))}
+                >
+                    <Input {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: "Entered value does not match email format"
+                        }
+                    })}
+                        placeholder="Email"
+                        type="email"
+                    />
+                    <Error>{errors.email?.message}</Error>
+
+                    <Input {...register("password", {
+                        required: 'Password is required',
+                        minLength: {
+                            value: 8,
+                            message: 'Password must be at least 8 characters long'
+                        },
+                        maxLength: {
+                            value: 30,
+                            message: 'Password must be at most 30 characters long'
+                        }
+                    })}
+                        placeholder="Password"
+                        type="password"
+                    />
+                    <Error>{errors.password?.message}</Error>
+                    
+                    <Button>Log in</Button>
                 </Form>
             </Content>
         </Container>
-
-    )
+    );
 }

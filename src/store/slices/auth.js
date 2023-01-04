@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { loginUserRequest, registerUserRequest } from '../../services/auth';
+import { loginUserRequest, registerUserRequest } from '../../services/auth.service';
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -47,7 +47,5 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (data) => {
     console.log('response => ', response)
     return response;
 })
-
-export const { } = authSlice.actions
 
 export default authSlice.reducer
