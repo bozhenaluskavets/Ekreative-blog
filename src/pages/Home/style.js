@@ -20,7 +20,7 @@ export const Title = styled.h1`
 
 export const Image = styled.img`
     right: 0;
-    object-fit: contain;
+    overflow: hidden;
 `
 
 export const StartDetails = styled.div`
@@ -32,9 +32,6 @@ export const Text = styled.p`
     font-size: 25px;
     max-width: 370px;
     line-height: 2;
-    // tutorial for future
-    /* border-radius: 8% 100% 67% 10% / 14% 88% 19% 87%;
-    background-color: #ebebeb; */
 `
 
 export const Items = styled.div`

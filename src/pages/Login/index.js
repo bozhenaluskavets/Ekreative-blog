@@ -6,9 +6,9 @@ export const Login = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors, isValid }
     } = useForm({
-        mode: 'all'
+        mode: 'onChange'
     });
 
     return (
@@ -46,8 +46,8 @@ export const Login = () => {
                         type="password"
                     />
                     <Error>{errors.password?.message}</Error>
-                    
-                    <Button>Log in</Button>
+
+                    <Button type="submit" disabled={ !isValid }>Log in</Button>
                 </Form>
             </Content>
         </Container>

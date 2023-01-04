@@ -60,13 +60,13 @@ export const Button = styled.button`
     cursor: pointer;
     transition: .3s;
     border: transparent;
-    border-radius: 22% 78% 23% 47% / 37% 20% 80% 63%;
     color: rgba(255, 255, 255, 0.7);
-    background-color:  rgba(0, 0, 0, 0.3);
+    background-color:  rgba(0, 0, 0, 0.8);
+    border-radius: 81% 19% 66% 34% / 35% 24% 76% 65%;
     
-    :hover {
-        background-color:  rgba(0, 0, 0, 0.8);
-        border-radius: 81% 19% 66% 34% / 35% 24% 76% 65%;
+    :disabled {
+        background-color:  rgba(0, 0, 0, 0.3);
+        border-radius: 22% 78% 23% 47% / 37% 20% 80% 63%;
     }
 `
 
@@ -75,3 +75,12 @@ export const Error = styled.p`
     font-size: 15px;
     padding: 0 0 20px;
 `
+
+// COLOR PALETTE:
+
+// WHITE rgb(255, 255, 255)
+// ULTRA LIGHT GREY rgb(244, 244, 244)
+// LIGHT GREY rgb(234, 234, 234)
+// MEDIUM GREY rgb(200, 200, 200)
+// DARK GREY rgb(76, 76, 76)
+// BLACK rgb(0, 0, 0)

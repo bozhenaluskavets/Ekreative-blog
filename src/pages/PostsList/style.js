@@ -22,10 +22,10 @@ export const Post = styled.div`
     position: relative;
     cursor: pointer;
     border-radius: 22% 74% 24% 75% / 42% 91% 10% 42%;
-    background-color: #ebebeb;
+    background-color: rgb(234, 234, 234);
     :hover {
         border-radius: 81% 19% 66% 34% / 35% 24% 76% 65%;
-        background-color: #d1d1d1;
+        background-color: rgb(200, 200, 200);
     }
 `
 

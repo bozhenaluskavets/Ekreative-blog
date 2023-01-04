@@ -10,7 +10,7 @@ export const Home = () => {
                 <Image src={image} />
             </InvitationBlock>
             <StartDetails>
-                <Text>Write posts and announcements & share them with otherV the simple way for free.</Text>
+                <Text>Write posts and announcements & share them with other the simple way for free.</Text>
                 <Items>
                     <Link to={'posts'}><Item>Posts</Item></Link>
                     <Link to={'announcements'}><Item>Announcements</Item></Link>
