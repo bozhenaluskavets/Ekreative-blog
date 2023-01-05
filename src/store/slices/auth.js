@@ -25,15 +25,8 @@ export const authSlice = createSlice({
                 // window.location.href = '/';
             }
         })
-        builder.addCase(removeError.fulfilled, (state) => {
-            state.error = '';
-        })
     }
 
-})
-
-export const removeError = createAsyncThunk('auth/removeError', async () => {
-    return;
 })
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (data) => {

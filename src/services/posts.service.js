@@ -1,19 +1,11 @@
-import { API_URL } from "./api";
+import { api } from "./api";
 
 export const getPosts = async () => {
-    const response = await fetch(`${API_URL}/posts`,
-        { method: 'GET' }
-    );
-
-    const body = await response.json();
-    return body;
+    const resp = await api.get(`posts`);
+    return resp.data;
 }
 
 export const getPostDetails = async (id) => {
-    const response = await fetch(`${API_URL}/posts/${+ id}`,
-        { method: 'GET' }
-    );
-
-    const body = await response.json();
-    return body;
+    const resp = await api.get(`posts/${+ id}`);
+    return resp.data;
 }

@@ -22,9 +22,9 @@ export const PostsList = () => {
     const renderPosts = () => {
         const posts = reduxData.list.posts.list;
 
-        return posts.map((post, index) => {
+        return posts.map((post) => {
             return (
-                <Posts key={index}>
+                <Posts key={post.id}>
                     <Link to={'/posts/' + post.id}>
                         <Post>
                             <Extra>{post.title}</Extra>

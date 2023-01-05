@@ -1,19 +1,11 @@
-import { API_URL } from "./api";
+import { api } from "./api";
 
 export const getAnnouncements = async () => {
-    const response = await fetch(`${API_URL}/announcements`,
-        { method: 'GET' }
-    );
-
-    const body = await response.json();
-    return body;
+    const resp = await api.get('announcements');
+    return resp.data;
 }
 
 export const getAnnouncementsDetails = async (id) => {
-    const response = await fetch(`${API_URL}/announcements/${+ id}`,
-        { method: 'GET' }
-    );
-
-    const body = await response.json();
-    return body;
+    const resp = await api.get(`announcements/${+ id}`);
+    return resp.data;
 }
