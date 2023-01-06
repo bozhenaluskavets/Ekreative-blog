@@ -21,10 +21,10 @@ export const Header = () => {
                 <Extra><Link to={'/'}>Home</Link></Extra>
                 <Items>
                     <Item>
-                        <Link to={'/register'} onClick={clearLS()}>Register</Link>
+                        <Link to={'/register'} onClick={clearLS}>Register</Link>
                     </Item>
                     <Item>
-                        <Link to={'/login'} onClick={clearLS()}>Log in</Link>
+                        <Link to={'/login'} onClick={clearLS}>Log in</Link>
                     </Item>
                 </Items>
             </Nav>

@@ -6,6 +6,21 @@ export const Content = styled.div`
     flex-wrap: wrap;
 `
 
+// export const ButtonContainer = styled.div`
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// `
+
+// export const ExtraButton = styled.button`
+//     padding: 8px 12px;
+//     margin-right: 10px;
+//     background-color: rgb(76, 76, 76);
+//     color: rgb(255, 255, 255);
+//     cursor: pointer;
+//     border-radius: 22% 74% 24% 75% / 42% 91% 10% 42%;
+// `
+
 export const Posts = styled.div`
     padding-top: 70px;
     display: flex;

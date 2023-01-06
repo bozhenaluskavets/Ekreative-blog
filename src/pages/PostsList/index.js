@@ -40,7 +40,7 @@ export const PostsList = () => {
     }
 
     if (reduxData.isLoading) {
-        return 
+        return
     }
 
     return (

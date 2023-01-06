@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Button, Container, Error, Input, Title } from "../../globalStyles";
+import { loginUser } from "../../store/slices/auth";
 import { Content, Form } from "./style";
 
 export const Login = () => {
@@ -11,13 +13,15 @@ export const Login = () => {
         mode: 'onChange'
     });
 
+    const dispatch = useDispatch();
+
     return (
         <Container>
             <Content>
                 <Title>Log in</Title>
                 <Form
                     aria-autocomplete="off"
-                    onSubmit={handleSubmit((data) => console.log(data))}
+                    onSubmit={handleSubmit((data) => dispatch(loginUser(data)))}
                 >
                     <Input {...register("email", {
                         required: "Email is required",
@@ -36,10 +40,6 @@ export const Login = () => {
                         minLength: {
                             value: 8,
                             message: 'Password must be at least 8 characters long'
-                        },
-                        maxLength: {
-                            value: 30,
-                            message: 'Password must be at most 30 characters long'
                         }
                     })}
                         placeholder="Password"

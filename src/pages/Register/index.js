@@ -10,12 +10,6 @@
 
 //     const dispatch = useDispatch();
 
-//     const reduxData = useSelector((state) => {
-//         return {
-//             error: state.auth.error
-//         }
-//     })
-
 //     const onSubmit = (event) => {
 //         setErrors('')
 //         event.preventDefault();
@@ -35,7 +29,9 @@
 
 
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Button, Container, Error, Input, Title } from "../../globalStyles";
+import { registerUser } from "../../store/slices/auth";
 import { Content, Form } from "./style";
 
 export const Register = () => {
@@ -48,11 +44,13 @@ export const Register = () => {
         mode: 'onChange'
     });
 
+    const dispatch = useDispatch();
+
     return (
         <Container>
             <Content>
                 <Title>Register</Title>
-                <Form onSubmit={handleSubmit((data) => console.log(data))}>
+                <Form onSubmit={handleSubmit((data) => dispatch(registerUser(data)))}>
                     <Input {...register("email", {
                         required: "Please enter your Email",
                         pattern: {
@@ -70,10 +68,6 @@ export const Register = () => {
                         minLength: {
                             value: 8,
                             message: 'Password must be at least 8 characters long'
-                        },
-                        maxLength: {
-                            value: 30,
-                            message: 'Password must be at most 30 characters long'
                         }
                     })}
                         placeholder="Password"
@@ -82,6 +76,7 @@ export const Register = () => {
                     <Error>{errors.password?.message}</Error>
 
                     <Input {...register("passwordConfirm", {
+                        shouldUnregister: true,
                         required: 'Please repeat your password',
                         validate: (value) => {
                             if (watch('password') != value) {
@@ -94,7 +89,7 @@ export const Register = () => {
                     />
                     <Error>{errors.passwordConfirm?.message}</Error>
 
-                    <Input {...register("firstName", {
+                    <Input {...register("firstname", {
                         required: 'Please enter your firstname',
                         minLength: {
                             value: 3,
@@ -106,7 +101,7 @@ export const Register = () => {
                     />
                     <Error>{errors.firstName?.message}</Error>
 
-                    <Input {...register("lastName", {
+                    <Input {...register("lastname", {
                         required: 'Please enter your lastName',
                         minLength: {
                             value: 3,
@@ -139,4 +134,6 @@ export const Register = () => {
             </Content>
         </Container>
     );
+
+    
 }

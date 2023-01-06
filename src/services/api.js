@@ -3,5 +3,7 @@ import axios from "axios";
 
 export const api = axios.create({
     baseURL: process.env.REACT_APP_EKBLOG_URL,
-    headers: {'Content-Type': 'application/json'}
+    headers: {'Content-Type': 'application/json',
+              'Authorization': 'Bearer <>'
+             }
 });

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loginUserRequest, registerUserRequest } from '../../services/auth.service';
 
 export const authSlice = createSlice({
@@ -14,7 +14,6 @@ export const authSlice = createSlice({
                 state.error = action.payload.body;
             } else {
                 state.error = '';
-                // window.location.href = '/';
             }
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
@@ -22,7 +21,6 @@ export const authSlice = createSlice({
                 state.error = action.payload.body;
             } else {
                 state.error = '';
-                // window.location.href = '/';
             }
         })
     }
@@ -31,14 +29,24 @@ export const authSlice = createSlice({
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (data) => {
     const response = await registerUserRequest(data);
-    console.log('response => ', response)
+    console.log('response => ', response);
+    if (response.accessToken) {
+        localStorage.setItem('token', response.accessToken);
+        window.location.href = '/'
+    }
     return response;
 })
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (data) => {
     const response = await loginUserRequest(data);
     console.log('response => ', response)
+    if (response.accessToken) {
+        localStorage.setItem('token', response.accessToken);
+        window.location.href = '/'
+    }
     return response;
 })
+
+export const isAuthenticated = localStorage.getItem('token')
 
 export default authSlice.reducer
