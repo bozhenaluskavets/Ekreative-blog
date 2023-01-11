@@ -1,35 +1,7 @@
-
-// export const Register = () => {
-//     const [email, setEmail] = useState('');
-//     const [password, setPassword] = useState('');
-//     const [password2, setPassword2] = useState('');
-//     const [firstname, setFirstName] = useState('');
-//     const [lastname, setLastName] = useState('');
-//     const [age, setAge] = useState('');
-//     const [errors, setErrors] = useState('');
-
-//     const dispatch = useDispatch();
-
-//     const onSubmit = (event) => {
-//         setErrors('')
-//         event.preventDefault();
-//         const registerData = { email, password, firstname, lastname, age };
-
-//         dispatch(registerUser(registerData))
-//         // .then(async data => {
-//         //     const body = await data.json();
-//         //     console.log(body)
-//         //     if (data.ok) {
-//         //         navigate('/')
-//         //     } else {
-//         //         console.log(body.error.message);
-//         //     }
-//         // })
-//     }
-
-
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Error, Input, Title } from "../../globalStyles";
 import { registerUser } from "../../store/slices/auth";
 import { Content, Form } from "./style";
@@ -45,12 +17,24 @@ export const Register = () => {
     });
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const {isAuthenticated} = useSelector((state) => {
+        return {isAuthenticated: state.auth.isAuthenticated}
+    })
+
+    useEffect(() => {
+        if (isAuthenticated) navigate('/')
+    }, [isAuthenticated])
 
     return (
         <Container>
             <Content>
                 <Title>Register</Title>
-                <Form onSubmit={handleSubmit((data) => dispatch(registerUser(data)))}>
+                <Form onSubmit={handleSubmit((data) => {
+                    delete data['passwordConfirm'];
+                    dispatch(registerUser(data));
+                })}>
                     <Input {...register("email", {
                         required: "Please enter your Email",
                         pattern: {
@@ -76,7 +60,6 @@ export const Register = () => {
                     <Error>{errors.password?.message}</Error>
 
                     <Input {...register("passwordConfirm", {
-                        shouldUnregister: true,
                         required: 'Please repeat your password',
                         validate: (value) => {
                             if (watch('password') != value) {

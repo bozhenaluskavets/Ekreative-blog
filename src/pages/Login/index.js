@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Container, Error, Input, Title } from "../../globalStyles";
 import { loginUser } from "../../store/slices/auth";
 import { Content, Form } from "./style";
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
     const {
@@ -14,6 +16,15 @@ export const Login = () => {
     });
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const {isAuthenticated} = useSelector((state) => {
+        return {isAuthenticated: state.auth.isAuthenticated}
+    })
+
+    useEffect(() => {
+        if (isAuthenticated) navigate('/')
+    }, [isAuthenticated])
 
     return (
         <Container>

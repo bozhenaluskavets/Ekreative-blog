@@ -7,6 +7,7 @@ import { Login } from "./pages/Login";
 import { PostDetails } from "./pages/PostDetails";
 import { PostsList } from "./pages/PostsList";
 import { Register } from "./pages/Register";
+import { UserProfile } from "./pages/UserProfile";
 
 export const App = () => {
   return (
@@ -20,6 +21,7 @@ export const App = () => {
         <Route path="announcements/:id" element={<AnnouncementDetails />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="myProfile" element={<UserProfile />} />
       </Routes>
     </BrowserRouter>
   );

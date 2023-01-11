@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Content, InvitationBlock, Title, StartDetails, Text, Items, Item, Image } from "./style";
 import image from "../../assets/start-page-img.png"
 
+
 export const Home = () => {
     return (
         <Content>

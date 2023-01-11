@@ -4,9 +4,16 @@ import { loginUserRequest, registerUserRequest } from '../../services/auth.servi
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        error: ''
+        error: '',
+        isAuthenticated: localStorage.getItem('token') ? true : false,
+        token: '',
+        userInfo: {}
     },
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            state.isAuthenticated = false
+        }
+    },
 
     extraReducers: builder => {
         builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -14,6 +21,9 @@ export const authSlice = createSlice({
                 state.error = action.payload.body;
             } else {
                 state.error = '';
+                state.isAuthenticated = true;
+                state.userInfo = action.payload.user;
+                state.token = action.payload.accessToken;
             }
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
@@ -21,6 +31,9 @@ export const authSlice = createSlice({
                 state.error = action.payload.body;
             } else {
                 state.error = '';
+                state.isAuthenticated = true;
+                state.userInfo = action.payload.user;
+                state.token = action.payload.accessToken;
             }
         })
     }
@@ -29,24 +42,23 @@ export const authSlice = createSlice({
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (data) => {
     const response = await registerUserRequest(data);
-    console.log('response => ', response);
     if (response.accessToken) {
         localStorage.setItem('token', response.accessToken);
-        window.location.href = '/'
     }
     return response;
 })
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (data) => {
     const response = await loginUserRequest(data);
-    console.log('response => ', response)
     if (response.accessToken) {
         localStorage.setItem('token', response.accessToken);
-        window.location.href = '/'
     }
     return response;
 })
 
-export const isAuthenticated = localStorage.getItem('token')
+const { actions, reducer } = authSlice;
+export default reducer;
 
-export default authSlice.reducer
+export const { logout } = actions; 
+
+// export default authSlice.reducer
