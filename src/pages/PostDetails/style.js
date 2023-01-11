@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Post = styled.div`
-   width: 60%;
+   width: 70%;
    margin: 0 auto;
    padding-top: 10%;
 `
@@ -12,4 +12,9 @@ export const Text = styled.p`
     font-size: 20px;
     letter-spacing: 1.3px;
     line-height: 1.5;
+`
+
+export const Subtitle = styled.h4`
+    font-size: 24px;
+    margin-top: 30px;
 `

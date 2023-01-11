@@ -5,6 +5,7 @@ import ui from './slices/ui';
 import auth from './slices/auth';
 import announcementsSlice from './slices/announcements';
 import announcementsDetailsSlice from './slices/announcementsDetails';
+import commentsSlice from './slices/comments';
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     postDetails: postDetailsSlice,
     announcements: announcementsSlice,
     announcementDetails: announcementsDetailsSlice,
+    comments: commentsSlice,
   }, devTools: true
 })

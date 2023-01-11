@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
+import { PostsComments } from "../../components/PostComments";
 import { Container, Title } from "../../globalStyles";
 import { fetchPostDetails } from "../../store/slices/postDetails";
-import { Post, Text } from "./style";
+import { Post, Subtitle, Text } from "./style";
 
 export const PostDetails = () => {
     const dispatch = useDispatch();
@@ -31,6 +32,8 @@ export const PostDetails = () => {
             <Post>
                 <Title>{details.title}</Title>
                 <Text>{details.body}</Text>
+                <Subtitle>Comments:</Subtitle>
+                <PostsComments />
             </Post>
         </Container>
 

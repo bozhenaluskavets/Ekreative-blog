@@ -6,8 +6,9 @@ export const authSlice = createSlice({
     initialState: {
         error: '',
         isAuthenticated: localStorage.getItem('token') ? true : false,
+        isUserInfo: localStorage.getItem('userInfo') ? true : false,
         token: '',
-        userInfo: {}
+        // userInfo: {}
     },
     reducers: {
         logout: (state) => {
@@ -22,7 +23,7 @@ export const authSlice = createSlice({
             } else {
                 state.error = '';
                 state.isAuthenticated = true;
-                state.userInfo = action.payload.user;
+                // state.userInfo = action.payload.user;
                 state.token = action.payload.accessToken;
             }
         })
@@ -32,7 +33,7 @@ export const authSlice = createSlice({
             } else {
                 state.error = '';
                 state.isAuthenticated = true;
-                state.userInfo = action.payload.user;
+                // state.userInfo = action.payload.user;
                 state.token = action.payload.accessToken;
             }
         })
@@ -45,6 +46,9 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (data) =
     if (response.accessToken) {
         localStorage.setItem('token', response.accessToken);
     }
+    if (response.user) {
+        localStorage.setItem('userInfo', JSON.stringify(response.user));
+    }
     return response;
 })
 
@@ -52,6 +56,9 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (data) => {
     const response = await loginUserRequest(data);
     if (response.accessToken) {
         localStorage.setItem('token', response.accessToken);
+    }
+    if (response.user) {
+        localStorage.setItem('userInfo', JSON.stringify(response.user));
     }
     return response;
 })

@@ -1,23 +1,25 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import { useSelector } from "react-redux";
 import { Container } from "../../globalStyles";
-import { registerUser } from "../../store/slices/auth";
+// import { registerUser } from "../../store/slices/auth";
 import { Content, ExtraItem, Item, Name, UserInfo } from "./style";
 
 export const UserProfile = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(registerUser)
-    }, [])
+    // useEffect(() => {
+    //     dispatch(registerUser)
+    // }, [])
 
-    const reduxData = useSelector((state) => {
-        return {
-            userInfo: state.auth.userInfo
-        }
-    })
+    // const reduxData = useSelector((state) => {
+    //     return {
+    //         userInfo: state.auth.userInfo
+    //     }
+    // })
 
-    const user = reduxData.userInfo;
+    // const user = reduxData.userInfo;
+
+    const user = JSON.parse(localStorage.getItem('userInfo'));
 
     return (
         <Container>
