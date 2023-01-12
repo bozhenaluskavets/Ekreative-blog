@@ -32,6 +32,7 @@ export const Text = styled.p`
     font-size: 25px;
     max-width: 370px;
     line-height: 2;
+    margin-right: 40px;
 `
 
 export const Items = styled.div`

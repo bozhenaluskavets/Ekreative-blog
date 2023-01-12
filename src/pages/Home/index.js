@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Content, InvitationBlock, Title, StartDetails, Text, Items, Item, Image } from "./style";
+import { Content, InvitationBlock, Title, StartDetails, Text, Items, Image } from "./style";
 import image from "../../assets/start-page-img.png"
+import { OptionsButton } from "../../globalStyles";
 
 
 export const Home = () => {
@@ -13,8 +14,8 @@ export const Home = () => {
             <StartDetails>
                 <Text>Write posts and announcements & share them with other the simple way for free.</Text>
                 <Items>
-                    <Link to={'posts'}><Item>Posts</Item></Link>
-                    <Link to={'announcements'}><Item>Announcements</Item></Link>
+                    <Link to={'posts'}><OptionsButton>Posts</OptionsButton></Link>
+                    <Link to={'announcements'}><OptionsButton>Announcements</OptionsButton></Link>
                 </Items>
             </StartDetails>
         </Content>

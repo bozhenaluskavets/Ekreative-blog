@@ -36,12 +36,8 @@ export const Input = styled.input`
     cursor: pointer;
     margin-bottom: 10px;
     border: solid 1px rgba(0, 0, 0, 0.6);
-    border-radius: 5px;
     border-radius: 22% 78% 53% 77% / 87% 40% 80% 43%;
-    :focus {
-        outline: none;
-        border: solid 1px rgba(192, 192, 192, 1);
-    }
+    outline: none;
     ::-webkit-inner-spin-button{
         -webkit-appearance: none; 
         margin: 0; 
@@ -52,9 +48,23 @@ export const Input = styled.input`
     }  
 `
 
+// export const TextArea = styled.textarea`
+//     color: rgb(0, 0, 0);
+//     font-size: 20px;
+//     padding: 60px 20px;
+//     cursor: pointer;
+//     margin-bottom: 10px;
+//     border: solid 1px rgba(0, 0, 0, 0.6);
+//     border-radius: 22% 78% 53% 77% / 87% 40% 80% 43%;
+//     resize: none;
+//     :focus {
+//         outline: none;
+//         border: solid 1px rgba(192, 192, 192, 1);
+//     }
+// `
+
 export const Button = styled.button`
     color: rgba(255, 255, 255, 1);
-    border-radius: 5px;
     font-size: 25px;
     padding: 20px;
     cursor: pointer;
@@ -70,10 +80,35 @@ export const Button = styled.button`
     }
 `
 
+export const OBcentering = styled.div`
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 0;
+`
+
+export const OptionsButton = styled.button`
+    font-size: 25px;
+    margin: 4px 0 20px 0;
+    color: rgba(255, 255, 255, 1);
+    padding: 7px 20px;
+    border: transparent;
+    color: rgba(0, 0, 0, 1);
+    border-radius: 88% 12% 76% 24% / 30% 30% 70% 70%;
+    background-color: rgb(244, 244, 244);
+    transition: .3s;
+    letter-spacing: 2px;
+    cursor: pointer;
+    :hover {
+        border-radius: 21% 79% 70% 30% / 68% 9% 91% 32%;
+        background-color: rgb(234, 234, 234);
+    }
+`
+
 export const Error = styled.p`
     color: rgb(186, 0, 0);
     font-size: 15px;
     padding: 0 0 20px;
+    text-align: left;
 `
 
 // COLOR PALETTE:

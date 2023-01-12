@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
 export const Comment = styled.p`
-    padding-top: 20px;
+    padding: 20px 0 ;
 `

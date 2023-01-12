@@ -6,6 +6,7 @@ import { fetchAnnouncementDetails } from "../../store/slices/announcementsDetail
 import { Announcement, Text } from "./style";
 
 export const AnnouncementDetails = () => {
+
     const dispatch = useDispatch();
     let params = useParams()
 

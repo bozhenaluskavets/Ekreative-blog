@@ -20,31 +20,34 @@ export const Announcement = styled.div`
     height: 300px;
     transition: .5s;
     position: relative;
-    cursor: pointer;
-    cursor: pointer;
-    border-radius: 22% 74% 24% 75% / 42% 91% 10% 42%;
-    background-color: rgb(234, 234, 234);
-    :hover {
-        border-radius: 81% 19% 66% 34% / 35% 24% 76% 65%;
-        background-color: rgb(200, 200, 200);
-    }
 `
 
 export const Items = styled.div`
     position: absolute;
     bottom: 20px;
+    background-color: rgb(244, 244, 244);
+    border-radius: 40% 53% 10% 74% / 37% 76% 10% 55%;
 `
 
 export const Item = styled.p`
-    color: rgba(0, 0, 0);
-    font-size: 20px;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
     letter-spacing: 1.5px;
     margin-bottom: 15px;
+    text-align: right;
 `
 
 export const Extra = styled.h5`
+    transition: .3s;
     color: rgba(0, 0, 0);
+    padding: 10px;
     letter-spacing: 1.5px;
     font-size: 25px;
     text-align: center;
+    border-radius: 22% 78% 42% 58% / 30% 67% 33% 70% ;
+    background-color: rgb(234, 234, 234);
+    :hover {
+        border-radius: 22% 78% 42% 58% / 57% 36% 64% 43% ;
+        background-color: rgb(200, 200, 200);
+    }
 `

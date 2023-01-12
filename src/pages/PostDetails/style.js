@@ -15,6 +15,8 @@ export const Text = styled.p`
 `
 
 export const Subtitle = styled.h4`
-    font-size: 24px;
+    font-size: 30px;
+    font-weight: 200;
     margin-top: 30px;
+    text-align: center;
 `
