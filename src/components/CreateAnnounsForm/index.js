@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { Button, Error } from "../../globalStyles";
 import { createNewAnnouncement } from "../../store/slices/announcements";
@@ -8,6 +8,7 @@ import { Content, Form, Input } from "../CreatePostForm/style";
 export const CreateAnnounsForm = () => {
     const {
         register,
+        resetField,
         handleSubmit,
         formState: { errors, isValid }
     } = useForm({
@@ -16,10 +17,18 @@ export const CreateAnnounsForm = () => {
 
     const dispatch = useDispatch();
 
+    const reduxData = useSelector((state) => {
+        return {
+            userInfo: state.auth.userInfo
+        }
+    })
+
     const formHandler = (data) => {
         const date = new Date().toISOString();
+        const userId = reduxData.userInfo.id;
         data.createdAt = date;
         data.updatedAt = date;
+        data.userId = userId;
     }
 
     return (
@@ -28,6 +37,8 @@ export const CreateAnnounsForm = () => {
                 aria-autocomplete="off"
                 onSubmit={handleSubmit((data) => {
                     formHandler(data);
+                    resetField("title");
+                    resetField("body");
                     dispatch(createNewAnnouncement(data));
                 })}
             >

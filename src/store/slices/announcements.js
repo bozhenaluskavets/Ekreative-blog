@@ -13,7 +13,7 @@ export const announcementsSlice = createSlice({
             state.list = action.payload;
         })
         builder.addCase(createNewAnnouncement.fulfilled, (state, action) => {
-            state.list = action.payload;
+            state.list = [action.payload, ...state.list];
         })
     }
 })
