@@ -4,7 +4,7 @@ import { getAnnouncementsDetails } from '../../services/announcements.service';
 export const announcementDetailsSlice = createSlice({
     name: 'announcementDetails',
     initialState: {
-        list: [],
+        list: {},
     },
     reducers: {},
 

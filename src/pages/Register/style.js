@@ -14,6 +14,4 @@ export const Form = styled.form`
     flex-direction: column;
 `
 
-export const Avatar = styled.div`
-
-`
+// export const Avatar = styled.div``

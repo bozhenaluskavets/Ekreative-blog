@@ -10,8 +10,8 @@ export const getPostDetails = async (id) => {
     return resp.data;
 }
 
-export const createPost = async (newPost) => {
-    const resp = await api.post(`posts`, newPost);
+export const createPost = async (data) => {
+    const resp = await api.post(`posts`, data);
     return resp.data;
 }
 

@@ -5,8 +5,8 @@ export const getComments = async (id) => {
     return resp.data;
 }
 
-export const createComment = async () => {
-    const resp = await api.post(`comments`);
+export const createComment = async (data) => {
+    const resp = await api.post(`comments`, data);
     return resp.data;
 }
 

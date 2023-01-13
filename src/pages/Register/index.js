@@ -117,6 +117,4 @@ export const Register = () => {
             </Content>
         </Container>
     );
-
-    
 }

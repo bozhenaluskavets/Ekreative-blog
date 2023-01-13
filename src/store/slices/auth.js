@@ -1,20 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loginUserRequest, registerUserRequest } from '../../services/auth.service';
-
+import { getAuthorizedUser, loginUserRequest, registerUserRequest, saveUserId } from '../../services/auth.service';
+import { getToken, setToken } from '../../services/token.service'
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         error: '',
-        isAuthenticated: localStorage.getItem('token') ? true : false,
-        isUserInfo: localStorage.getItem('userInfo') ? true : false,
-        token: '',
-        // userInfo: {}
+        isAuthenticated: false,
+        userInfo: {}
     },
-    reducers: {
-        logout: (state) => {
-            state.isAuthenticated = false
-        }
-    },
+    reducers: {},
 
     extraReducers: builder => {
         builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -23,8 +17,7 @@ export const authSlice = createSlice({
             } else {
                 state.error = '';
                 state.isAuthenticated = true;
-                // state.userInfo = action.payload.user;
-                state.token = action.payload.accessToken;
+                state.userInfo = action.payload.user;
             }
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
@@ -33,9 +26,17 @@ export const authSlice = createSlice({
             } else {
                 state.error = '';
                 state.isAuthenticated = true;
-                // state.userInfo = action.payload.user;
-                state.token = action.payload.accessToken;
+                state.userInfo = action.payload.user;
             }
+        })
+
+        builder.addCase(getUserInfo.fulfilled, (state, action) => {
+            state.isAuthenticated = action.payload.isAuthenticated;
+            state.userInfo = action.payload.user ?? {}
+        })
+        builder.addCase(logout.fulfilled, (state) => {
+            state.isAuthenticated = false;
+            state.userInfo = {};
         })
     }
 
@@ -44,10 +45,10 @@ export const authSlice = createSlice({
 export const registerUser = createAsyncThunk('auth/registerUser', async (data) => {
     const response = await registerUserRequest(data);
     if (response.accessToken) {
-        localStorage.setItem('token', response.accessToken);
+        setToken(response.accessToken)
     }
-    if (response.user) {
-        localStorage.setItem('userInfo', JSON.stringify(response.user));
+    if (response.user?.id) {
+        saveUserId(response.user.id)
     }
     return response;
 })
@@ -55,17 +56,35 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (data) =
 export const loginUser = createAsyncThunk('auth/loginUser', async (data) => {
     const response = await loginUserRequest(data);
     if (response.accessToken) {
-        localStorage.setItem('token', response.accessToken);
+        setToken(response.accessToken)
     }
-    if (response.user) {
-        localStorage.setItem('userInfo', JSON.stringify(response.user));
+
+    if (response.user?.id) {
+        saveUserId(response.user.id)
     }
+
     return response;
 })
 
-const { actions, reducer } = authSlice;
-export default reducer;
 
-export const { logout } = actions; 
+export const logout = createAsyncThunk('auth/logout', async () => {
+    saveUserId('');
+    setToken('');
 
-// export default authSlice.reducer
+    return {};
+})
+export const getUserInfo = createAsyncThunk('auth/getUserInfo', async () => {
+    const token = getToken();
+    if (!token) {
+        return {
+            isAuthenticated: false
+        }
+    }
+    const user = await getAuthorizedUser();
+    return {
+        isAuthenticated: true,
+        user
+    };
+})
+
+export default authSlice.reducer

@@ -5,6 +5,7 @@ import { fetchComments } from "../../store/slices/comments";
 import { Comment } from "./style";
 
 export const PostsComments = () => {
+    
     const dispatch = useDispatch();
     let params = useParams()
 

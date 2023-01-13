@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Button, Error } from "../../globalStyles";
-import { fetchNewComments } from "../../store/slices/comments";
+import { createNewComment } from "../../store/slices/comments";
 import { Content, Form } from "../CreatePostForm/style";
 import ReactTextareaAutosize from "react-textarea-autosize";
 
@@ -14,13 +14,13 @@ export const CreateCommentForm = () => {
         mode: 'onChange'
     });
 
+    const dispatch = useDispatch();
+
     const formHandler = (data) => {
         const date = new Date().toISOString();
         data.createdAt = date;
         data.updatedAt = date;
     }
-
-    const dispatch = useDispatch();
 
     return (
         <Content>
@@ -28,10 +28,10 @@ export const CreateCommentForm = () => {
                 aria-autocomplete="off"
                 onSubmit={handleSubmit((data) => {
                     formHandler(data);
-                    dispatch(fetchNewComments(data));
+                    dispatch(createNewComment(data));
                 })}
             >
-                <ReactTextareaAutosize {...register("postText", {
+                <ReactTextareaAutosize {...register("body", {
                     required: "Comment content is required",
                     minLength: {
                         value: 3,
@@ -43,11 +43,10 @@ export const CreateCommentForm = () => {
                     minRows={2}
                     style={{ fontSize: '20px', outline: 'none', resize: 'none', borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10% ', padding: '35px 55px' }}
                 />
-                <Error>{errors.comment?.message}</Error>
+                <Error>{errors.body?.message}</Error>
 
                 <Button type="submit" disabled={!isValid}>Add comment</Button>
             </Form>
         </Content>
     );
-
 }

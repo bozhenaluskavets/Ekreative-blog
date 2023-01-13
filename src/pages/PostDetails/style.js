@@ -4,6 +4,7 @@ export const Post = styled.div`
    width: 70%;
    margin: 0 auto;
    padding-top: 10%;
+   position: relative;
 `
 
 export const Text = styled.p`
@@ -18,5 +19,12 @@ export const Subtitle = styled.h4`
     font-size: 30px;
     font-weight: 200;
     margin-top: 30px;
-    text-align: center;
+    text-align: left;
+`
+
+export const Align = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
 `

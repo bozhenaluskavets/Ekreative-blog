@@ -4,7 +4,7 @@ import { getPostDetails } from '../../services/posts.service';
 export const postDetailsSlice = createSlice({
     name: 'postDetails',
     initialState: {
-        list: [],
+        list: {},
     },
     reducers: {},
 

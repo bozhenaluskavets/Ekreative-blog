@@ -3,7 +3,6 @@ import { Content, InvitationBlock, Title, StartDetails, Text, Items, Image } fro
 import image from "../../assets/start-page-img.png"
 import { OptionsButton } from "../../globalStyles";
 
-
 export const Home = () => {
     return (
         <Content>

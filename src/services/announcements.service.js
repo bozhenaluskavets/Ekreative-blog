@@ -6,7 +6,7 @@ export const getAnnouncements = async () => {
 }
 
 export const getAnnouncementsDetails = async (id) => {
-    const resp = await api.get(`announcements/${+ id}`);
+    const resp = await api.get(`announcements/${id}`);
     return resp.data;
 }
 
@@ -16,11 +16,11 @@ export const createAnnouncement = async (data) => {
 }
 
 export const updateAnnouncement = async (id) => {
-    const resp = await api.patch(`announcements/${+ id}`);
+    const resp = await api.patch(`announcements/${id}`);
     return resp.data;
 }
 
 export const deleteAnnouncement = async (id) => {
-    const resp = await api.delete(`announcements/${+ id}`);
+    const resp = await api.delete(`announcements/${id}`);
     return resp.data;
 }

@@ -12,7 +12,7 @@ export const commentsSlice = createSlice({
         builder.addCase(fetchComments.fulfilled, (state, action) => {
             state.list = action.payload;
         })
-        builder.addCase(fetchNewComments.fulfilled, (state, action) => {
+        builder.addCase(createNewComment.fulfilled, (state, action) => {
             state.list = action.payload;
         })
     }
@@ -23,9 +23,9 @@ export const fetchComments = createAsyncThunk('comments/fetchComments', async (i
     return comments;
 })
 
-export const fetchNewComments = createAsyncThunk('comments/fetchCreatedComments', async (data) => {
-    const comments = await createComment(data);
-    return comments;
+export const createNewComment = createAsyncThunk('comments/createNewComment', async (data) => {
+    const comment = await createComment(data);
+    return comment;
 })
 
 export default commentsSlice.reducer

@@ -7,7 +7,6 @@ export const Content = styled.div`
 `
 
 export const Announcements = styled.div`
-    padding-top: 70px;
     display: flex;
     flex-direction: column;
     width: 25%;
@@ -25,6 +24,7 @@ export const Announcement = styled.div`
 export const Items = styled.div`
     position: absolute;
     bottom: 20px;
+    text-align: right;
     background-color: rgb(244, 244, 244);
     border-radius: 40% 53% 10% 74% / 37% 76% 10% 55%;
 `

@@ -48,21 +48,6 @@ export const Input = styled.input`
     }  
 `
 
-// export const TextArea = styled.textarea`
-//     color: rgb(0, 0, 0);
-//     font-size: 20px;
-//     padding: 60px 20px;
-//     cursor: pointer;
-//     margin-bottom: 10px;
-//     border: solid 1px rgba(0, 0, 0, 0.6);
-//     border-radius: 22% 78% 53% 77% / 87% 40% 80% 43%;
-//     resize: none;
-//     :focus {
-//         outline: none;
-//         border: solid 1px rgba(192, 192, 192, 1);
-//     }
-// `
-
 export const Button = styled.button`
     color: rgba(255, 255, 255, 1);
     font-size: 25px;

@@ -7,6 +7,7 @@ import { Content, Extra, Item, Items, Announcement, Announcements } from "./styl
 import { CreateAnnounsForm } from "../../components/CreateAnnounsForm";
 import { OBcentering, OptionsButton } from "../../globalStyles";
 import { useState } from "react";
+import { Disclaimer } from "../../components/Disclaimer";
 
 export const AnnouncementsList = () => {
 
@@ -28,6 +29,7 @@ export const AnnouncementsList = () => {
 
     const reduxData = useSelector((state) => {
         return {
+            isAuthenticated: state.auth.isAuthenticated,
             list: state,
             isLoading: state.ui.isLoading
         }
@@ -61,11 +63,22 @@ export const AnnouncementsList = () => {
         <Container>
             <Content>
                 <Title>Announcements</Title>
-                <OBcentering>
-                    <OptionsButton onClick={show}>Create</OptionsButton>
-                </OBcentering>
+                {!isShown && (
+                    <OBcentering>
+                        <OptionsButton onClick={show}>Create</OptionsButton>
+                    </OBcentering>
+                )}
 
-                {isShown && (
+                {(isShown && !reduxData.isAuthenticated) && (
+                    <>
+                        <Disclaimer />
+                        <OBcentering>
+                            <OptionsButton onClick={hide}>OK</OptionsButton>
+                        </OBcentering>
+                    </>
+                )}
+
+                {(isShown && reduxData.isAuthenticated) && (
                     <OBcentering>
                         <CreateAnnounsForm />
                         <OptionsButton onClick={hide}>Hide form</OptionsButton>

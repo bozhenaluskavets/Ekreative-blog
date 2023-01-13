@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { Button, Error } from "../../globalStyles";
-import { fetchNewPosts } from "../../store/slices/posts";
+import { createNewPost } from "../../store/slices/posts";
 import { Content, Form, Input } from "./style";
 
 export const CreatePostForm = () => {
@@ -14,13 +14,13 @@ export const CreatePostForm = () => {
         mode: 'onChange'
     });
 
+    const dispatch = useDispatch();
+
     const formHandler = (data) => {
         const date = new Date().toISOString();
         data.createdAt = date;
         data.updatedAt = date;
     }
-
-    const dispatch = useDispatch();
 
     return (
         <Content>
@@ -28,7 +28,7 @@ export const CreatePostForm = () => {
                 aria-autocomplete="off"
                 onSubmit={handleSubmit((data) => {
                     formHandler(data);
-                    dispatch(fetchNewPosts(data));
+                    dispatch(createNewPost(data));
                 })}
             >
                 <Input {...register("title", {
@@ -43,7 +43,7 @@ export const CreatePostForm = () => {
                 />
                 <Error>{errors.title?.message}</Error>
 
-                <ReactTextareaAutosize {...register("postText", {
+                <ReactTextareaAutosize {...register("body", {
                     required: "Post content is required",
                     minLength: {
                         value: 10,
@@ -55,12 +55,10 @@ export const CreatePostForm = () => {
                     minRows={4}
                     style={{ fontSize: '20px', outline: 'none', resize: 'none', borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10% ', padding: '35px 55px' }}
                 />
-                <Error>{errors.postText?.message}</Error>
-
+                <Error>{errors.body?.message}</Error>
 
                 <Button type="submit" disabled={!isValid}>Add post</Button>
             </Form>
         </Content>
     );
-
 }

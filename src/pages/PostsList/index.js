@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CreatePostForm } from "../../components/CreatePostForm";
+import { Disclaimer } from "../../components/Disclaimer";
 import { Container, OBcentering, OptionsButton, Title } from "../../globalStyles";
 import { fetchPosts } from "../../store/slices/posts";
 import { Content, Extra, Item, Items, Post, Posts } from "./style";
@@ -26,6 +27,7 @@ export const PostsList = () => {
 
     const reduxData = useSelector((state) => {
         return {
+            isAuthenticated: state.auth.isAuthenticated,
             list: state,
             isLoading: state.ui.isLoading
         }
@@ -59,17 +61,27 @@ export const PostsList = () => {
         <Container>
             <Content>
                 <Title>Posts</Title>
-                <OBcentering>
-                    <OptionsButton onClick={show}>Create</OptionsButton>
-                </OBcentering>
+                {!isShown && (
+                    <OBcentering>
+                        <OptionsButton onClick={show}>Create</OptionsButton>
+                    </OBcentering>
+                )}
 
-                {isShown && (
+                {(isShown && !reduxData.isAuthenticated) && (
+                    <>
+                        <Disclaimer />
+                        <OBcentering>
+                            <OptionsButton onClick={hide}>OK</OptionsButton>
+                        </OBcentering>
+                    </>
+                )}
+
+                {(isShown && reduxData.isAuthenticated) && (
                     <OBcentering>
                         <CreatePostForm />
                         <OptionsButton onClick={hide}>Hide form</OptionsButton>
                     </OBcentering>
                 )}
-
                 {renderPosts()}
             </Content>
         </Container>

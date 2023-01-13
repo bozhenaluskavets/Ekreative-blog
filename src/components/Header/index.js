@@ -1,22 +1,26 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../../store/slices/auth";
+import { getUserInfo, logout } from "../../store/slices/auth";
 import { Loader } from "../Loader";
-import { Container, Extra, Item, Items, Nav } from "./style";
+import { Container, Extra, ExtraContainer, ExtraItems, Item, Items, Nav } from "./style";
 
 export const Header = () => {
 
     const dispatch = useDispatch();
 
-    const state = useSelector(state => {
+    const reduxData = useSelector(state => {
         return {
             isLoading: state.ui.isLoading,
             isAuthenticated: state.auth.isAuthenticated
         }
-    })
+    });
+
+    useEffect(() => {
+        dispatch(getUserInfo())
+    }, [])
 
     const clearLS = () => {
-        localStorage.clear();
         dispatch(logout())
     }
 
@@ -25,25 +29,36 @@ export const Header = () => {
             <Nav>
                 <Extra><Link to={'/'}>Home</Link></Extra>
 
-                {!state.isAuthenticated && <Items>
-                    <Item>
-                        <Link to={'/register'}>Register</Link>
-                    </Item>
-                    <Item>
-                        <Link to={'/login'}>Log in</Link>
-                    </Item>
-                </Items>}
-                {state.isAuthenticated && <Items>
-                    <Item>
-                        <Link to={'/'} onClick={clearLS}>Log out</Link>
-                    </Item>
-                    <Item>
-                        <Link to={'/myProfile'}>My profile</Link>
-                    </Item>
-                </Items>}
-            </Nav>
+                <ExtraContainer>
+                    <ExtraItems>
+                        <Item>
+                            <Link to={'/posts'}>Posts</Link>
+                        </Item>
+                        <Item>
+                            <Link to={'/announcements'}>Announcements</Link>
+                        </Item>
+                    </ExtraItems>
 
-            {state.isLoading && <Loader />}
+                    {!reduxData.isAuthenticated && <Items>
+                        <Item>
+                            <Link to={'/register'}>Register</Link>
+                        </Item>
+                        <Item>
+                            <Link to={'/login'}>Log in</Link>
+                        </Item>
+                    </Items>}
+
+                    {reduxData.isAuthenticated && <Items>
+                        <Item>
+                            <Link to={'/'} onClick={clearLS}>Log out</Link>
+                        </Item>
+                        <Item>
+                            <Link to={'/myProfile'}>My profile</Link>
+                        </Item>
+                    </Items>}
+                </ExtraContainer>
+            </Nav>
+            {reduxData.isLoading && <Loader />}
         </Container>
     )
 }

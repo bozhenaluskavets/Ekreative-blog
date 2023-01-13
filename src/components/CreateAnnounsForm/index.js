@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { Button, Error } from "../../globalStyles";
-import { fetchNewAnnouncements } from "../../store/slices/announcements";
+import { createNewAnnouncement } from "../../store/slices/announcements";
 import { Content, Form, Input } from "../CreatePostForm/style";
 
 export const CreateAnnounsForm = () => {
@@ -14,13 +14,13 @@ export const CreateAnnounsForm = () => {
         mode: 'onChange'
     });
 
+    const dispatch = useDispatch();
+
     const formHandler = (data) => {
         const date = new Date().toISOString();
         data.createdAt = date;
         data.updatedAt = date;
     }
-
-    const dispatch = useDispatch();
 
     return (
         <Content>
@@ -28,7 +28,7 @@ export const CreateAnnounsForm = () => {
                 aria-autocomplete="off"
                 onSubmit={handleSubmit((data) => {
                     formHandler(data);
-                    dispatch(fetchNewAnnouncements(data));
+                    dispatch(createNewAnnouncement(data));
                 })}
             >
                 <Input {...register("title", {
@@ -56,7 +56,6 @@ export const CreateAnnounsForm = () => {
                     style={{ fontSize: '20px', outline: 'none', resize: 'none', borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10% ', padding: '35px 55px' }}
                 />
                 <Error>{errors.body?.message}</Error>
-
 
                 <Button type="submit" disabled={!isValid}>Add announcement</Button>
             </Form>

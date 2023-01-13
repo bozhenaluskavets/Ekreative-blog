@@ -6,14 +6,22 @@ export const Container = styled.div`
     position: fixed;
     width: 100%;
     top: 0;
-    padding: 25px 20%;
-    height: 50px;
     background-color: rgba(255, 255, 255, 1);
-    margin-bottom: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+`
+
+export const ExtraContainer = styled.div`
+    display: flex;
 `
 
 export const Nav = styled.nav`
+    width: 60%;
+    margin: 0 auto;
+    padding: 0 auto 100px;
     display: flex;
+    justify-content: space-between;
     align-items: baseline;
     a:hover {
         color: rgba(101, 101, 101, 1);
@@ -22,7 +30,13 @@ export const Nav = styled.nav`
 
 export const Items = styled.div`
     display: flex;
-    margin-left: 40%;
+    margin-right: 0;
+`
+
+export const ExtraItems = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-right: 30px;
 `
 
 export const Item = styled.p`
@@ -31,10 +45,7 @@ export const Item = styled.p`
     font-size: 22px;
     font-weight: 300;
     color: #fff;
-    margin-right: 40px;
-    :hover {
-        color: rgb(177, 190, 159);
-    }
+    margin-right: 30px;
 `
 
 export const Extra = styled.span`

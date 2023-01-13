@@ -12,7 +12,7 @@ export const announcementsSlice = createSlice({
         builder.addCase(fetchAnnouncements.fulfilled, (state, action) => {
             state.list = action.payload;
         })
-        builder.addCase(fetchNewAnnouncements.fulfilled, (state, action) => {
+        builder.addCase(createNewAnnouncement.fulfilled, (state, action) => {
             state.list = action.payload;
         })
     }
@@ -23,9 +23,9 @@ export const fetchAnnouncements = createAsyncThunk('announcements/fetchAnnouncem
     return announcements;
 })
 
-export const fetchNewAnnouncements = createAsyncThunk('announcements/fetchNewAnnouncements', async (data) => {
-    const announcements = await createAnnouncement(data);
-    return announcements;
+export const createNewAnnouncement = createAsyncThunk('announcements/createNewAnnouncement', async (data) => {
+    const announcement = await createAnnouncement(data);
+    return announcement;
 })
 
 export default announcementsSlice.reducer

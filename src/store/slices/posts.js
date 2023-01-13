@@ -12,7 +12,7 @@ export const postsSlice = createSlice({
         builder.addCase(fetchPosts.fulfilled, (state, action) => {
             state.list = action.payload;
         })
-        builder.addCase(fetchNewPosts.fulfilled, (state, action) => {
+        builder.addCase(createNewPost.fulfilled, (state, action) => {
             state.list = action.payload;
         })
     }
@@ -23,9 +23,9 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     return posts;
 })
 
-export const fetchNewPosts = createAsyncThunk('posts/fetchCreatedPosts', async (data) => {
-    const posts = await createPost(data);
-    return posts;
+export const createNewPost = createAsyncThunk('posts/createNewPost', async (data) => {
+    const post = await createPost(data);
+    return post;
 })
 
 export default postsSlice.reducer
