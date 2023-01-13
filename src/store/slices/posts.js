@@ -13,7 +13,7 @@ export const postsSlice = createSlice({
             state.list = action.payload;
         })
         builder.addCase(createNewPost.fulfilled, (state, action) => {
-            state.list = action.payload;
+            state.list = [action.payload, ...state.list];
         })
     }
 })
