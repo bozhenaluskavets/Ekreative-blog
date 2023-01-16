@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { createPost, getPosts } from '../../services/posts.service';
+import { createPost, deletePost, getPosts } from '../../services/posts.service';
 
 export const postsSlice = createSlice({
     name: 'posts',
@@ -26,6 +26,10 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 export const createNewPost = createAsyncThunk('posts/createNewPost', async (data) => {
     const post = await createPost(data);
     return post;
+})
+
+export const deleteOwnPost = createAsyncThunk('posts/deleteOwnPost', async (id) => {
+    return await deletePost(id);
 })
 
 export default postsSlice.reducer

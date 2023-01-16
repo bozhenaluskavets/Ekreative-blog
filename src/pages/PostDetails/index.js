@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CreateCommentForm } from "../../components/CreateCommentForm";
 import { Disclaimer } from "../../components/Disclaimer";
 import { PostsComments } from "../../components/PostComments";
 import { Container, OBcentering, OptionsButton, Title } from "../../globalStyles";
 import { fetchPostDetails } from "../../store/slices/postDetails";
+import { deleteOwnPost } from "../../store/slices/posts";
 import { Align, Post, Subtitle, Text } from "./style";
 
 export const PostDetails = () => {
@@ -21,6 +22,7 @@ export const PostDetails = () => {
     }
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     let params = useParams()
 
     useEffect(() => {
@@ -31,7 +33,8 @@ export const PostDetails = () => {
         return {
             isAuthenticated: state.auth.isAuthenticated,
             list: state,
-            isLoading: state.ui.isLoading
+            isLoading: state.ui.isLoading,
+            userId: state.auth.userInfo.id
         }
     })
 
@@ -46,6 +49,18 @@ export const PostDetails = () => {
             <Post>
                 <Title>{details.title}</Title>
                 <Text>{details.body}</Text>
+
+                {(details.userId == reduxData.userId) && (
+                    <Align>
+                        <OBcentering>
+                            <OptionsButton onClick={() => {
+                                dispatch(deleteOwnPost(details.id));
+                                navigate('/posts');
+                            }}>Delete post</OptionsButton>
+                        </OBcentering>
+                    </Align>
+                )}
+
                 <Subtitle>Comments</Subtitle>
                 <PostsComments />
                 <Align>
