@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { createAnnouncement, getAnnouncements } from '../../services/announcements.service';
+import { createAnnouncement, deleteAnnouncement, getAnnouncements } from '../../services/announcements.service';
 
 export const announcementsSlice = createSlice({
     name: 'announcements',
@@ -26,6 +26,10 @@ export const fetchAnnouncements = createAsyncThunk('announcements/fetchAnnouncem
 export const createNewAnnouncement = createAsyncThunk('announcements/createNewAnnouncement', async (data) => {
     const announcement = await createAnnouncement(data);
     return announcement;
+})
+
+export const deleteOwnAnnouncement = createAsyncThunk('announcements/deleteOwnAnnouncement', async (id) => {
+    return await deleteAnnouncement(id);
 })
 
 export default announcementsSlice.reducer
