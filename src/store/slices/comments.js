@@ -13,7 +13,7 @@ export const commentsSlice = createSlice({
             state.list = action.payload;
         })
         builder.addCase(createNewComment.fulfilled, (state, action) => {
-            state.list = action.payload;
+            state.list = [action.payload, ...state.list];
         })
     }
 })
