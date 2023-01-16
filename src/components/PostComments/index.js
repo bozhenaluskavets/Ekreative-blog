@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchComments } from "../../store/slices/comments";
-import { Comment } from "./style";
+import { deleteOwnComment, fetchComments } from "../../store/slices/comments";
+import { Comment, DeleteButton } from "./style";
 
 export const PostsComments = () => {
-    
+
     const dispatch = useDispatch();
-    let params = useParams()
+    let params = useParams();
 
     useEffect(() => {
         dispatch(fetchComments(params.id))
@@ -16,7 +16,8 @@ export const PostsComments = () => {
     const reduxData = useSelector((state) => {
         return {
             list: state,
-            isLoading: state.ui.isLoading
+            isLoading: state.ui.isLoading,
+            userId: state.auth.userInfo.id
         }
     })
 
@@ -30,6 +31,12 @@ export const PostsComments = () => {
         return (
             <Comment key={comment.id}>
                 {comment.body}
+                {(comment.userId == reduxData.userId) && (
+                    <DeleteButton onClick={() => {
+                        dispatch(deleteOwnComment(comment.id));
+                        location.reload();
+                    }}>Delete comment</DeleteButton>
+                )}
             </Comment>
         )
     })
