@@ -32,7 +32,7 @@ export const Title = styled.h1`
 export const Input = styled.input`
     color: rgb(0, 0, 0);
     font-size: 20px;
-    padding: 20px;
+    padding: 20px 55px;
     cursor: pointer;
     margin-bottom: 10px;
     border: solid 1px rgba(0, 0, 0, 0.6);

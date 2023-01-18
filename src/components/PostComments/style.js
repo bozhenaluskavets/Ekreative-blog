@@ -7,7 +7,7 @@ export const Comment = styled.p`
     justify-content: space-between;
 `
 
-export const DeleteButton = styled.p`
+export const CommentOptions = styled.p`
     font-size: 15px;
     color: black;
     cursor: pointer;

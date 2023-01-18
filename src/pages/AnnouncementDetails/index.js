@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Container, OBcentering, OptionsButton, Title } from "../../globalStyles";
 import { deleteOwnAnnouncement } from "../../store/slices/announcements";
 import { fetchAnnouncementDetails } from "../../store/slices/announcementsDetails";
@@ -44,6 +44,7 @@ export const AnnouncementDetails = () => {
                             dispatch(deleteOwnAnnouncement(details.id));
                             navigate('/announcements');
                         }}>Delete announcement</OptionsButton>
+                        <Link to={`/announcements/edit/${details.id}`}><OptionsButton>Edit</OptionsButton></Link>
                     </OBcentering>
                 </Align>
             )}

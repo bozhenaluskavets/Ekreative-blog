@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { createAnnouncement, deleteAnnouncement, getAnnouncements } from '../../services/announcements.service';
+import { createAnnouncement, deleteAnnouncement, getAnnouncements, editAnnouncement } from '../../services/announcements.service';
 
 export const announcementsSlice = createSlice({
     name: 'announcements',
@@ -31,5 +31,11 @@ export const createNewAnnouncement = createAsyncThunk('announcements/createNewAn
 export const deleteOwnAnnouncement = createAsyncThunk('announcements/deleteOwnAnnouncement', async (id) => {
     return await deleteAnnouncement(id);
 })
+
+export const editOwnAnnouncement = createAsyncThunk('posts/editOwnAnnouncement', async (data) => {
+    const response = await editAnnouncement(data);
+    return response;
+})
+
 
 export default announcementsSlice.reducer

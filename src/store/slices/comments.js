@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { createComment, deleteComment, getComments } from '../../services/comments.servise';
+import { createComment, deleteComment, getComments, editComment } from '../../services/comments.servise';
 
 export const commentsSlice = createSlice({
     name: 'comments',
@@ -30,6 +30,11 @@ export const createNewComment = createAsyncThunk('comments/createNewComment', as
 
 export const deleteOwnComment = createAsyncThunk('comments/deleteOwnComment', async (id) => {
     return await deleteComment(id);
+})
+
+export const editOwnComment = createAsyncThunk('posts/editOwnComment', async (data) => {
+    const response = await editComment(data);
+    return response;
 })
 
 export default commentsSlice.reducer

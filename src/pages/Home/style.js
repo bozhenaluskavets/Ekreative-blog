@@ -21,6 +21,7 @@ export const Title = styled.h1`
 export const Image = styled.img`
     right: 0;
     overflow: hidden;
+    object-fit: cover;
 `
 
 export const StartDetails = styled.div`

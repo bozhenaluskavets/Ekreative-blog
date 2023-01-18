@@ -37,6 +37,13 @@ export const PostsList = () => {
         const posts = reduxData.list.posts.list;
 
         return posts.map((post) => {
+            // const formatTime = () => {
+            //     if (post.createdAt !== 'undefined') {
+            //         let time = post.createdAt.substr(0, 10);
+            //         return time
+            //     }
+            // }
+
             return (
                 <Posts key={post.id}>
                     <Post>

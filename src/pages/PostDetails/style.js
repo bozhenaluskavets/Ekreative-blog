@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Post = styled.div`
    width: 70%;
    margin: 0 auto;
-   padding-top: 10%;
+   padding-top: 15vh;
    position: relative;
 `
 

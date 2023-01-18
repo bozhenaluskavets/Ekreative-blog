@@ -15,8 +15,8 @@ export const createAnnouncement = async (data) => {
     return resp.data;
 }
 
-export const updateAnnouncement = async (id) => {
-    const resp = await api.patch(`announcements/${id}`);
+export const editAnnouncement = async (data) => {
+    const resp = await api.patch(`announcements/${data.id}`, data);
     return resp.data;
 }
 
