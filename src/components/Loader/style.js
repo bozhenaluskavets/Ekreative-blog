@@ -1,16 +1,16 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    background-color: transparent;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-`
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+`;
 
 const animation = keyframes`
     0% {
@@ -40,18 +40,17 @@ const animation = keyframes`
     100% {
       box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
     }
-`
+`;
 
 export const LoaderItem = styled.span`
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: block;
-    margin:15px auto;
-    position: relative;
-    color: rgb(177, 190, 159);
-    left: -100px;
-    box-sizing: border-box;
-    animation: ${animation} 2s linear infinite;
-`
-
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: rgb(177, 190, 159);
+  left: -100px;
+  box-sizing: border-box;
+  animation: ${animation} 2s linear infinite;
+`;

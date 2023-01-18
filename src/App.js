@@ -1,15 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { EditAnnouncementForm } from "./pages/EditAnnounsForm";
-import { EditPostForm } from "./pages/EditPostForm";
-import { Header } from "./components/Header";
-import { AnnouncementDetails } from "./pages/AnnouncementDetails";
-import { AnnouncementsList } from "./pages/AnnouncementsList";
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
-import { PostDetails } from "./pages/PostDetails";
-import { PostsList } from "./pages/PostsList";
-import { Register } from "./pages/Register";
-import { UserProfile } from "./pages/UserProfile";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { EditAnnouncementForm } from './pages/EditAnnounsForm';
+import { EditPostForm } from './pages/EditPostForm';
+import { Header } from './components/Header';
+import { AnnouncementDetails } from './pages/AnnouncementDetails';
+import { AnnouncementsList } from './pages/AnnouncementsList';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { PostDetails } from './pages/PostDetails';
+import { PostsList } from './pages/PostsList';
+import { Register } from './pages/Register';
+import { UserProfile } from './pages/UserProfile';
 
 export const App = () => {
   return (
@@ -29,4 +29,4 @@ export const App = () => {
       </Routes>
     </BrowserRouter>
   );
-}
+};

@@ -16,5 +16,6 @@ export default configureStore({
     announcements: announcementsSlice,
     announcementDetails: announcementsDetailsSlice,
     comments: commentsSlice,
-  }, devTools: true
-})
+  },
+  devTools: true,
+});

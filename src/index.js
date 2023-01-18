@@ -10,5 +10,5 @@ root.render(
   <Provider store={store}>
     <GlobalStyle />
     <App />
-  </Provider>
-)
+  </Provider>,
+);
