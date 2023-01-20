@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
+  editUserInfo,
   getAuthorizedUser,
   loginUserRequest,
   registerUserRequest,
   saveUserId,
 } from '../../services/auth.service';
 import { getToken, setToken } from '../../services/token.service';
-export const authSlice = createSlice({
+
+const authSlice = createSlice({
   name: 'auth',
   initialState: {
     error: '',
@@ -17,7 +19,7 @@ export const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      if (action.payload.isError) {
+      if (action.payload.IsError) {
         state.error = action.payload.body;
       } else {
         state.error = '';
@@ -26,7 +28,7 @@ export const authSlice = createSlice({
       }
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      if (action.payload.isError) {
+      if (action.payload.IsError) {
         state.error = action.payload.body;
       } else {
         state.error = '';
@@ -76,6 +78,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 
   return {};
 });
+
 export const getUserInfo = createAsyncThunk('auth/getUserInfo', async () => {
   const token = getToken();
   if (!token) {
@@ -88,6 +91,11 @@ export const getUserInfo = createAsyncThunk('auth/getUserInfo', async () => {
     isAuthenticated: true,
     user,
   };
+});
+
+export const editProfileInfo = createAsyncThunk('auth/editUserInfo', async (data) => {
+  const response = await editUserInfo(data);
+  return response;
 });
 
 export default authSlice.reducer;

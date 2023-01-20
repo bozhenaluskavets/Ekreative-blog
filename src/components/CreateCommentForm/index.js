@@ -1,10 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Error } from '../../globalStyles';
-import { createNewComment } from '../../store/slices/comments';
-import { Content, Form } from '../CreatePostForm/style';
-import ReactTextareaAutosize from 'react-textarea-autosize';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import ReactTextareaAutosize from 'react-textarea-autosize';
+
+import { createNewComment } from '../../store/slices/postDetails';
+import { Form } from '../CreatePostForm/style';
+import { Content } from './style';
+
+import { Error } from '../../globalStyles/forms.style';
+import { Button } from '../../globalStyles/buttons.style';
 
 export const CreateCommentForm = () => {
   const {
@@ -18,13 +23,11 @@ export const CreateCommentForm = () => {
 
   const dispatch = useDispatch();
 
-  let params = useParams();
+  const params = useParams();
 
-  const reduxData = useSelector((state) => {
-    return {
-      userInfo: state.auth.userInfo,
-    };
-  });
+  const reduxData = useSelector((state) => ({
+    userInfo: state.auth.userInfo,
+  }));
 
   const formHandler = (data) => {
     const date = new Date().toISOString();
@@ -38,7 +41,6 @@ export const CreateCommentForm = () => {
   return (
     <Content>
       <Form
-        aria-autocomplete="off"
         onSubmit={handleSubmit((data) => {
           formHandler(data);
           resetField('title');

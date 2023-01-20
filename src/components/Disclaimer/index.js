@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OBcentering } from '../../globalStyles';
+import { OBcentering } from '../../globalStyles/buttons.style';
 import { DisclaimerMessage, Element, Navigation } from './style';
 
 export const Disclaimer = () => {

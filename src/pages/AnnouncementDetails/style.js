@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const Content = styled.div`
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+`;
+
 export const Announcement = styled.div`
   width: 60%;
   margin: 0 auto;

@@ -1,13 +1,18 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import ReactTextareaAutosize from 'react-textarea-autosize';
-import { Button, Error, Input, Title } from '../../globalStyles';
+import { Button } from '../../globalStyles/buttons.style';
+import { Error, EditInput } from '../../globalStyles/forms.style';
+import { Title } from '../../globalStyles/multiComponents.style';
 import { editOwnAnnouncement } from '../../store/slices/announcements';
 import { Content, Form } from '../EditPostForm/style';
 
 export const EditAnnouncementForm = () => {
+  const { initAnnoun } = useSelector((state) => {
+    return { initAnnoun: state.announcementDetails.list };
+  });
+
   const {
     register,
     resetField,
@@ -15,32 +20,26 @@ export const EditAnnouncementForm = () => {
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
+    defaultValues: {
+      title: initAnnoun.title,
+      body: initAnnoun.body,
+    },
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const reduxData = useSelector((state) => {
-    return {
-      initAnnoun: state.announcementDetails.list,
-    };
-  });
-
   const formHandler = (editedData) => {
     editedData.updatedAt = new Date().toISOString();
-    editedData.createdAt = reduxData.initAnnoun.createdAt;
-    editedData.userId = reduxData.initAnnoun.userId;
-    editedData.id = reduxData.initAnnoun.id;
+    editedData.createdAt = initAnnoun.createdAt;
+    editedData.userId = initAnnoun.userId;
+    editedData.id = initAnnoun.id;
   };
-
-  const [title, setTitle] = useState(`${reduxData.initAnnoun.title}`);
-  const [body, setBody] = useState(`${reduxData.initAnnoun.body}`);
 
   return (
     <Content>
       <Title>Edit announcement</Title>
       <Form
-        aria-autocomplete="off"
         onSubmit={handleSubmit((editedData) => {
           formHandler(editedData);
           resetField('title');
@@ -49,7 +48,7 @@ export const EditAnnouncementForm = () => {
           navigate('/announcements');
         })}
       >
-        <Input
+        <EditInput
           {...register('title', {
             required: 'Title is required',
             minLength: {
@@ -57,8 +56,6 @@ export const EditAnnouncementForm = () => {
               message: 'Title must be at least 3 characters long',
             },
           })}
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
           type="text"
         />
         <Error>{errors.title?.message}</Error>
@@ -71,8 +68,6 @@ export const EditAnnouncementForm = () => {
               message: 'Post content must be at least 10 characters long',
             },
           })}
-          value={body}
-          onChange={(event) => setBody(event.target.value)}
           type="text"
           minRows={4}
           style={{

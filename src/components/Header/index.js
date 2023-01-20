@@ -3,17 +3,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUserInfo, logout } from '../../store/slices/auth';
 import { Loader } from '../Loader';
-import { Container, Extra, ExtraContainer, ExtraItems, Item, Items, Nav } from './style';
+import {
+  Container,
+  Extra,
+  ExtraContainer,
+  ExtraItems,
+  Item,
+  Items,
+  Nav,
+  Text,
+  User,
+  // UserInfo,
+} from './style';
 
 export const Header = () => {
   const dispatch = useDispatch();
 
-  const reduxData = useSelector((state) => {
-    return {
-      isLoading: state.ui.isLoading,
-      isAuthenticated: state.auth.isAuthenticated,
-    };
-  });
+  const reduxData = useSelector((state) => ({
+    isLoading: state.ui.isLoading,
+    isAuthenticated: state.auth.isAuthenticated,
+    userInfo: state.auth.userInfo,
+  }));
 
   useEffect(() => {
     dispatch(getUserInfo());
@@ -59,7 +69,12 @@ export const Header = () => {
                 </Link>
               </Item>
               <Item>
-                <Link to={'/myProfile'}>My profile</Link>
+                <Link to={'/profile'}>
+                  <User>
+                    <Text>{reduxData.userInfo.firstname}</Text>
+                    <Text>{reduxData.userInfo.lastname}</Text>
+                  </User>
+                </Link>
               </Item>
             </Items>
           )}

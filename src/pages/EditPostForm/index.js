@@ -1,13 +1,18 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import ReactTextareaAutosize from 'react-textarea-autosize';
-import { Button, Error, Input, Title } from '../../globalStyles';
+import { Button } from '../../globalStyles/buttons.style';
+import { Error, EditInput } from '../../globalStyles/forms.style';
+import { Title } from '../../globalStyles/multiComponents.style';
 import { editOwnPost } from '../../store/slices/posts';
 import { Content, Form } from './style';
 
 export const EditPostForm = () => {
+  const { initPost } = useSelector((state) => {
+    return { initPost: state.postDetails.data };
+  });
+
   const {
     register,
     resetField,
@@ -15,26 +20,21 @@ export const EditPostForm = () => {
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
+    defaultValues: {
+      title: initPost.title,
+      body: initPost.body,
+    },
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const reduxData = useSelector((state) => {
-    return {
-      initPost: state.postDetails.list,
-    };
-  });
-
   const formHandler = (editedData) => {
     editedData.updatedAt = new Date().toISOString();
-    editedData.createdAt = reduxData.initPost.createdAt;
-    editedData.userId = reduxData.initPost.userId;
-    editedData.id = reduxData.initPost.id;
+    editedData.createdAt = initPost.createdAt;
+    editedData.userId = initPost.userId;
+    editedData.id = initPost.id;
   };
-
-  const [title, setTitle] = useState(`${reduxData.initPost.title}`);
-  const [body, setBody] = useState(`${reduxData.initPost.body}`);
 
   return (
     <Content>
@@ -45,10 +45,10 @@ export const EditPostForm = () => {
           resetField('title');
           resetField('body');
           dispatch(editOwnPost(editedData));
-          navigate('/posts');
+          navigate(`/posts/${initPost.id}`);
         })}
       >
-        <Input
+        <EditInput
           {...register('title', {
             required: 'Title is required',
             minLength: {
@@ -56,8 +56,6 @@ export const EditPostForm = () => {
               message: 'Title must be at least 3 characters long',
             },
           })}
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
           type="text"
         />
         <Error>{errors.title?.message}</Error>
@@ -70,8 +68,6 @@ export const EditPostForm = () => {
               message: 'Post content must be at least 10 characters long',
             },
           })}
-          value={body}
-          onChange={(event) => setBody(event.target.value)}
           type="text"
           minRows={4}
           style={{

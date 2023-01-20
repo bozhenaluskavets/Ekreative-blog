@@ -42,7 +42,7 @@ export const ExtraItems = styled.div`
 export const Item = styled.p`
   cursor: pointer;
   transition: 0.3s;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 300;
   color: #fff;
   margin-right: 30px;
@@ -52,4 +52,14 @@ export const Extra = styled.span`
   cursor: pointer;
   font-size: 35px;
   color: #fff;
+`;
+
+export const User = styled.div`
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Text = styled.div`
+  margin-left: 5px;
 `;

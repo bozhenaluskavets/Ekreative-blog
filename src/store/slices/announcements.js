@@ -6,7 +6,7 @@ import {
   editAnnouncement,
 } from '../../services/announcements.service';
 
-export const announcementsSlice = createSlice({
+const announcementsSlice = createSlice({
   name: 'announcements',
   initialState: {
     list: [],
@@ -39,7 +39,8 @@ export const createNewAnnouncement = createAsyncThunk(
 export const deleteOwnAnnouncement = createAsyncThunk(
   'announcements/deleteOwnAnnouncement',
   async (id) => {
-    return await deleteAnnouncement(id);
+    const response = await deleteAnnouncement(id);
+    return response;
   },
 );
 

@@ -10,6 +10,7 @@ import { PostDetails } from './pages/PostDetails';
 import { PostsList } from './pages/PostsList';
 import { Register } from './pages/Register';
 import { UserProfile } from './pages/UserProfile';
+import { EditProfileForm } from './pages/EditUserInfoForm';
 
 export const App = () => {
   return (
@@ -23,9 +24,10 @@ export const App = () => {
         <Route path="announcements/:id" element={<AnnouncementDetails />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="myProfile" element={<UserProfile />} />
+        <Route path="profile" element={<UserProfile />} />
         <Route path="posts/edit/:id" element={<EditPostForm />} />
         <Route path="announcements/edit/:id" element={<EditAnnouncementForm />} />
+        <Route path="profile/edit/:id" element={<EditProfileForm />} />
       </Routes>
     </BrowserRouter>
   );

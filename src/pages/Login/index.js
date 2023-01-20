@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Container, Error, Input, Title } from '../../globalStyles';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../store/slices/auth';
 import { Content, Form } from './style';
-import { useNavigate } from 'react-router-dom';
+import { Container, Title } from '../../globalStyles/multiComponents.style';
+import { Error, Input } from '../../globalStyles/forms.style';
+import { Button } from '../../globalStyles/buttons.style';
 
 export const Login = () => {
   const {
@@ -30,7 +32,7 @@ export const Login = () => {
     <Container>
       <Content>
         <Title>Log in</Title>
-        <Form aria-autocomplete="off" onSubmit={handleSubmit((data) => dispatch(loginUser(data)))}>
+        <Form onSubmit={handleSubmit((data) => dispatch(loginUser(data)))}>
           <Input
             {...register('email', {
               required: 'Email is required',

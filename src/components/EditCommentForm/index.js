@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router';
 import ReactTextareaAutosize from 'react-textarea-autosize';
-import { Button, Error } from '../../globalStyles';
-import { Content, Form } from '../../pages/EditPostForm/style';
-import { editOwnComment } from '../../store/slices/comments';
+import { Button } from '../../globalStyles/buttons.style';
+import { Error } from '../../globalStyles/forms.style';
+import { editOwnComment } from '../../store/slices/postDetails';
+import { Form, Container } from './style';
 
-export const EditCommentForm = () => {
+export const EditCommentForm = ({ comment }) => {
   const {
     register,
     resetField,
@@ -15,29 +15,26 @@ export const EditCommentForm = () => {
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
+    defaultValues: {
+      body: comment.body,
+    },
   });
 
   const dispatch = useDispatch();
-  let params = useParams();
-
-  const reduxData = useSelector((state) => ({
-    initComment: state.comments.list,
-  }));
+  const navigate = useNavigate();
+  const params = useParams();
 
   const formHandler = (editedData) => {
     editedData.updatedAt = new Date().toISOString();
-    editedData.createdAt = reduxData.initPost.createdAt;
-    editedData.userId = reduxData.initPost.userId;
-    editedData.id = reduxData.initPost.id;
+    editedData.createdAt = comment.createdAt;
+    editedData.userId = comment.userId;
+    editedData.id = comment.id;
     editedData.postId = params.id;
   };
 
-  const [body, setBody] = useState(`${reduxData.initComment.body}`);
-
   return (
-    <Content>
+    <Container key={comment.id}>
       <Form
-        aria-autocomplete="off"
         onSubmit={handleSubmit((editedData) => {
           formHandler(editedData);
           resetField('body');
@@ -53,8 +50,6 @@ export const EditCommentForm = () => {
               message: 'Post content must be at least 10 characters long',
             },
           })}
-          value={body}
-          onChange={(event) => setBody(event.target.value)}
           type="text"
           minRows={4}
           style={{
@@ -71,6 +66,6 @@ export const EditCommentForm = () => {
           Edit comment
         </Button>
       </Form>
-    </Content>
+    </Container>
   );
 };

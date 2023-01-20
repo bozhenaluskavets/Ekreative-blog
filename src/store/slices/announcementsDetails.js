@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAnnouncementsDetails } from '../../services/announcements.service';
 
-export const announcementDetailsSlice = createSlice({
+const announcementDetailsSlice = createSlice({
   name: 'announcementDetails',
   initialState: {
     list: {},

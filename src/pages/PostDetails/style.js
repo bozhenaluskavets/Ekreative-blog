@@ -23,8 +23,6 @@ export const Subtitle = styled.h4`
 `;
 
 export const Align = styled.div`
-  /* display: flex; */
-  /* flex-direction: column; */
   position: absolute;
   right: -15%;
   width: 80%;

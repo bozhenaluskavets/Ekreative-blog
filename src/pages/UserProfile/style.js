@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
-  margin-top: 15%;
+  padding-top: 15%;
 `;
 
 export const UserInfo = styled.div`

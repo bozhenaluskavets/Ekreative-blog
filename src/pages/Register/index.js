@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container, Error, Input, Title } from '../../globalStyles';
+import { Button } from '../../globalStyles/buttons.style';
+import { Error, Input } from '../../globalStyles/forms.style';
+import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { registerUser } from '../../store/slices/auth';
 import { Content, Form } from './style';
 
@@ -19,13 +21,14 @@ export const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useSelector((state) => {
-    return { isAuthenticated: state.auth.isAuthenticated };
-  });
+  const reduxData = useSelector((state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    serverErrors: state.auth.error,
+  }));
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/');
-  }, [isAuthenticated]);
+    if (reduxData.isAuthenticated) navigate('/');
+  }, []);
 
   return (
     <Container>
@@ -33,7 +36,7 @@ export const Register = () => {
         <Title>Register</Title>
         <Form
           onSubmit={handleSubmit((data) => {
-            delete data['passwordConfirm'];
+            delete data.passwordConfirm;
             dispatch(registerUser(data));
           })}
         >
@@ -67,7 +70,7 @@ export const Register = () => {
             {...register('passwordConfirm', {
               required: 'Please repeat your password',
               validate: (value) => {
-                if (watch('password') != value) {
+                if (watch('password') !== value) {
                   return 'Passwords are different';
                 }
               },
@@ -119,6 +122,7 @@ export const Register = () => {
             type="number"
           />
           <Error>{errors.age?.message}</Error>
+          <Error>{reduxData.serverErrors}</Error>
 
           <Button type="submit" disabled={!isValid}>
             Register

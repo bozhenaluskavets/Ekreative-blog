@@ -1,50 +1,69 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { OptionsButton } from '../../globalStyles';
-import { deleteOwnComment, fetchComments } from '../../store/slices/comments';
-import { EditCommentForm } from '../EditCommentForm';
-// import { OptionsButton } from "../../globalStyles";
-// import { deleteOwnComment } from "../../store/slices/comments";
-import { Comment, CommentOptions } from './style';
+import { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
+import { Container, Centering } from './style';
+import { Subtitle } from '../../pages/PostDetails/style';
+import { PostComment } from '../Comment';
+import { CreateCommentForm } from '../CreateCommentForm';
+import { Disclaimer } from '../Disclaimer';
 
-export const PostsComments = () => {
-  const dispatch = useDispatch();
-  let params = useParams();
+export const PostComments = () => {
+  const [isShown, setIsShown] = useState(false);
 
-  useEffect(() => {
-    dispatch(fetchComments(params.id));
-  }, []);
+  const show = () => {
+    setIsShown(true);
+  };
+
+  const hide = () => {
+    setIsShown(false);
+  };
 
   const reduxData = useSelector((state) => ({
-    list: state,
     isLoading: state.ui.isLoading,
-    userId: state.auth.userInfo.id,
+    isAuthenticated: state.auth.isAuthenticated,
+    comments: state.postDetails.data.comments,
   }));
 
-  const comments = reduxData.list.comments.list;
+  const notAuth = isShown && !reduxData.isAuthenticated;
+  const isAuth = isShown && reduxData.isAuthenticated;
 
   if (reduxData.isLoading) {
     return;
   }
 
-  return comments.map((comment) => {
-    return (
-      <Comment key={comment.id}>
-        {comment.body}
-        {comment.userId == reduxData.userId && (
+  const renderComments = () => {
+    return reduxData.comments.map((comment) => {
+      return (
+        <Fragment key={comment.id}>
+          <PostComment comment={comment} />
+        </Fragment>
+      );
+    });
+  };
+
+  return (
+    <Container>
+      <Subtitle>Comments</Subtitle>
+      {renderComments()}
+      <Centering>
+        {!isShown && <OptionsButton onClick={show}>Create comment</OptionsButton>}
+
+        {notAuth && (
           <>
-            <CommentOptions
-              onClick={() => {
-                dispatch(deleteOwnComment(comment.id));
-                location.reload();
-              }}
-            >
-              Delete comment
-            </CommentOptions>
+            <Disclaimer />
+            <OBcentering>
+              <OptionsButton onClick={hide}>OK</OptionsButton>
+            </OBcentering>
           </>
         )}
-      </Comment>
-    );
-  });
+
+        {isAuth && (
+          <OBcentering>
+            <CreateCommentForm />
+            <OptionsButton onClick={hide}>Hide form</OptionsButton>
+          </OBcentering>
+        )}
+      </Centering>
+    </Container>
+  );
 };

@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import dateFormat, { masks } from 'dateformat';
+
 import { CreatePostForm } from '../../components/CreatePostForm';
 import { Disclaimer } from '../../components/Disclaimer';
-import { Container, OBcentering, OptionsButton, Title } from '../../globalStyles';
+import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
+import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { fetchPosts } from '../../store/slices/posts';
 import { Content, Extra, Item, Items, Post, Posts } from './style';
 
@@ -24,34 +28,36 @@ export const PostsList = () => {
     dispatch(fetchPosts());
   }, []);
 
-  const reduxData = useSelector((state) => {
-    return {
-      isAuthenticated: state.auth.isAuthenticated,
-      list: state,
-      isLoading: state.ui.isLoading,
-    };
-  });
+  const reduxData = useSelector((state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    list: state,
+    isLoading: state.ui.isLoading,
+  }));
 
   const renderPosts = () => {
     const posts = reduxData.list.posts.list;
 
     return posts.map((post) => {
-      // const formatTime = () => {
-      //     if (post.createdAt !== 'undefined') {
-      //         let time = post.createdAt.substr(0, 10);
-      //         return time
-      //     }
-      // }
+      const formatTime = (time) => {
+        if (time) {
+          masks.formatTime = 'dd-mm-yyyy';
+          return dateFormat(time, 'formatTime');
+        }
+        return 'no time';
+      };
+
+      const formatCreatedAt = formatTime(post.createdAt);
+      const formatUpdatedAt = formatTime(post.updatedAt);
 
       return (
         <Posts key={post.id}>
           <Post>
-            <Link to={'/posts/' + post.id}>
+            <Link to={`/posts/${post.id}`}>
               <Extra>{post.title}</Extra>
             </Link>
             <Items>
-              <Item>Created: {post.createdAt}</Item>
-              <Item>Updated: {post.updatedAt}</Item>
+              <Item>Created: {formatCreatedAt}</Item>
+              <Item>Updated: {formatUpdatedAt}</Item>
             </Items>
           </Post>
         </Posts>

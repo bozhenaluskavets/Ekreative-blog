@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Title } from '../../globalStyles';
 import { fetchAnnouncements } from '../../store/slices/announcements';
 import { Content, Extra, Item, Items, Announcement, Announcements } from './style';
 import { CreateAnnounsForm } from '../../components/CreateAnnounsForm';
-import { OBcentering, OptionsButton } from '../../globalStyles';
-import { useState } from 'react';
+
 import { Disclaimer } from '../../components/Disclaimer';
+import { Container, Title } from '../../globalStyles/multiComponents.style';
+import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
 
 export const AnnouncementsList = () => {
   const [isShown, setIsShown] = useState(false);
@@ -26,27 +26,25 @@ export const AnnouncementsList = () => {
     dispatch(fetchAnnouncements());
   }, []);
 
-  const reduxData = useSelector((state) => {
-    return {
-      isAuthenticated: state.auth.isAuthenticated,
-      list: state,
-      isLoading: state.ui.isLoading,
-    };
-  });
+  const reduxData = useSelector((state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    list: state,
+    isLoading: state.ui.isLoading,
+  }));
 
   const renderAnnouncements = () => {
     const announcement = reduxData.list.announcements.list;
 
-    return announcement.map((announcement, index) => {
+    return announcement.map((ann) => {
       return (
-        <Announcements key={index}>
+        <Announcements key={ann.id}>
           <Announcement>
-            <Link to={'/announcements/' + announcement.id}>
-              <Extra>{announcement.title}</Extra>
+            <Link to={`/announcements/${ann.id}`}>
+              <Extra>{ann.title}</Extra>
             </Link>
             <Items>
-              <Item>Created: {announcement.createdAt}</Item>
-              <Item>Updated: {announcement.updatedAt}</Item>
+              <Item>Created: {ann.createdAt}</Item>
+              <Item>Updated: {ann.updatedAt}</Item>
             </Items>
           </Announcement>
         </Announcements>

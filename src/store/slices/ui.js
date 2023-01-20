@@ -4,7 +4,7 @@ import { fetchPosts } from './posts';
 
 const loaderActions = [fetchPosts, fetchPostDetails];
 
-export const uiSlice = createSlice({
+const uiSlice = createSlice({
   name: 'loader',
   initialState: {
     isLoading: false,

@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+
 import ReactTextareaAutosize from 'react-textarea-autosize';
-import { Button, Error } from '../../globalStyles';
+import { Button } from '../../globalStyles/buttons.style';
+import { Error } from '../../globalStyles/forms.style';
 import { createNewAnnouncement } from '../../store/slices/announcements';
 import { Content, Form, Input } from '../CreatePostForm/style';
 
@@ -17,11 +19,9 @@ export const CreateAnnounsForm = () => {
 
   const dispatch = useDispatch();
 
-  const reduxData = useSelector((state) => {
-    return {
-      userInfo: state.auth.userInfo,
-    };
-  });
+  const reduxData = useSelector((state) => ({
+    userInfo: state.auth.userInfo,
+  }));
 
   const formHandler = (data) => {
     const date = new Date().toISOString();
@@ -34,7 +34,6 @@ export const CreateAnnounsForm = () => {
   return (
     <Content>
       <Form
-        aria-autocomplete="off"
         onSubmit={handleSubmit((data) => {
           formHandler(data);
           resetField('title');
