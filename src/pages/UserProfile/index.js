@@ -1,29 +1,31 @@
-import { useSelector } from "react-redux";
-import { Container } from "../../globalStyles";
-import { Content, ExtraItem, Item, Name, UserInfo } from "./style";
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
+import { Container } from '../../globalStyles/multiComponents.style';
+import { Content, ExtraItem, Item, Name, UserInfo } from './style';
 
 export const UserProfile = () => {
+  const { userInfo } = useSelector((state) => {
+    return { userInfo: state.auth.userInfo };
+  });
 
-    const reduxData = useSelector((state) => {
-        return {
-            userInfo: state.auth.userInfo
-        }
-    })
-
-    const user = reduxData.userInfo;
-
-    return (
-        <Container>
-            <Content>
-                <UserInfo key={user.id}>
-                    <Name>
-                    <ExtraItem>{user.firstname}</ExtraItem>
-                    <ExtraItem>{user.lastname}</ExtraItem>
-                    </Name>
-                    <Item>Email: {user.email}</Item>
-                    <Item>Age: {user.age}</Item>
-                </UserInfo>
-            </Content>
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <Content>
+        <UserInfo key={userInfo.id}>
+          <Name>
+            <ExtraItem>{userInfo.firstname}</ExtraItem>
+            <ExtraItem>{userInfo.lastname}</ExtraItem>
+          </Name>
+          <Item>Email: {userInfo.email}</Item>
+          <Item>Age: {userInfo.age}</Item>
+        </UserInfo>
+        <OBcentering>
+          <Link to={`/profile/edit/${userInfo.id}`}>
+            <OptionsButton>Edit</OptionsButton>
+          </Link>
+        </OBcentering>
+      </Content>
+    </Container>
+  );
+};

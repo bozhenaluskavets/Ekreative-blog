@@ -1,26 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchPostDetails } from './postDetails';
 import { fetchPosts } from './posts';
 
 const loaderActions = [fetchPosts, fetchPostDetails];
 
-export const uiSlice = createSlice({
+const uiSlice = createSlice({
   name: 'loader',
   initialState: {
-    isLoading: false
+    isLoading: false,
   },
-  reducers: { },
+  reducers: {},
 
-  extraReducers: builder => {
-    loaderActions.forEach(action => {
+  extraReducers: (builder) => {
+    loaderActions.forEach((action) => {
       builder.addCase(action.pending, (state) => {
         state.isLoading = true;
-      })
+      });
       builder.addCase(action.fulfilled, (state) => {
         state.isLoading = false;
-      })
-    })
-  }
-})
+      });
+    });
+  },
+});
 
-export default uiSlice.reducer
+export default uiSlice.reducer;

@@ -1,14 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const Comment = styled.p`
-    padding: 10px 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-`
+export const Container = styled.div`
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+`;
 
-export const DeleteButton = styled.p`
-    font-size: 15px;
-    color: black;
-    cursor: pointer;
-`
+export const Centering = styled.div`
+  position: absolute;
+  right: 0;
+`;

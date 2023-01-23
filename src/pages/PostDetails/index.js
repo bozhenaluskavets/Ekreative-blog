@@ -1,92 +1,59 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom";
-import { CreateCommentForm } from "../../components/CreateCommentForm";
-import { Disclaimer } from "../../components/Disclaimer";
-import { PostsComments } from "../../components/PostComments";
-import { Container, OBcentering, OptionsButton, Title } from "../../globalStyles";
-import { fetchPostDetails } from "../../store/slices/postDetails";
-import { deleteOwnPost } from "../../store/slices/posts";
-import { Align, Post, Subtitle, Text } from "./style";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { PostComments } from '../../components/PostComments';
+import { EditDeleteOptions } from '../../globalStyles/buttons.style';
+import { Container, Title } from '../../globalStyles/multiComponents.style';
+import { fetchPostDetails } from '../../store/slices/postDetails';
+import { deleteOwnPost } from '../../store/slices/posts';
+import { Post, Text } from './style';
 
 export const PostDetails = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const params = useParams();
 
-    const [isShown, setIsShown] = useState(false);
+  useEffect(() => {
+    dispatch(fetchPostDetails(params.id));
+  }, []);
 
-    const show = () => {
-        setIsShown(true)
-    }
+  const reduxData = useSelector((state) => ({
+    data: state.postDetails.data,
+    isLoading: state.ui.isLoading,
+    userId: state.auth.userInfo.id,
+  }));
 
-    const hide = () => {
-        setIsShown(false)
-    }
+  const details = reduxData.data;
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    let params = useParams()
+  if (reduxData.isLoading) {
+    return;
+  }
 
-    useEffect(() => {
-        dispatch(fetchPostDetails(params.id))
-    }, [])
+  const isUserPost = details.userId === reduxData.userId;
 
-    const reduxData = useSelector((state) => {
-        return {
-            isAuthenticated: state.auth.isAuthenticated,
-            list: state,
-            isLoading: state.ui.isLoading,
-            userId: state.auth.userInfo.id
-        }
-    })
+  return (
+    <Container>
+      <Post>
+        <Title>{details.title}</Title>
+        <Text>{details.body}</Text>
 
-    const details = reduxData.list.postDetails.list;
-
-    if (reduxData.isLoading) {
-        return
-    }
-
-    return (
-        <Container>
-            <Post>
-                <Title>{details.title}</Title>
-                <Text>{details.body}</Text>
-
-                {(details.userId == reduxData.userId) && (
-                    <Align>
-                        <OBcentering>
-                            <OptionsButton onClick={() => {
-                                dispatch(deleteOwnPost(details.id));
-                                navigate('/posts');
-                            }}>Delete post</OptionsButton>
-                        </OBcentering>
-                    </Align>
-                )}
-
-                <Subtitle>Comments</Subtitle>
-                <PostsComments />
-                <Align>
-                    {!isShown && (
-                        <OBcentering>
-                            <OptionsButton onClick={show}>Create</OptionsButton>
-                        </OBcentering>
-                    )}
-
-                    {(isShown && !reduxData.isAuthenticated) && (
-                        <>
-                            <Disclaimer />
-                            <OBcentering>
-                                <OptionsButton onClick={hide}>OK</OptionsButton>
-                            </OBcentering>
-                        </>
-                    )}
-
-                    {(isShown && reduxData.isAuthenticated) && (
-                        <OBcentering>
-                            <CreateCommentForm />
-                            <OptionsButton onClick={hide}>Hide form</OptionsButton>
-                        </OBcentering>
-                    )}
-                </Align>
-            </Post>
-        </Container>
-    )
-}
+        {isUserPost && (
+          <>
+            <EditDeleteOptions
+              onClick={() => {
+                dispatch(deleteOwnPost(details.id));
+                navigate('/posts');
+              }}
+            >
+              Delete
+            </EditDeleteOptions>
+            <Link to={`/posts/edit/${details.id}`}>
+              <EditDeleteOptions>Edit</EditDeleteOptions>
+            </Link>
+          </>
+        )}
+      </Post>
+      <PostComments />
+    </Container>
+  );
+};
