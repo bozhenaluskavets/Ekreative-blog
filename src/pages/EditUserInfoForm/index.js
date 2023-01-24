@@ -15,7 +15,6 @@ export const EditProfileForm = () => {
 
   const {
     register,
-    resetField,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
@@ -35,21 +34,17 @@ export const EditProfileForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onSubmit = (editedData) => {
+    formHandler(editedData);
+    dispatch(editProfileInfo(editedData));
+    navigate('/profile');
+    window.location.reload();
+  };
+
   return (
     <Content>
       <Title>Edit profile</Title>
-      <Form
-        onSubmit={handleSubmit((editedData) => {
-          formHandler(editedData);
-          resetField('firstname');
-          resetField('lastname');
-          resetField('email');
-          resetField('age');
-          dispatch(editProfileInfo(editedData));
-          navigate('/profile');
-          window.location.reload();
-        })}
-      >
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Label>First name</Label>
         <Input
           {...register('firstname', {

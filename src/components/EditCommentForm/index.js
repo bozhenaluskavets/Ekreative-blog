@@ -7,6 +7,8 @@ import { Error } from '../../globalStyles/forms.style';
 import { editOwnComment } from '../../store/slices/postDetails';
 import { Form, Container } from './style';
 
+/* eslint-disable react/prop-types */
+
 export const EditCommentForm = ({ comment }) => {
   const {
     register,

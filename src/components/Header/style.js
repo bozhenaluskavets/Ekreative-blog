@@ -54,12 +54,12 @@ export const Extra = styled.span`
   color: #fff;
 `;
 
-export const User = styled.div`
+export const User = styled.span`
   width: 20%;
   display: flex;
   justify-content: space-between;
 `;
 
-export const Text = styled.div`
+export const Text = styled.span`
   margin-left: 5px;
 `;

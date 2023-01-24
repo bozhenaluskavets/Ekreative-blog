@@ -13,44 +13,21 @@ export const Container = styled.div`
 `;
 
 const animation = keyframes`
-    0% {
-      box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
-    }
-    12% {
-      box-shadow: 100px 0 white, 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
-    }
-    25% {
-      box-shadow: 110px 0 white, 100px 0 white, 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
-    }
-    36% {
-      box-shadow: 120px 0 white, 110px 0 white, 100px 0 white, 0px 0 rgba(255, 255, 255, 0);
-    }
-    50% {
-      box-shadow: 130px 0 white, 120px 0 white, 110px 0 white, 100px 0 white;
-    }
-    62% {
-      box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 white, 120px 0 white, 110px 0 white;
-    }
-    75% {
-      box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 white, 120px 0 white;
-    }
-    87% {
-      box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 white;
-    }
-    100% {
-      box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 `;
 
 export const LoaderItem = styled.span`
-  width: 10px;
-  height: 10px;
+  width: 48px;
+  height: 48px;
+  border: 5px dotted rgb(76, 76, 76);
   border-radius: 50%;
-  display: block;
-  margin: 15px auto;
+  display: inline-block;
   position: relative;
-  color: rgb(177, 190, 159);
-  left: -100px;
   box-sizing: border-box;
   animation: ${animation} 2s linear infinite;
 `;

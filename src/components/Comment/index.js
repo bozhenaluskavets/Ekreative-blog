@@ -6,6 +6,8 @@ import { EditDeleteOptions, OptionsButton } from '../../globalStyles/buttons.sty
 import { deleteOwnComment } from '../../store/slices/postDetails';
 import { EditCommentForm } from '../EditCommentForm';
 
+/* eslint-disable react/prop-types */
+
 export const PostComment = ({ comment }) => {
   const [isShown, setIsShown] = useState(false);
 

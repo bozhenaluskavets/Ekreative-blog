@@ -8,8 +8,9 @@ import { CreatePostForm } from '../../components/CreatePostForm';
 import { Disclaimer } from '../../components/Disclaimer';
 import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
-import { fetchPosts } from '../../store/slices/posts';
+import { fetchPosts, paginate } from '../../store/slices/posts';
 import { Content, Extra, Item, Items, Post, Posts } from './style';
+import { Paginator } from '../../components/Paginator';
 
 export const PostsList = () => {
   const [isShown, setIsShown] = useState(false);
@@ -30,17 +31,18 @@ export const PostsList = () => {
 
   const reduxData = useSelector((state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    list: state,
+    posts: state.posts.pagination.data,
+    pageCount: state.posts.pagination.totalPages,
     isLoading: state.ui.isLoading,
   }));
 
-  const renderPosts = () => {
-    const posts = reduxData.list.posts.list;
+  const { posts, pageCount } = reduxData;
 
+  const renderPosts = () => {
     return posts.map((post) => {
       const formatTime = (time) => {
         if (time) {
-          masks.formatTime = 'dd-mm-yyyy';
+          masks.formatTime = 'dd.mm.yyyy';
           return dateFormat(time, 'formatTime');
         }
         return 'no time';
@@ -64,7 +66,6 @@ export const PostsList = () => {
       );
     });
   };
-
   if (reduxData.isLoading) {
     return;
   }
@@ -95,6 +96,12 @@ export const PostsList = () => {
           </OBcentering>
         )}
         {renderPosts()}
+        <Paginator
+          pageCount={pageCount}
+          handlePageClick={(event) => {
+            dispatch(paginate(event.selected));
+          }}
+        />
       </Content>
     </Container>
   );

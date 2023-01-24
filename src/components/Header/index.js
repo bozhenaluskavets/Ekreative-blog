@@ -13,7 +13,6 @@ import {
   Nav,
   Text,
   User,
-  // UserInfo,
 } from './style';
 
 export const Header = () => {
@@ -24,7 +23,6 @@ export const Header = () => {
     isAuthenticated: state.auth.isAuthenticated,
     userInfo: state.auth.userInfo,
   }));
-
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
