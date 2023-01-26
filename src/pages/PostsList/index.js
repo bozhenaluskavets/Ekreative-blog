@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Disclaimer } from '../../components/Disclaimer';
 import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
-import { fetchPosts } from '../../store/slices/posts';
+
+import { fetchPosts, paginate } from '../../store/slices/posts';
 import { Content } from './style';
 import { ListItem } from '../../components/ListItem';
 import { CreatePostForm } from '../../components/createForms/CreatePostForm';
+import { Paginator } from '../../components/Paginator';
 
 export const PostsList = () => {
   const [isShownCreateForm, setIsShownCreateForm] = useState(false);
@@ -32,6 +34,8 @@ export const PostsList = () => {
     isLoading: state.ui.isLoading,
   }));
 
+  const { pageCount } = reduxData;
+
   const renderPosts = () => {
     return reduxData.posts.map((post) => {
       return (
@@ -41,7 +45,6 @@ export const PostsList = () => {
       );
     });
   };
-
   if (reduxData.isLoading) {
     return;
   }
@@ -75,6 +78,12 @@ export const PostsList = () => {
           </OBcentering>
         )}
         {renderPosts()}
+        <Paginator
+          pageCount={pageCount}
+          handlePageClick={(event) => {
+            dispatch(paginate(event.selected));
+          }}
+        />
       </Content>
     </Container>
   );

@@ -8,6 +8,8 @@ import { editOwnComment } from '../../../store/slices/postDetails';
 import { Form, Container } from './style';
 import '../../../globalStyles/textarea.css';
 
+/* eslint-disable react/prop-types */
+
 export const EditCommentForm = ({ comment }) => {
   const {
     register,
