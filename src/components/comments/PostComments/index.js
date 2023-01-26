@@ -1,21 +1,21 @@
 import { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
+import { OBcentering, OptionsButton } from '../../../globalStyles/buttons.style';
 import { Container, Centering } from './style';
-import { Subtitle } from '../../pages/PostDetails/style';
+import { Subtitle } from '../../../pages/PostDetails/style';
 import { PostComment } from '../Comment';
-import { CreateCommentForm } from '../CreateCommentForm';
-import { Disclaimer } from '../Disclaimer';
+import { CreateCommentForm } from '../../createForms/CreateCommentForm';
+import { Disclaimer } from '../../Disclaimer';
 
 export const PostComments = () => {
-  const [isShown, setIsShown] = useState(false);
+  const [isShownCreateForm, setIsShownCreateForm] = useState(false);
 
   const show = () => {
-    setIsShown(true);
+    setIsShownCreateForm(true);
   };
 
   const hide = () => {
-    setIsShown(false);
+    setIsShownCreateForm(false);
   };
 
   const reduxData = useSelector((state) => ({
@@ -24,8 +24,8 @@ export const PostComments = () => {
     comments: state.postDetails.data.comments,
   }));
 
-  const notAuth = isShown && !reduxData.isAuthenticated;
-  const isAuth = isShown && reduxData.isAuthenticated;
+  const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
+  const isAuth = isShownCreateForm && reduxData.isAuthenticated;
 
   if (reduxData.isLoading) {
     return;
@@ -46,7 +46,7 @@ export const PostComments = () => {
       <Subtitle>Comments</Subtitle>
       {renderComments()}
       <Centering>
-        {!isShown && <OptionsButton onClick={show}>Create comment</OptionsButton>}
+        {!isShownCreateForm && <OptionsButton onClick={show}>Create comment</OptionsButton>}
 
         {notAuth && (
           <>

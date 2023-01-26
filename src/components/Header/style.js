@@ -1,12 +1,13 @@
 import styled from 'styled-components';
+import { COLORS } from '../../globalStyles/colors';
 
 export const Container = styled.div`
-  box-shadow: 0 5px 10px -4px rgb(0, 0, 0);
+  box-shadow: 0 5px 10px -4px ${COLORS.black};
   z-index: 100000;
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: ${COLORS.white};
   height: 100px;
   display: flex;
   align-items: center;
@@ -24,7 +25,7 @@ export const Nav = styled.nav`
   justify-content: space-between;
   align-items: baseline;
   a:hover {
-    color: rgba(101, 101, 101, 1);
+    color: ${COLORS.dark_grey};
   }
 `;
 
@@ -44,14 +45,14 @@ export const Item = styled.p`
   transition: 0.3s;
   font-size: 20px;
   font-weight: 300;
-  color: #fff;
+  color: ${COLORS.white};
   margin-right: 30px;
 `;
 
 export const Extra = styled.span`
   cursor: pointer;
   font-size: 35px;
-  color: #fff;
+  color: ${COLORS.white};
 `;
 
 export const User = styled.span`

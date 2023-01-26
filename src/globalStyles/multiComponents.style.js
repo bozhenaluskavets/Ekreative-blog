@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLORS } from './colors';
 
 export const Container = styled.div`
   height: 100vh;
@@ -7,7 +8,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: rgb(0, 0, 0);
+  color: ${COLORS.black};
   text-align: center;
   font-size: 40px;
   font-weight: 400;

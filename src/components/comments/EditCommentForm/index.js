@@ -2,10 +2,11 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import ReactTextareaAutosize from 'react-textarea-autosize';
-import { Button } from '../../globalStyles/buttons.style';
-import { Error } from '../../globalStyles/forms.style';
-import { editOwnComment } from '../../store/slices/postDetails';
+import { Button } from '../../../globalStyles/buttons.style';
+import { Error } from '../../../globalStyles/forms.style';
+import { editOwnComment } from '../../../store/slices/postDetails';
 import { Form, Container } from './style';
+import '../../../globalStyles/textarea.css';
 
 /* eslint-disable react/prop-types */
 
@@ -34,16 +35,16 @@ export const EditCommentForm = ({ comment }) => {
     editedData.postId = params.id;
   };
 
+  const onSubmit = (editedData) => {
+    formHandler(editedData);
+    resetField('body');
+    dispatch(editOwnComment(editedData));
+    navigate(`/posts/${params.id}`);
+  };
+
   return (
     <Container key={comment.id}>
-      <Form
-        onSubmit={handleSubmit((editedData) => {
-          formHandler(editedData);
-          resetField('body');
-          dispatch(editOwnComment(editedData));
-          navigate(`/posts/${params.id}`);
-        })}
-      >
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <ReactTextareaAutosize
           {...register('body', {
             required: 'Post content is required',
@@ -54,13 +55,7 @@ export const EditCommentForm = ({ comment }) => {
           })}
           type="text"
           minRows={4}
-          style={{
-            fontSize: '20px',
-            outline: 'none',
-            resize: 'none',
-            borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10% ',
-            padding: '35px 55px',
-          }}
+          className="styleTextarea"
         />
         <Error>{errors.body?.message}</Error>
 

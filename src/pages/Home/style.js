@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLORS } from '../../globalStyles/colors';
 
 export const Content = styled.div`
   margin-left: 15%;
@@ -46,11 +47,11 @@ export const Item = styled.p`
   font-size: 25px;
   margin: 0 0 20px 40px;
   border-radius: 88% 12% 76% 24% / 30% 30% 70% 70%;
-  background-color: rgb(244, 244, 244);
+  background-color: ${COLORS.ultra_light_grey};
   transition: 0.3s;
   cursor: pointer;
   :hover {
     border-radius: 21% 79% 70% 30% / 68% 9% 91% 32%;
-    background-color: rgb(234, 234, 234);
+    background-color: ${COLORS.light_grey};
   }
 `;

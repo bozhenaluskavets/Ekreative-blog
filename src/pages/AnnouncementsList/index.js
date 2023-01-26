@@ -1,27 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-
-import dateFormat, { masks } from 'dateformat';
-
 import { fetchAnnouncements } from '../../store/slices/announcements';
-import { Content, Extra, Item, Items, Announcement, Announcements } from './style';
-import { CreateAnnounsForm } from '../../components/CreateAnnounsForm';
+import { Content } from './style';
+
 import { Disclaimer } from '../../components/Disclaimer';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
 import { Paginator } from '../../components/Paginator';
 import { paginate } from '../../store/slices/posts';
+import { ListItem } from '../../components/ListItem';
+import { CreateAnnounsForm } from '../../components/createForms/CreateAnnounsForm';
 
 export const AnnouncementsList = () => {
-  const [isShown, setIsShown] = useState(false);
+  const [isShownCreateForm, setIsShownCreateForm] = useState(false);
 
   const show = () => {
-    setIsShown(true);
+    setIsShownCreateForm(true);
   };
 
   const hide = () => {
-    setIsShown(false);
+    setIsShownCreateForm(false);
   };
 
   const dispatch = useDispatch();
@@ -32,38 +30,20 @@ export const AnnouncementsList = () => {
 
   const reduxData = useSelector((state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    announcements: state.announcements.pagination.data,
-    pageCount: state.announcements.pagination.totalPages,
+    list: state,
     isLoading: state.ui.isLoading,
   }));
 
-  const { announcements, pageCount } = reduxData;
+  const { pageCount } = reduxData;
 
   const renderAnnouncements = () => {
-    return announcements.map((ann) => {
-      const formatTime = (time) => {
-        if (time) {
-          masks.formatTime = 'dd.mm.yyyy';
-          return dateFormat(time, 'formatTime');
-        }
-        return 'no time';
-      };
+    const announcement = reduxData.list.announcements.list;
 
-      const formatCreatedAt = formatTime(ann.createdAt);
-      const formatUpdatedAt = formatTime(ann.updatedAt);
-
+    return announcement.map((post) => {
       return (
-        <Announcements key={ann.id}>
-          <Announcement>
-            <Link to={`/announcements/${ann.id}`}>
-              <Extra>{ann.title}</Extra>
-            </Link>
-            <Items>
-              <Item>Created: {formatCreatedAt}</Item>
-              <Item>Updated: {formatUpdatedAt}</Item>
-            </Items>
-          </Announcement>
-        </Announcements>
+        <Fragment key={post.id}>
+          <ListItem data={post} route={'posts'} />
+        </Fragment>
       );
     });
   };
@@ -72,17 +52,20 @@ export const AnnouncementsList = () => {
     return;
   }
 
+  const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
+  const isAuth = isShownCreateForm && reduxData.isAuthenticated;
+
   return (
     <Container>
       <Content>
         <Title>Announcements</Title>
-        {!isShown && (
+        {!isShownCreateForm && (
           <OBcentering>
             <OptionsButton onClick={show}>Create</OptionsButton>
           </OBcentering>
         )}
 
-        {isShown && !reduxData.isAuthenticated && (
+        {notAuth && (
           <>
             <Disclaimer />
             <OBcentering>
@@ -91,7 +74,7 @@ export const AnnouncementsList = () => {
           </>
         )}
 
-        {isShown && reduxData.isAuthenticated && (
+        {isAuth && (
           <OBcentering>
             <CreateAnnounsForm />
             <OptionsButton onClick={hide}>Hide form</OptionsButton>

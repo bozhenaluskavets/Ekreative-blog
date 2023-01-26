@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { EditDeleteOptions, OptionsButton } from '../../globalStyles/buttons.style';
-import { deleteOwnComment } from '../../store/slices/postDetails';
-import { Comment, Comments, Container, Options } from '../comments/Comment/style';
-import { EditCommentForm } from '../comments/EditCommentForm';
-
-/* eslint-disable react/prop-types */
+import { Comment, Comments, Container, Options } from './style';
+import { EditDeleteOptions, OptionsButton } from '../../../globalStyles/buttons.style';
+import { deleteOwnComment } from '../../../store/slices/postDetails';
+import { EditCommentForm } from '../EditCommentForm';
 
 export const PostComment = ({ comment }) => {
-  const [isShown, setIsShown] = useState(false);
+  const [isShownEditForm, setisShownEditForm] = useState(false);
 
   const show = () => {
-    setIsShown(true);
+    setisShownEditForm(true);
   };
 
   const hide = () => {
-    setIsShown(false);
+    setisShownEditForm(false);
   };
   const dispatch = useDispatch();
 
@@ -39,8 +37,8 @@ export const PostComment = ({ comment }) => {
           >
             Delete
           </EditDeleteOptions>
-          {!isShown && <EditDeleteOptions onClick={show}>Edit</EditDeleteOptions>}
-          {isShown && (
+          {!isShownEditForm && <EditDeleteOptions onClick={show}>Edit</EditDeleteOptions>}
+          {isShownEditForm && (
             <Container>
               <EditCommentForm comment={comment} />
               <OptionsButton onClick={hide}>Hide form</OptionsButton>

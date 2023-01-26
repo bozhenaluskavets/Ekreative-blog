@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
-import { createNewComment } from '../../store/slices/postDetails';
+import { createNewComment } from '../../../store/slices/postDetails';
 import { Form } from '../CreatePostForm/style';
 import { Content } from './style';
 
-import { Error } from '../../globalStyles/forms.style';
-import { Button } from '../../globalStyles/buttons.style';
+import { Error } from '../../../globalStyles/forms.style';
+import { Button } from '../../../globalStyles/buttons.style';
+import '../../../globalStyles/textarea.css';
 
 export const CreateCommentForm = () => {
   const {
     register,
-    resetField,
+    reset,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
@@ -38,16 +39,15 @@ export const CreateCommentForm = () => {
     data.postId = params.id;
   };
 
+  const onSubmit = (data) => {
+    formHandler(data);
+    dispatch(createNewComment(data));
+    reset();
+  };
+
   return (
     <Content>
-      <Form
-        onSubmit={handleSubmit((data) => {
-          formHandler(data);
-          resetField('title');
-          resetField('body');
-          dispatch(createNewComment(data));
-        })}
-      >
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <ReactTextareaAutosize
           {...register('body', {
             required: 'Comment content is required',
@@ -59,13 +59,7 @@ export const CreateCommentForm = () => {
           placeholder="Comment content"
           type="text"
           minRows={2}
-          style={{
-            fontSize: '20px',
-            outline: 'none',
-            resize: 'none',
-            borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10% ',
-            padding: '35px 55px',
-          }}
+          className="styleTextarea"
         />
         <Error>{errors.body?.message}</Error>
 

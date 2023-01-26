@@ -1,12 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { InputComponent } from '../../components/Input';
 import { Button } from '../../globalStyles/buttons.style';
-import { Error, Input } from '../../globalStyles/forms.style';
 import { Title } from '../../globalStyles/multiComponents.style';
 import { editProfileInfo } from '../../store/slices/auth';
 import { Content, Form } from '../EditPostForm/style';
-import { Label } from './style';
 
 export const EditProfileForm = () => {
   const { userInfo } = useSelector((state) => {
@@ -27,12 +26,12 @@ export const EditProfileForm = () => {
     },
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formHandler = (editedData) => {
     editedData.id = userInfo.id;
   };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const onSubmit = (editedData) => {
     formHandler(editedData);
@@ -45,34 +44,33 @@ export const EditProfileForm = () => {
     <Content>
       <Title>Edit profile</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Label>First name</Label>
-        <Input
+        <InputComponent
           {...register('firstname', {
             required: 'Please enter your firstname',
             minLength: {
               value: 3,
-              message: 'Firstname must be at least 3 characters long',
+              message: 'First name must be at least 3 characters long',
             },
           })}
           type="text"
+          error={errors.firstname?.message}
+          label="First name"
         />
-        <Error>{errors.firstname?.message}</Error>
 
-        <Label>Last name</Label>
-        <Input
+        <InputComponent
           {...register('lastname', {
             required: 'Please enter your lastName',
             minLength: {
               value: 3,
-              message: 'LastName must be at least 3 characters long',
+              message: 'Last name must be at least 3 characters long',
             },
           })}
           type="text"
+          error={errors.lastname?.message}
+          label="Last name"
         />
-        <Error>{errors.lastname?.message}</Error>
 
-        <Label>Email</Label>
-        <Input
+        <InputComponent
           {...register('email', {
             required: 'Please enter your Email',
             pattern: {
@@ -81,11 +79,11 @@ export const EditProfileForm = () => {
             },
           })}
           type="email"
+          error={errors.email?.message}
+          label="Email"
         />
-        <Error>{errors.email?.message}</Error>
 
-        <Label>Age</Label>
-        <Input
+        <InputComponent
           {...register('age', {
             required: 'Please enter valid age',
             min: {
@@ -98,8 +96,9 @@ export const EditProfileForm = () => {
             },
           })}
           type="number"
+          error={errors.age?.message}
+          label="Age"
         />
-        <Error>{errors.age?.message}</Error>
 
         <Button type="submit" disabled={!isValid}>
           Edit
