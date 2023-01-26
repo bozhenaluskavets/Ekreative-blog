@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { COLORS } from './colors';
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
@@ -10,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     a {
-        color: rgb(0, 0, 0);
+        color: ${COLORS.black};
         transition: 0.3s;
     }
 `;

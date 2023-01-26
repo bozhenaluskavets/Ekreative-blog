@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../store/slices/auth';
 import { Content, Form } from './style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
-import { Error, Input } from '../../globalStyles/forms.style';
 import { Button } from '../../globalStyles/buttons.style';
+import { InputComponent } from '../../components/Input';
 
 export const Login = () => {
   const {
@@ -33,7 +33,7 @@ export const Login = () => {
       <Content>
         <Title>Log in</Title>
         <Form onSubmit={handleSubmit((data) => dispatch(loginUser(data)))}>
-          <Input
+          <InputComponent
             {...register('email', {
               required: 'Email is required',
               pattern: {
@@ -41,12 +41,12 @@ export const Login = () => {
                 message: 'Entered value does not match email format',
               },
             })}
-            placeholder="Email"
             type="email"
+            error={errors.email?.message}
+            placeholder="Email"
           />
-          <Error>{errors.email?.message}</Error>
 
-          <Input
+          <InputComponent
             {...register('password', {
               required: 'Password is required',
               minLength: {
@@ -54,10 +54,10 @@ export const Login = () => {
                 message: 'Password must be at least 8 characters long',
               },
             })}
-            placeholder="Password"
             type="password"
+            error={errors.password?.message}
+            placeholder="Password"
           />
-          <Error>{errors.password?.message}</Error>
 
           <Button type="submit" disabled={!isValid}>
             Log in

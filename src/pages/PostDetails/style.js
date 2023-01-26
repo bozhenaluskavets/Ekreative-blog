@@ -1,4 +1,11 @@
 import styled from 'styled-components';
+import { COLORS } from '../../globalStyles/colors';
+
+export const Content = styled.div`
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+`;
 
 export const Post = styled.div`
   width: 70%;
@@ -9,7 +16,7 @@ export const Post = styled.div`
 
 export const Text = styled.p`
   margin-top: 70px;
-  color: rgba(0, 0, 0);
+  color: ${COLORS.black};
   font-size: 20px;
   letter-spacing: 1.3px;
   line-height: 1.5;

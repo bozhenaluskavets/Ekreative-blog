@@ -1,16 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { PostComments } from '../../components/PostComments';
+import { Link, useParams } from 'react-router-dom';
+
+import { PostComments } from '../../components/comments/PostComments';
+import { Modal } from '../../components/Modal';
 import { EditDeleteOptions } from '../../globalStyles/buttons.style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { fetchPostDetails } from '../../store/slices/postDetails';
 import { deleteOwnPost } from '../../store/slices/posts';
-import { Post, Text } from './style';
+import { Post, Text, Content } from './style';
 
 export const PostDetails = () => {
+  const [isShownModal, setIsShownModal] = useState(false);
+
+  const show = () => {
+    setIsShownModal(true);
+  };
+
+  const hide = () => {
+    setIsShownModal(false);
+  };
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -33,27 +44,39 @@ export const PostDetails = () => {
 
   return (
     <Container>
-      <Post>
-        <Title>{details.title}</Title>
-        <Text>{details.body}</Text>
+      <Content>
+        <Post>
+          <Title>{details.title}</Title>
+          <Text>{details.body}</Text>
+        </Post>
 
         {isUserPost && (
           <>
-            <EditDeleteOptions
-              onClick={() => {
-                dispatch(deleteOwnPost(details.id));
-                navigate('/posts');
-              }}
-            >
-              Delete
-            </EditDeleteOptions>
+            {!isShownModal && (
+              <EditDeleteOptions
+                onClick={() => {
+                  show();
+                }}
+              >
+                Delete
+              </EditDeleteOptions>
+            )}
+            {isShownModal && (
+              <Modal
+                onClose={hide}
+                item={'post'}
+                dispatchFunc={deleteOwnPost}
+                id={details.id}
+                route={'/posts'}
+              />
+            )}
             <Link to={`/posts/edit/${details.id}`}>
               <EditDeleteOptions>Edit</EditDeleteOptions>
             </Link>
           </>
         )}
-      </Post>
-      <PostComments />
+        <PostComments />
+      </Content>
     </Container>
   );
 };

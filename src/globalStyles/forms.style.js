@@ -1,12 +1,13 @@
 import styled from 'styled-components';
+import { COLORS } from './colors';
 
 export const Input = styled.input`
-  color: rgb(0, 0, 0);
+  color: ${COLORS.black};
   font-size: 20px;
-  padding: 10px 27px;
+  padding: 15px 55px;
   cursor: pointer;
   margin-bottom: 10px;
-  border: solid 1px rgba(0, 0, 0, 0.6);
+  border: solid 1px ${COLORS.dark_grey};
   border-radius: 22% 78% 53% 77% / 87% 40% 80% 43%;
   outline: none;
   ::-webkit-inner-spin-button {
@@ -19,19 +20,8 @@ export const Input = styled.input`
   }
 `;
 
-export const EditInput = styled.input`
-  padding: 15px 55px;
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  border: solid 1px rgba(0, 0, 0, 0.6);
-  border-radius: 22% 78% 53% 77% / 87% 40% 80% 43%;
-  outline: none;
-`;
-
 export const Error = styled.p`
-  color: rgb(186, 0, 0);
+  color: ${COLORS.red};
   font-size: 15px;
   padding: 0 0 20px;
   text-align: left;

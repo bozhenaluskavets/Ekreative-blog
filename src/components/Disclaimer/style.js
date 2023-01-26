@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLORS } from '../../globalStyles/colors';
 
 export const DisclaimerMessage = styled.h4`
   font-size: 25px;
@@ -22,6 +23,6 @@ export const Element = styled.p`
   font-size: 25px;
   font-weight: 300;
   a:hover {
-    color: rgba(101, 101, 101, 1);
+    color: ${COLORS.dark_grey};
   }
 `;

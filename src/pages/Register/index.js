@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { InputComponent } from '../../components/Input';
 import { Button } from '../../globalStyles/buttons.style';
-import { Error, Input } from '../../globalStyles/forms.style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { registerUser } from '../../store/slices/auth';
 import { Content, Form } from './style';
@@ -21,66 +21,67 @@ export const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const reduxData = useSelector((state) => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    serverErrors: state.auth.error,
-  }));
+  const { isAuthenticated } = useSelector((state) => {
+    return { isAuthenticated: state.auth.isAuthenticated };
+  });
 
   useEffect(() => {
-    if (reduxData.isAuthenticated) navigate('/');
-  }, []);
+    if (isAuthenticated) navigate('/');
+  }, [isAuthenticated]);
+
+  const onSubmit = (data) => {
+    delete data.passwordConfirm;
+    dispatch(registerUser(data));
+  };
+
+  const passwordConfirm = (value) => {
+    if (watch('password') !== value) {
+      return 'Passwords are different';
+    }
+  };
 
   return (
     <Container>
       <Content>
         <Title>Register</Title>
-        <Form
-          onSubmit={handleSubmit((data) => {
-            delete data.passwordConfirm;
-            dispatch(registerUser(data));
-          })}
-        >
-          <Input
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <InputComponent
             {...register('email', {
-              required: 'Please enter your Email',
+              required: 'Email is required',
               pattern: {
                 value: /\S+@\S+\.\S+/,
                 message: 'Entered value does not match email format',
               },
             })}
-            placeholder="Email"
             type="email"
+            error={errors.email?.message}
+            placeholder="Email"
           />
-          <Error>{errors.email?.message}</Error>
 
-          <Input
+          <InputComponent
             {...register('password', {
-              required: 'Please enter your password',
+              required: 'Password is required',
               minLength: {
                 value: 8,
                 message: 'Password must be at least 8 characters long',
               },
             })}
-            placeholder="Password"
             type="password"
+            error={errors.password?.message}
+            placeholder="Password"
           />
-          <Error>{errors.password?.message}</Error>
 
-          <Input
+          <InputComponent
             {...register('passwordConfirm', {
               required: 'Please repeat your password',
-              validate: (value) => {
-                if (watch('password') !== value) {
-                  return 'Passwords are different';
-                }
-              },
+              validate: passwordConfirm(),
             })}
-            placeholder="Repeat password"
             type="password"
+            error={errors.passwordConfirm?.message}
+            placeholder="Repeat password"
           />
-          <Error>{errors.passwordConfirm?.message}</Error>
 
-          <Input
+          <InputComponent
             {...register('firstname', {
               required: 'Please enter your firstname',
               minLength: {
@@ -88,12 +89,12 @@ export const Register = () => {
                 message: 'Firstname must be at least 3 characters long',
               },
             })}
-            placeholder="Firstname"
             type="text"
+            error={errors.firstName?.message}
+            placeholder="Firstname"
           />
-          <Error>{errors.firstName?.message}</Error>
 
-          <Input
+          <InputComponent
             {...register('lastname', {
               required: 'Please enter your lastName',
               minLength: {
@@ -101,12 +102,12 @@ export const Register = () => {
                 message: 'LastName must be at least 3 characters long',
               },
             })}
-            placeholder="LastName"
             type="text"
+            error={errors.lastName?.message}
+            placeholder="LastName"
           />
-          <Error>{errors.lastName?.message}</Error>
 
-          <Input
+          <InputComponent
             {...register('age', {
               required: 'Please enter valid age',
               min: {
@@ -118,11 +119,10 @@ export const Register = () => {
                 message: 'Please enter valid age',
               },
             })}
-            placeholder="Age"
             type="number"
+            error={errors.age?.message}
+            placeholder="Age"
           />
-          <Error>{errors.age?.message}</Error>
-          <Error>{reduxData.serverErrors}</Error>
 
           <Button type="submit" disabled={!isValid}>
             Register

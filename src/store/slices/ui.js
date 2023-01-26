@@ -1,8 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createNewAnnouncement, editOwnAnnouncement, fetchAnnouncements } from './announcements';
+import { fetchAnnouncementDetails } from './announcementsDetails';
+import { loginUser, logout, registerUser } from './auth';
 import { fetchPostDetails } from './postDetails';
-import { fetchPosts } from './posts';
+import { createNewPost, editOwnPost, fetchPosts } from './posts';
 
-const loaderActions = [fetchPosts, fetchPostDetails];
+const loaderActions = [
+  fetchPosts,
+  fetchPostDetails,
+  createNewPost,
+  editOwnPost,
+
+  fetchAnnouncements,
+  fetchAnnouncementDetails,
+  createNewAnnouncement,
+  editOwnAnnouncement,
+
+  registerUser,
+  loginUser,
+  logout,
+];
 
 const uiSlice = createSlice({
   name: 'loader',

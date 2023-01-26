@@ -4,13 +4,13 @@ import { getAnnouncementsDetails } from '../../services/announcements.service';
 const announcementDetailsSlice = createSlice({
   name: 'announcementDetails',
   initialState: {
-    list: {},
+    data: {},
   },
   reducers: {},
 
   extraReducers: (builder) => {
     builder.addCase(fetchAnnouncementDetails.fulfilled, (state, action) => {
-      state.list = action.payload;
+      state.data = action.payload;
     });
   },
 });

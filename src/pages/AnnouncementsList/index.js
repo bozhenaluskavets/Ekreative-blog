@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { fetchAnnouncements } from '../../store/slices/announcements';
-import { Content, Extra, Item, Items, Announcement, Announcements } from './style';
-import { CreateAnnounsForm } from '../../components/CreateAnnounsForm';
+import { Content } from './style';
 
 import { Disclaimer } from '../../components/Disclaimer';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
+import { ListItem } from '../../components/ListItem';
+import { CreateAnnounsForm } from '../../components/createForms/CreateAnnounsForm';
 
 export const AnnouncementsList = () => {
-  const [isShown, setIsShown] = useState(false);
+  const [isShownCreateForm, setIsShownCreateForm] = useState(false);
 
   const show = () => {
-    setIsShown(true);
+    setIsShownCreateForm(true);
   };
 
   const hide = () => {
-    setIsShown(false);
+    setIsShownCreateForm(false);
   };
 
   const dispatch = useDispatch();
@@ -28,26 +28,16 @@ export const AnnouncementsList = () => {
 
   const reduxData = useSelector((state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    list: state,
+    announcements: state.announcements.list,
     isLoading: state.ui.isLoading,
   }));
 
   const renderAnnouncements = () => {
-    const announcement = reduxData.list.announcements.list;
-
-    return announcement.map((ann) => {
+    return reduxData.announcements.map((announ) => {
       return (
-        <Announcements key={ann.id}>
-          <Announcement>
-            <Link to={`/announcements/${ann.id}`}>
-              <Extra>{ann.title}</Extra>
-            </Link>
-            <Items>
-              <Item>Created: {ann.createdAt}</Item>
-              <Item>Updated: {ann.updatedAt}</Item>
-            </Items>
-          </Announcement>
-        </Announcements>
+        <Fragment key={announ.id}>
+          <ListItem data={announ} route={'announcements'} />
+        </Fragment>
       );
     });
   };
@@ -56,17 +46,20 @@ export const AnnouncementsList = () => {
     return;
   }
 
+  const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
+  const isAuth = isShownCreateForm && reduxData.isAuthenticated;
+
   return (
     <Container>
       <Content>
         <Title>Announcements</Title>
-        {!isShown && (
+        {!isShownCreateForm && (
           <OBcentering>
             <OptionsButton onClick={show}>Create</OptionsButton>
           </OBcentering>
         )}
 
-        {isShown && !reduxData.isAuthenticated && (
+        {notAuth && (
           <>
             <Disclaimer />
             <OBcentering>
@@ -75,7 +68,7 @@ export const AnnouncementsList = () => {
           </>
         )}
 
-        {isShown && reduxData.isAuthenticated && (
+        {isAuth && (
           <OBcentering>
             <CreateAnnounsForm />
             <OptionsButton onClick={hide}>Hide form</OptionsButton>
