@@ -1,25 +1,23 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import dateFormat, { masks } from 'dateformat';
-
-import { CreatePostForm } from '../../components/CreatePostForm';
 import { Disclaimer } from '../../components/Disclaimer';
 import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { fetchPosts } from '../../store/slices/posts';
-import { Content, Extra, Item, Items, Post, Posts } from './style';
+import { Content } from './style';
+import { ListItem } from '../../components/ListItem';
+import { CreatePostForm } from '../../components/createForms/CreatePostForm';
 
 export const PostsList = () => {
-  const [isShown, setIsShown] = useState(false);
+  const [isShownCreateForm, setIsShownCreateForm] = useState(false);
 
   const show = () => {
-    setIsShown(true);
+    setIsShownCreateForm(true);
   };
 
   const hide = () => {
-    setIsShown(false);
+    setIsShownCreateForm(false);
   };
 
   const dispatch = useDispatch();
@@ -30,37 +28,16 @@ export const PostsList = () => {
 
   const reduxData = useSelector((state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    list: state,
+    posts: state.posts.list,
     isLoading: state.ui.isLoading,
   }));
 
   const renderPosts = () => {
-    const posts = reduxData.list.posts.list;
-
-    return posts.map((post) => {
-      const formatTime = (time) => {
-        if (time) {
-          masks.formatTime = 'dd-mm-yyyy';
-          return dateFormat(time, 'formatTime');
-        }
-        return 'no time';
-      };
-
-      const formatCreatedAt = formatTime(post.createdAt);
-      const formatUpdatedAt = formatTime(post.updatedAt);
-
+    return reduxData.posts.map((post) => {
       return (
-        <Posts key={post.id}>
-          <Post>
-            <Link to={`/posts/${post.id}`}>
-              <Extra>{post.title}</Extra>
-            </Link>
-            <Items>
-              <Item>Created: {formatCreatedAt}</Item>
-              <Item>Updated: {formatUpdatedAt}</Item>
-            </Items>
-          </Post>
-        </Posts>
+        <Fragment key={post.id}>
+          <ListItem data={post} route={'posts'} />
+        </Fragment>
       );
     });
   };
@@ -69,17 +46,20 @@ export const PostsList = () => {
     return;
   }
 
+  const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
+  const isAuth = isShownCreateForm && reduxData.isAuthenticated;
+
   return (
     <Container>
       <Content>
         <Title>Posts</Title>
-        {!isShown && (
+        {!isShownCreateForm && (
           <OBcentering>
             <OptionsButton onClick={show}>Create</OptionsButton>
           </OBcentering>
         )}
 
-        {isShown && !reduxData.isAuthenticated && (
+        {notAuth && (
           <>
             <Disclaimer />
             <OBcentering>
@@ -88,7 +68,7 @@ export const PostsList = () => {
           </>
         )}
 
-        {isShown && reduxData.isAuthenticated && (
+        {isAuth && (
           <OBcentering>
             <CreatePostForm />
             <OptionsButton onClick={hide}>Hide form</OptionsButton>

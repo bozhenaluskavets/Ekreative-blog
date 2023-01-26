@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { Modal } from '../../components/Modal';
 import { EditDeleteOptions } from '../../globalStyles/buttons.style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { deleteOwnAnnouncement } from '../../store/slices/announcements';
@@ -8,8 +9,16 @@ import { fetchAnnouncementDetails } from '../../store/slices/announcementsDetail
 import { Announcement, Content, Text } from './style';
 
 export const AnnouncementDetails = () => {
+  const [isShownModal, setIsShownModal] = useState(false);
+
+  const show = () => {
+    setIsShownModal(true);
+  };
+
+  const hide = () => {
+    setIsShownModal(false);
+  };
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -17,16 +26,18 @@ export const AnnouncementDetails = () => {
   }, []);
 
   const reduxData = useSelector((state) => ({
-    list: state,
+    data: state.announcementDetails.data,
     isLoading: state.ui.isLoading,
     userId: state.auth.userInfo.id,
   }));
 
-  const details = reduxData.list.announcementDetails.list;
+  const details = reduxData.data;
 
   if (reduxData.isLoading) {
     return;
   }
+
+  const isUserPost = details.userId === reduxData.userId;
 
   return (
     <Container>
@@ -35,16 +46,27 @@ export const AnnouncementDetails = () => {
           <Title>{details.title}</Title>
           <Text>{details.body}</Text>
         </Announcement>
-        {details.userId === reduxData.userId && (
+
+        {isUserPost && (
           <>
-            <EditDeleteOptions
-              onClick={() => {
-                dispatch(deleteOwnAnnouncement(details.id));
-                navigate('/announcements');
-              }}
-            >
-              Delete
-            </EditDeleteOptions>
+            {!isShownModal && (
+              <EditDeleteOptions
+                onClick={() => {
+                  show();
+                }}
+              >
+                Delete
+              </EditDeleteOptions>
+            )}
+            {isShownModal && (
+              <Modal
+                onClose={hide}
+                item={'announcement'}
+                dispatchFunc={deleteOwnAnnouncement}
+                id={details.id}
+                route={'/announcements'}
+              />
+            )}
             <Link to={`/announcements/edit/${details.id}`}>
               <EditDeleteOptions>Edit</EditDeleteOptions>
             </Link>

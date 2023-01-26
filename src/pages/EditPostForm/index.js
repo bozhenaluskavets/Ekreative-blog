@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 import { Button } from '../../globalStyles/buttons.style';
-import { Error, EditInput } from '../../globalStyles/forms.style';
+import { Error } from '../../globalStyles/forms.style';
 import { Title } from '../../globalStyles/multiComponents.style';
 import { editOwnPost } from '../../store/slices/posts';
 import { Content, Form } from './style';
+import '../../globalStyles/textarea.css';
+import { InputComponent } from '../../components/Input';
 
 export const EditPostForm = () => {
   const { initPost } = useSelector((state) => {
@@ -15,7 +17,6 @@ export const EditPostForm = () => {
 
   const {
     register,
-    resetField,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
@@ -36,19 +37,18 @@ export const EditPostForm = () => {
     editedData.id = initPost.id;
   };
 
+  const onSubmit = (editedData) => {
+    formHandler(editedData);
+    dispatch(editOwnPost(editedData));
+    navigate(`/posts/${initPost.id}`);
+    window.location.reload();
+  };
+
   return (
     <Content>
       <Title>Edit post</Title>
-      <Form
-        onSubmit={handleSubmit((editedData) => {
-          formHandler(editedData);
-          resetField('title');
-          resetField('body');
-          dispatch(editOwnPost(editedData));
-          navigate(`/posts/${initPost.id}`);
-        })}
-      >
-        <EditInput
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputComponent
           {...register('title', {
             required: 'Title is required',
             minLength: {
@@ -56,9 +56,10 @@ export const EditPostForm = () => {
               message: 'Title must be at least 3 characters long',
             },
           })}
+          placeholder="Title"
           type="text"
+          error={errors.title?.message}
         />
-        <Error>{errors.title?.message}</Error>
 
         <ReactTextareaAutosize
           {...register('body', {
@@ -70,13 +71,8 @@ export const EditPostForm = () => {
           })}
           type="text"
           minRows={4}
-          style={{
-            fontSize: '20px',
-            outline: 'none',
-            resize: 'none',
-            borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10% ',
-            padding: '35px 55px',
-          }}
+          className="styleTextarea"
+          placeholder="Post content"
         />
         <Error>{errors.body?.message}</Error>
 

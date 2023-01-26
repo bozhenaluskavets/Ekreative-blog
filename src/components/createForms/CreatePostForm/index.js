@@ -2,15 +2,18 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ReactTextareaAutosize from 'react-textarea-autosize';
-import { Button } from '../../globalStyles/buttons.style';
-import { Error } from '../../globalStyles/forms.style';
-import { createNewAnnouncement } from '../../store/slices/announcements';
-import { Content, Form, Input } from '../CreatePostForm/style';
 
-export const CreateAnnounsForm = () => {
+import { Button } from '../../../globalStyles/buttons.style';
+import { Error } from '../../../globalStyles/forms.style';
+import { createNewPost } from '../../../store/slices/posts';
+import { Content, Form } from './style';
+import '../../../globalStyles/textarea.css';
+import { InputComponent } from '../../Input';
+
+export const CreatePostForm = () => {
   const {
     register,
-    resetField,
+    reset,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
@@ -31,17 +34,16 @@ export const CreateAnnounsForm = () => {
     data.userId = userId;
   };
 
+  const onSubmit = (data) => {
+    formHandler(data);
+    dispatch(createNewPost(data));
+    reset();
+  };
+
   return (
     <Content>
-      <Form
-        onSubmit={handleSubmit((data) => {
-          formHandler(data);
-          resetField('title');
-          resetField('body');
-          dispatch(createNewAnnouncement(data));
-        })}
-      >
-        <Input
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputComponent
           {...register('title', {
             required: 'Title is required',
             minLength: {
@@ -51,32 +53,26 @@ export const CreateAnnounsForm = () => {
           })}
           placeholder="Title"
           type="text"
+          error={errors.title?.message}
         />
-        <Error>{errors.title?.message}</Error>
 
         <ReactTextareaAutosize
           {...register('body', {
-            required: 'Announcement content is required',
+            required: 'Post content is required',
             minLength: {
               value: 10,
-              message: 'Announcement content must be at least 10 characters long',
+              message: 'Post content must be at least 10 characters long',
             },
           })}
-          placeholder="Announcement content"
+          placeholder="Post content"
           type="text"
-          minRows={3}
-          style={{
-            fontSize: '20px',
-            outline: 'none',
-            resize: 'none',
-            borderRadius: '10% 90% 10% 90% / 90% 10% 90% 10% ',
-            padding: '35px 55px',
-          }}
+          minRows={4}
+          className="styleTextarea"
         />
         <Error>{errors.body?.message}</Error>
 
         <Button type="submit" disabled={!isValid}>
-          Add announcement
+          Add post
         </Button>
       </Form>
     </Content>
