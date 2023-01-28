@@ -1,7 +1,7 @@
 import { api } from './api';
 
 export const getAnnouncements = async () => {
-  const resp = await api.get('announcements');
+  const resp = await api.get('announcements?_sort=createdAt');
   return resp.data;
 };
 

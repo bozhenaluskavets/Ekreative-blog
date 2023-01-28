@@ -12,7 +12,7 @@ export const Container = styled.div`
   left: 0;
 `;
 
-const animation = keyframes`
+const spinner = keyframes`
   0% {
     transform: rotate(0deg);
   }
@@ -29,5 +29,5 @@ export const LoaderItem = styled.span`
   display: inline-block;
   position: relative;
   box-sizing: border-box;
-  animation: ${animation} 2s linear infinite;
+  animation: ${spinner} 2s linear infinite;
 `;

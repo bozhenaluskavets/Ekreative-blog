@@ -4,6 +4,7 @@ import { COLORS } from './colors';
 export const Button = styled.button`
   color: ${COLORS.white};
   font-size: 20px;
+  font-weight: 300;
   padding: 10px 27px;
   cursor: pointer;
   transition: 0.3s;
@@ -42,7 +43,8 @@ export const OptionsButton = styled.button`
   }
 `;
 
-export const EditDeleteOptions = styled.p`
+
+export const EditDeleteOptions = styled.span`
   font-size: 15px;
   position: absolute;
   right: 0;

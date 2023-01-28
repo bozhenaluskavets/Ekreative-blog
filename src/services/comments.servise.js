@@ -12,8 +12,7 @@ export const createComment = async (data) => {
 
 export const editComment = async (data) => {
   const resp = await api.patch(`comments/${data.id}`, data);
-  console.log('resp => ', resp);
-  return resp;
+  return resp.data;
 };
 
 export const deleteComment = async (id) => {

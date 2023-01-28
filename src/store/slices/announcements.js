@@ -5,7 +5,8 @@ import {
   getAnnouncements,
   editAnnouncement,
 } from '../../services/announcements.service';
-import { paginate, pagination } from './posts';
+import { filterList } from '../../utilities/filterList';
+import { addPagination } from '../../utilities/pagination';
 
 const announcementsSlice = createSlice({
   name: 'announcements',
@@ -18,18 +19,26 @@ const announcementsSlice = createSlice({
       data: [],
     },
   },
-  reducers: {},
+  reducers: {
+    paginate: (state, action) => {
+      state.pagination = addPagination({ list: state.list, page: action.payload });
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(fetchAnnouncements.fulfilled, (state, action) => {
-      state.list = action.payload;
-      state.pagination = pagination({ list: action.payload });
-    });
-    builder.addCase(paginate.fulfilled, (state, action) => {
-      state.pagination = pagination({ list: state.list, page: action.payload });
+      state.list = filterList(action.payload);
+      state.pagination = addPagination({ list: state.list });
     });
     builder.addCase(createNewAnnouncement.fulfilled, (state, action) => {
-      state.list = [action.payload, ...state.list];
+      state.list = [{ ...action.payload, isNewItem: true }, ...state.list];
+      state.pagination = addPagination({ list: state.list.reverse(), page: 1 });
+    });
+    builder.addCase(deleteOwnAnnouncement.fulfilled, (state, action) => {
+      state.list = action.payload;
+    });
+    builder.addCase(editOwnAnnouncement.fulfilled, (state, action) => {
+      state.list = action.payload;
     });
   },
 });
@@ -62,5 +71,7 @@ export const editOwnAnnouncement = createAsyncThunk(
     return response;
   },
 );
+
+export const { paginate } = announcementsSlice.actions;
 
 export default announcementsSlice.reducer;

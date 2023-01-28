@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 import { Button } from '../../../globalStyles/buttons.style';
 import { Error } from '../../../globalStyles/forms.style';
@@ -10,7 +10,7 @@ import '../../../globalStyles/textarea.css';
 
 /* eslint-disable react/prop-types */
 
-export const EditCommentForm = ({ comment }) => {
+export const EditCommentForm = ({ comment, onClose }) => {
   const {
     register,
     resetField,
@@ -24,7 +24,6 @@ export const EditCommentForm = ({ comment }) => {
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const params = useParams();
 
   const formHandler = (editedData) => {
@@ -39,7 +38,7 @@ export const EditCommentForm = ({ comment }) => {
     formHandler(editedData);
     resetField('body');
     dispatch(editOwnComment(editedData));
-    navigate(`/posts/${params.id}`);
+    onClose();
   };
 
   return (
@@ -47,10 +46,10 @@ export const EditCommentForm = ({ comment }) => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <ReactTextareaAutosize
           {...register('body', {
-            required: 'Post content is required',
+            required: 'Comment content is required',
             minLength: {
-              value: 10,
-              message: 'Post content must be at least 10 characters long',
+              value: 3,
+              message: 'Comment content must be at least 10 characters long',
             },
           })}
           type="text"

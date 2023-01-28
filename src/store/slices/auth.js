@@ -41,6 +41,9 @@ const authSlice = createSlice({
       state.isAuthenticated = action.payload.isAuthenticated;
       state.userInfo = action.payload.user ?? {};
     });
+    builder.addCase(editProfileInfo.fulfilled, (state, action) => {
+      state.userInfo = action.payload;
+    });
     builder.addCase(logout.fulfilled, (state) => {
       state.isAuthenticated = false;
       state.userInfo = {};

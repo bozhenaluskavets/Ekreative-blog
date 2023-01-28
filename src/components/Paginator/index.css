@@ -1,0 +1,23 @@
+.pagination {
+    width: 100%;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.numbers, .labels {
+    padding: 3px 10px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.number:hover, .labels:hover {
+    color: grey;
+}
+
+.active {
+    background-color: rgb(234, 234, 234);
+}

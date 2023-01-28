@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import {
   createComment,
   deleteComment,
@@ -21,6 +21,18 @@ const postDetailsSlice = createSlice({
     builder.addCase(createNewComment.fulfilled, (state, action) => {
       state.data.comments = [action.payload, ...state.data.comments];
     });
+    builder.addCase(deleteOwnComment.fulfilled, (state, action) => {
+      const { comments } = current(state).data;
+      const deletedComment = action.payload;
+      const index = comments.filter((cc) => cc.id !== deletedComment);
+      state.data.comments = index;
+    });
+    builder.addCase(editOwnComment.fulfilled, (state, action) => {
+      const newComment = action.payload;
+      const { comments } = current(state).data;
+      const index = comments.findIndex((cc) => cc.id === newComment.id);
+      state.data.comments[index] = newComment;
+    });
   },
 });
 
@@ -37,8 +49,8 @@ export const createNewComment = createAsyncThunk('posts/createNewComment', async
 });
 
 export const deleteOwnComment = createAsyncThunk('posts/deleteOwnComment', async (id) => {
-  const response = await deleteComment(id);
-  return response;
+  await deleteComment(id);
+  return id;
 });
 
 export const editOwnComment = createAsyncThunk('posts/editOwnComment', async (data) => {

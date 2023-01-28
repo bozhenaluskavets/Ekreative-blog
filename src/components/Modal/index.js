@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Container, Content, Message, Options, Option, Title, Warning } from './style';
 
+/* eslint-disable react/prop-types */
+
 export const Modal = ({ item, onClose, dispatchFunc, id, route }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

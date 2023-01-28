@@ -1,7 +1,7 @@
 import { api } from './api';
 
 export const getPosts = async () => {
-  const resp = await api.get(`posts`);
+  const resp = await api.get(`posts?_sort=createdAt`);
   return resp.data;
 };
 

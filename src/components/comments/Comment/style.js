@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Comments = styled.p`
+export const Comments = styled.div`
   padding: 10px 0;
   display: flex;
   justify-content: space-between;

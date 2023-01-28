@@ -41,7 +41,6 @@ export const EditPostForm = () => {
     formHandler(editedData);
     dispatch(editOwnPost(editedData));
     navigate(`/posts/${initPost.id}`);
-    window.location.reload();
   };
 
   return (

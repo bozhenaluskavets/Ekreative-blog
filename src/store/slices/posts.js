@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createPost, deletePost, getPosts, editPost } from '../../services/posts.service';
+import { filterList } from '../../utilities/filterList';
+import { addPagination } from '../../utilities/pagination';
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -12,24 +14,31 @@ const postsSlice = createSlice({
       data: [],
     },
   },
-  reducers: {},
+  reducers: {
+    paginate: (state, action) => {
+      state.pagination = addPagination({ list: state.list, page: action.payload });
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
-      state.list = action.payload;
-      state.pagination = pagination({ list: action.payload });
-    });
-    builder.addCase(paginate.fulfilled, (state, action) => {
-      state.pagination = pagination({ list: state.list, page: action.payload });
+      state.list = filterList(action.payload);
+      state.pagination = addPagination({ list: state.list });
     });
     builder.addCase(createNewPost.fulfilled, (state, action) => {
-      state.list = [action.payload, ...state.list];
+      state.list.forEach((item) => {
+        delete item.isNewItem;
+      });
+      state.list = [{ ...action.payload, isNewItem: true }, ...state.list];
+      state.pagination = addPagination({ list: state.list.reverse(), page: 1 });
+    });
+    builder.addCase(deleteOwnPost.fulfilled, (state, action) => {
+      state.list = action.payload;
+    });
+    builder.addCase(editOwnPost.fulfilled, (state, action) => {
+      state.list = action.payload;
     });
   },
-});
-
-export const paginate = createAsyncThunk('posts/paginate', async (page) => {
-  return page;
 });
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
@@ -52,19 +61,5 @@ export const editOwnPost = createAsyncThunk('posts/editOwnPost', async (data) =>
   return response;
 });
 
-export const pagination = ({ list = 0, page = 1, perPage = 8 }) => {
-  const totalPages = Math.ceil(list.length / perPage);
-  const itemOffset = (page * perPage) % list.length;
-  const endOffset = itemOffset + perPage;
-
-  const data = list.slice(itemOffset, endOffset);
-
-  return {
-    totalPages,
-    currentPage: page,
-    perPage,
-    data,
-  };
-};
-
+export const { paginate } = postsSlice.actions;
 export default postsSlice.reducer;

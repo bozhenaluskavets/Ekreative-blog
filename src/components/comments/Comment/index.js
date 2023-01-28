@@ -1,22 +1,36 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+import { useParams } from 'react-router';
 import { Comment, Comments, Container, Options } from './style';
 import { EditDeleteOptions, OptionsButton } from '../../../globalStyles/buttons.style';
 import { deleteOwnComment } from '../../../store/slices/postDetails';
 import { EditCommentForm } from '../EditCommentForm';
+import { Modal } from '../../Modal';
+
+/* eslint-disable react/prop-types */
 
 export const PostComment = ({ comment }) => {
   const [isShownEditForm, setisShownEditForm] = useState(false);
+  const [isShownModal, setIsShownModal] = useState(false);
 
-  const show = () => {
+  const showModal = () => {
+    setIsShownModal(true);
+  };
+
+  const hideModal = () => {
+    setIsShownModal(false);
+  };
+
+  const showEditForm = () => {
     setisShownEditForm(true);
   };
 
-  const hide = () => {
+  const hideEditForm = () => {
     setisShownEditForm(false);
   };
-  const dispatch = useDispatch();
+
+  const params = useParams();
 
   const reduxData = useSelector((state) => ({
     userInfo: state.auth.userInfo,
@@ -29,19 +43,29 @@ export const PostComment = ({ comment }) => {
       <Comment>{comment.body}</Comment>
       {isUserComment && (
         <Options>
-          <EditDeleteOptions
-            onClick={() => {
-              dispatch(deleteOwnComment(comment.id));
-              window.location.reload();
-            }}
-          >
-            Delete
-          </EditDeleteOptions>
-          {!isShownEditForm && <EditDeleteOptions onClick={show}>Edit</EditDeleteOptions>}
+          {!isShownModal && (
+            <EditDeleteOptions
+              onClick={() => {
+                showModal();
+              }}
+            >
+              Delete
+            </EditDeleteOptions>
+          )}
+          {isShownModal && (
+            <Modal
+              onClose={hideModal}
+              item={'comment'}
+              dispatchFunc={deleteOwnComment}
+              id={comment.id}
+              route={`/posts/${params.id}`}
+            />
+          )}
+          {!isShownEditForm && <EditDeleteOptions onClick={showEditForm}>Edit</EditDeleteOptions>}
           {isShownEditForm && (
             <Container>
-              <EditCommentForm comment={comment} />
-              <OptionsButton onClick={hide}>Hide form</OptionsButton>
+              <EditCommentForm comment={comment} onClose={hideEditForm} />
+              <OptionsButton onClick={hideEditForm}>Hide form</OptionsButton>
             </Container>
           )}
         </Options>

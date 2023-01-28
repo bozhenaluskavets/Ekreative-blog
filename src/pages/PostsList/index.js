@@ -30,14 +30,15 @@ export const PostsList = () => {
 
   const reduxData = useSelector((state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    posts: state.posts.list,
+    posts: state.posts.pagination.data,
+    pageCount: state.posts.pagination.totalPages,
     isLoading: state.ui.isLoading,
   }));
 
-  const { pageCount } = reduxData;
+  const { posts, pageCount } = reduxData;
 
   const renderPosts = () => {
-    return reduxData.posts.map((post) => {
+    return posts.map((post) => {
       return (
         <Fragment key={post.id}>
           <ListItem data={post} route={'posts'} />

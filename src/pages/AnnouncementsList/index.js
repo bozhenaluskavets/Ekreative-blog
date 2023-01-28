@@ -1,13 +1,12 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAnnouncements } from '../../store/slices/announcements';
+import { fetchAnnouncements, paginate } from '../../store/slices/announcements';
 import { Content } from './style';
 
 import { Disclaimer } from '../../components/Disclaimer';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
 import { Paginator } from '../../components/Paginator';
-import { paginate } from '../../store/slices/posts';
 import { ListItem } from '../../components/ListItem';
 import { CreateAnnounsForm } from '../../components/createForms/CreateAnnounsForm';
 
@@ -30,19 +29,18 @@ export const AnnouncementsList = () => {
 
   const reduxData = useSelector((state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    list: state,
+    announcements: state.announcements.pagination.data,
     isLoading: state.ui.isLoading,
+    pageCount: state.announcements.pagination.totalPages,
   }));
 
-  const { pageCount } = reduxData;
+  const { announcements, pageCount } = reduxData;
 
   const renderAnnouncements = () => {
-    const announcement = reduxData.list.announcements.list;
-
-    return announcement.map((post) => {
+    return announcements.map((ann) => {
       return (
-        <Fragment key={post.id}>
-          <ListItem data={post} route={'posts'} />
+        <Fragment key={ann.id}>
+          <ListItem data={ann} route={'announcements'} />
         </Fragment>
       );
     });

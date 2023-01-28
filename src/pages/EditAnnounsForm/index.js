@@ -40,8 +40,7 @@ export const EditAnnouncementForm = () => {
   const onSubmit = (editedData) => {
     formHandler(editedData);
     dispatch(editOwnAnnouncement(editedData));
-    navigate(`/posts/${initAnnoun.id}`);
-    window.location.reload();
+    navigate(`/announcements/${initAnnoun.id}`);
   };
 
   return (

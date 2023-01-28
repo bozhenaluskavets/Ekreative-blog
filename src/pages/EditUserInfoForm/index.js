@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { InputComponent } from '../../components/Input';
 import { Button } from '../../globalStyles/buttons.style';
 import { Title } from '../../globalStyles/multiComponents.style';
 import { editProfileInfo } from '../../store/slices/auth';
 import { Content, Form } from '../EditPostForm/style';
+import { Back } from './style';
 
 export const EditProfileForm = () => {
   const { userInfo } = useSelector((state) => {
@@ -37,7 +39,6 @@ export const EditProfileForm = () => {
     formHandler(editedData);
     dispatch(editProfileInfo(editedData));
     navigate('/profile');
-    window.location.reload();
   };
 
   return (
@@ -103,6 +104,9 @@ export const EditProfileForm = () => {
         <Button type="submit" disabled={!isValid}>
           Edit
         </Button>
+        <Link to={'/profile'}>
+          <Back>Back to my profile</Back>
+        </Link>
       </Form>
     </Content>
   );

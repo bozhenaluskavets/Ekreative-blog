@@ -13,8 +13,15 @@ export const Item = styled.div`
   border-radius: 5px;
   margin: 0 20px 20px;
   height: 300px;
-  transition: 0.5s;
+  transition: 0.8s;
   position: relative;
+  padding: 20px;
+  ${(props) => {
+    if (props.showAsNew) {
+      return `box-shadow: 0 5px 17px -4px ${COLORS.black};`;
+    }
+    return `box-shadow: none;`;
+  }}
 `;
 
 export const Elements = styled.div`
@@ -34,7 +41,6 @@ export const Element = styled.p`
 
 export const Extra = styled.h5`
   transition: 0.3s;
-  color: ${COLORS.black};
   padding: 10px;
   letter-spacing: 1.5px;
   font-size: 25px;
