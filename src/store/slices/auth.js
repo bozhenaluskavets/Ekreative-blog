@@ -11,7 +11,7 @@ import { getToken, setToken } from '../../services/token.service';
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    error: '',
+    serverError: '',
     isAuthenticated: false,
     userInfo: {},
   },
@@ -20,18 +20,18 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
       if (action.payload.IsError) {
-        state.error = action.payload.body;
+        state.serverError = action.payload.body;
       } else {
-        state.error = '';
+        state.serverError = '';
         state.isAuthenticated = true;
         state.userInfo = action.payload.user;
       }
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       if (action.payload.IsError) {
-        state.error = action.payload.body;
+        state.serverError = action.payload.body;
       } else {
-        state.error = '';
+        state.serverError = '';
         state.isAuthenticated = true;
         state.userInfo = action.payload.user;
       }
@@ -53,6 +53,7 @@ const authSlice = createSlice({
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (data) => {
   const response = await registerUserRequest(data);
+
   if (response.accessToken) {
     setToken(response.accessToken);
   }

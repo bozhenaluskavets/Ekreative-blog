@@ -7,6 +7,7 @@ import { Content, Form } from './style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { Button } from '../../globalStyles/buttons.style';
 import { InputComponent } from '../../components/Input';
+import { Error } from '../../globalStyles/forms.style';
 
 export const Login = () => {
   const {
@@ -20,13 +21,18 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useSelector((state) => {
-    return { isAuthenticated: state.auth.isAuthenticated };
+  const { isAuthenticated, serverError } = useSelector((state) => {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+      serverError: state.auth.serverError,
+    };
   });
 
   useEffect(() => {
     if (isAuthenticated) navigate('/');
   }, [isAuthenticated]);
+
+  const showServerError = serverError !== undefined;
 
   return (
     <Container>
@@ -58,6 +64,7 @@ export const Login = () => {
             error={errors.password?.message}
             placeholder="Password"
           />
+          {showServerError && <Error>{serverError}</Error>}
 
           <Button type="submit" disabled={!isValid}>
             Log in

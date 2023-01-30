@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { InputComponent } from '../../components/Input';
 import { Button } from '../../globalStyles/buttons.style';
+import { Error } from '../../globalStyles/forms.style';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { registerUser } from '../../store/slices/auth';
 import { Content, Form } from './style';
@@ -21,8 +22,8 @@ export const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useSelector((state) => {
-    return { isAuthenticated: state.auth.isAuthenticated };
+  const { isAuthenticated, serverError } = useSelector((state) => {
+    return { isAuthenticated: state.auth.isAuthenticated, serverError: state.auth.serverError };
   });
 
   useEffect(() => {
@@ -39,6 +40,8 @@ export const Register = () => {
       return 'Passwords are different';
     }
   };
+
+  const showServerError = serverError !== undefined;
 
   return (
     <Container>
@@ -123,6 +126,8 @@ export const Register = () => {
             error={errors.age?.message}
             placeholder="Age"
           />
+
+          {showServerError && <Error>{serverError}</Error>}
 
           <Button type="submit" disabled={!isValid}>
             Register
