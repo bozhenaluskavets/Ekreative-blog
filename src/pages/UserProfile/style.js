@@ -10,8 +10,23 @@ export const UserInfo = styled.div`
   flex-direction: column;
 `;
 
+export const General = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Avatar = styled.img`
+  object-fit: cover;
+  background-color: aliceblue;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 0 30px 30px 0;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+`;
+
 export const Name = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 `;
 
 export const Item = styled.p`
