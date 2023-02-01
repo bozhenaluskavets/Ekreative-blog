@@ -43,7 +43,6 @@ export const OptionsButton = styled.button`
   }
 `;
 
-
 export const EditDeleteOptions = styled.span`
   font-size: 15px;
   position: absolute;
