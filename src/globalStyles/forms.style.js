@@ -23,6 +23,6 @@ export const Input = styled.input`
 export const Error = styled.p`
   color: ${COLORS.red};
   font-size: 15px;
-  padding: 0 0 20px;
+  padding: 10px 0 10px;
   text-align: left;
 `;

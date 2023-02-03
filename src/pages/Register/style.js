@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
-  padding-top: 15vh;
+  padding: 15vh 0 30px;
 `;
 
 export const Form = styled.form`

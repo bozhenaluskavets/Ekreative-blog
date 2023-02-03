@@ -48,33 +48,34 @@ export const PostDetails = () => {
         <Post>
           <Title>{details.title}</Title>
           <Text>{details.body}</Text>
-        </Post>
 
-        {isUserPost && (
-          <>
-            {!isShownModal && (
-              <EditDeleteOptions
-                onClick={() => {
-                  show();
-                }}
-              >
-                Delete
-              </EditDeleteOptions>
-            )}
-            {isShownModal && (
-              <Modal
-                onClose={hide}
-                item={'post'}
-                dispatchFunc={deleteOwnPost}
-                id={details.id}
-                route={'/posts'}
-              />
-            )}
-            <Link to={`/posts/edit/${details.id}`}>
-              <EditDeleteOptions>Edit</EditDeleteOptions>
-            </Link>
-          </>
-        )}
+          {isUserPost && (
+            <>
+              {!isShownModal && (
+                <EditDeleteOptions
+                  onClick={() => {
+                    show();
+                  }}
+                >
+                  Delete
+                </EditDeleteOptions>
+              )}
+              {isShownModal && (
+                <Modal
+                  onClose={hide}
+                  title={'Delete post'}
+                  message={'Current changes will not be refunded'}
+                  dispatchFunc={deleteOwnPost}
+                  id={details.id}
+                  route={'/posts'}
+                />
+              )}
+              <Link to={`/posts/edit/${details.id}`}>
+                <EditDeleteOptions>Edit</EditDeleteOptions>
+              </Link>
+            </>
+          )}
+        </Post>
         <PostComments />
       </Content>
     </Container>

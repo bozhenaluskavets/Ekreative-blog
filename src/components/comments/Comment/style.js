@@ -16,8 +16,3 @@ export const Options = styled.div`
   position: absolute;
   right: 0;
 `;
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

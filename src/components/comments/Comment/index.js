@@ -2,32 +2,30 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useParams } from 'react-router';
-import { Comment, Comments, Container, Options } from './style';
-import { EditDeleteOptions, OptionsButton } from '../../../globalStyles/buttons.style';
+import { Comment, Comments, Options } from './style';
+import { EditDeleteOptions } from '../../../globalStyles/buttons.style';
 import { deleteOwnComment } from '../../../store/slices/postDetails';
-import { EditCommentForm } from '../EditCommentForm';
 import { Modal } from '../../Modal';
-
-/* eslint-disable react/prop-types */
+import { CommentModal } from '../EditCommentModal';
 
 export const PostComment = ({ comment }) => {
-  const [isShownEditForm, setisShownEditForm] = useState(false);
-  const [isShownModal, setIsShownModal] = useState(false);
+  const [isShownEModal, setisShownEModal] = useState(false);
+  const [isShownDModal, setIsShownDModal] = useState(false);
 
-  const showModal = () => {
-    setIsShownModal(true);
+  const showDModal = () => {
+    setIsShownDModal(true);
   };
 
-  const hideModal = () => {
-    setIsShownModal(false);
+  const hideDModal = () => {
+    setIsShownDModal(false);
   };
 
-  const showEditForm = () => {
-    setisShownEditForm(true);
+  const showEModal = () => {
+    setisShownEModal(true);
   };
 
-  const hideEditForm = () => {
-    setisShownEditForm(false);
+  const hideEModal = () => {
+    setisShownEModal(false);
   };
 
   const params = useParams();
@@ -43,30 +41,41 @@ export const PostComment = ({ comment }) => {
       <Comment>{comment.body}</Comment>
       {isUserComment && (
         <Options>
-          {!isShownModal && (
+          {!isShownDModal && (
             <EditDeleteOptions
               onClick={() => {
-                showModal();
+                showDModal();
               }}
             >
               Delete
             </EditDeleteOptions>
           )}
-          {isShownModal && (
+          {isShownDModal && (
             <Modal
-              onClose={hideModal}
-              item={'comment'}
+              onClose={hideDModal}
+              title={'Delete comment'}
+              message={'Current changes will not be refunded'}
               dispatchFunc={deleteOwnComment}
               id={comment.id}
               route={`/posts/${params.id}`}
             />
           )}
-          {!isShownEditForm && <EditDeleteOptions onClick={showEditForm}>Edit</EditDeleteOptions>}
-          {isShownEditForm && (
-            <Container>
-              <EditCommentForm comment={comment} onClose={hideEditForm} />
-              <OptionsButton onClick={hideEditForm}>Hide form</OptionsButton>
-            </Container>
+          {!isShownEModal && (
+            <EditDeleteOptions
+              onClick={() => {
+                showEModal();
+              }}
+            >
+              Edit
+            </EditDeleteOptions>
+          )}
+          {isShownEModal && (
+            <CommentModal
+              onClose={hideEModal}
+              title={'Edit comment'}
+              action={'Edit'}
+              comment={comment}
+            />
           )}
         </Options>
       )}

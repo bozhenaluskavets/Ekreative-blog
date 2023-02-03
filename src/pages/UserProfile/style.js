@@ -1,27 +1,31 @@
 import styled from 'styled-components';
 import { COLORS } from '../../globalStyles/colors';
 
+export const Container = styled.div`
+  width: 70%;
+  margin: 0 auto;
+`;
+
 export const Content = styled.div`
-  padding-top: 15%;
+  padding-top: 15vh;
 `;
 
 export const UserInfo = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
 `;
 
 export const General = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  margin-left: 60px;
 `;
 
 export const Avatar = styled.img`
   object-fit: cover;
-  background-color: aliceblue;
-  width: 200px;
-  height: 200px;
+  width: 25%;
+  height: fit-content;
   border-radius: 50%;
-  margin: 0 30px 30px 0;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 
@@ -31,13 +35,17 @@ export const Name = styled.div`
 
 export const Item = styled.p`
   color: ${COLORS.black};
-  font-size: 20px;
+  font-size: 25px;
   letter-spacing: 1.5px;
   margin-bottom: 15px;
 `;
 
 export const ExtraItem = styled.p`
   color: ${COLORS.black};
-  font-size: 50px;
+  font-size: 60px;
   letter-spacing: 1.5px;
+`;
+
+export const Margin = styled.div`
+  margin: 30px 0 0 -10px;
 `;

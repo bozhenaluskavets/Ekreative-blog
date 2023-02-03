@@ -26,7 +26,7 @@ export const OBcentering = styled.div`
 `;
 
 export const OptionsButton = styled.button`
-  font-size: 18px;
+  font-size: 21px;
   margin: 4px 0 20px 0;
   color: ${COLORS.white};
   padding: 4px 10px;

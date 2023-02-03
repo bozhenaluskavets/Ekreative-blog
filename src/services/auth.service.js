@@ -1,4 +1,3 @@
-// import { useForm } from 'react-hook-form';
 import { USER_ID } from '../constants';
 import { api } from './api';
 
