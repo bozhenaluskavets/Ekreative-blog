@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatTime } from '../../utilities/formatTime';
+import { textAbstract } from '../../utilities/textAbstract';
 import { Element, Elements, Extra, Item, Items } from './style';
-
-/* eslint react/prop-types: 0 */
 
 export const ListItem = ({ data, route }) => {
   const [showAsNew, setShowAsNew] = useState(data.isNewItem);
 
   const formatCreatedAt = formatTime(data.createdAt);
   const formatUpdatedAt = formatTime(data.updatedAt);
+
+  const abstractTitle = textAbstract(data.title, 30);
 
   if (data.isNewItem) {
     setTimeout(() => {
@@ -20,11 +21,11 @@ export const ListItem = ({ data, route }) => {
     <Items key={data.id}>
       <Item showAsNew={showAsNew}>
         <Link to={`/${route}/${data.id}`}>
-          <Extra>{data.title}</Extra>
+          <Extra>{abstractTitle}</Extra>
         </Link>
         <Elements>
           <Element>Created: {formatCreatedAt}</Element>
-          <Element>Updated: {formatUpdatedAt}</Element>
+          <Element>Edited: {formatUpdatedAt}</Element>
         </Elements>
       </Item>
     </Items>
