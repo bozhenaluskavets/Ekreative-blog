@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUserInfo, logout } from '../../store/slices/auth';
+import { textAbstract } from '../../utilities/textAbstract';
 import { Loader } from '../Loader';
 import {
   Container,
@@ -29,6 +30,15 @@ export const Header = () => {
 
   const clearLS = () => {
     dispatch(logout());
+  };
+
+  const userName = () => {
+    if (reduxData.userInfo.firstname !== undefined && reduxData.userInfo.lastname !== undefined) {
+      const userName = `${reduxData.userInfo.firstname} ${reduxData.userInfo.lastname}`;
+      const abstractUserName = textAbstract(userName, 13);
+      return abstractUserName;
+    }
+    return '';
   };
 
   return (
@@ -69,8 +79,7 @@ export const Header = () => {
               <Item>
                 <Link to={'/profile'}>
                   <User>
-                    <Text>{reduxData.userInfo.firstname}</Text>
-                    <Text>{reduxData.userInfo.lastname}</Text>
+                    <Text>{userName()}</Text>
                   </User>
                 </Link>
               </Item>

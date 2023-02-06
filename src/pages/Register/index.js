@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '../../components/Avatar';
-// import { avatarsArray } from '../../components/Avatar/avatars';
 import { InputComponent } from '../../components/Input';
 import { Button } from '../../globalStyles/buttons.style';
 import { Error } from '../../globalStyles/forms.style';
@@ -94,23 +93,31 @@ export const Register = () => {
                   value: 3,
                   message: 'Firstname must be at least 3 characters long',
                 },
+                maxLength: {
+                  value: 12,
+                  message: 'Firstname must be at most 12 characters long',
+                },
               })}
               type="text"
-              error={errors.firstName?.message}
+              error={errors.firstname?.message}
               placeholder="Firstname"
             />
 
             <InputComponent
               {...register('lastname', {
-                required: 'Please enter your lastName',
+                required: 'Please enter your lastname',
                 minLength: {
                   value: 3,
-                  message: 'LastName must be at least 3 characters long',
+                  message: 'Lastname must be at least 3 characters long',
+                },
+                maxLength: {
+                  value: 12,
+                  message: 'Lastname must be at most 12 characters long',
                 },
               })}
               type="text"
-              error={errors.lastName?.message}
-              placeholder="LastName"
+              error={errors.lastname?.message}
+              placeholder="Lastname"
             />
 
             <InputComponent

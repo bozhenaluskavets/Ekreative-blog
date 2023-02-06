@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../../globalStyles/colors';
+import { devices } from '../../globalStyles/mediaQuery';
 
 export const Content = styled.div`
   margin-left: 15%;
@@ -10,6 +10,9 @@ export const InvitationBlock = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
+  @media ${devices.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const Title = styled.h1`
@@ -17,17 +20,32 @@ export const Title = styled.h1`
   max-width: 500px;
   letter-spacing: 3px;
   margin-top: 7%;
+  @media ${devices.laptopL} {
+    font-size: 60px;
+  }
+  @media ${devices.laptop} {
+    font-size: 50px;
+  }
+  @media ${devices.tablet} {
+    font-size: 40px;
+  }
 `;
 
 export const Image = styled.img`
   right: 0;
   overflow: hidden;
   object-fit: cover;
+  @media ${devices.mobile} {
+    display: none;
+  }
 `;
 
 export const StartDetails = styled.div`
   display: flex;
   margin-top: 5%;
+  @media ${devices.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const Text = styled.p`
@@ -35,23 +53,23 @@ export const Text = styled.p`
   max-width: 370px;
   line-height: 2;
   margin-right: 40px;
+  @media ${devices.laptopL} {
+    font-size: 20px;
+    max-width: 300px;
+  }
+  @media ${devices.tablet} {
+    font-size: 17px;
+  }
+  @media ${devices.tablet} {
+    padding-bottom: 15px;
+  }
 `;
 
 export const Items = styled.div`
   display: flex;
   flex-direction: column;
   line-height: 2;
-`;
-
-export const Item = styled.p`
-  font-size: 25px;
-  margin: 0 0 20px 40px;
-  border-radius: 88% 12% 76% 24% / 30% 30% 70% 70%;
-  background-color: ${COLORS.ultra_light_grey};
-  transition: 0.3s;
-  cursor: pointer;
-  :hover {
-    border-radius: 21% 79% 70% 30% / 68% 9% 91% 32%;
-    background-color: ${COLORS.light_grey};
+  @media ${devices.tablet} {
+    flex-direction: row;
   }
 `;

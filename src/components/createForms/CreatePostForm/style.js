@@ -1,8 +1,18 @@
 import styled from 'styled-components';
 import { COLORS } from '../../../globalStyles/colors';
+import { devices } from '../../../globalStyles/mediaQuery';
 
 export const Content = styled.div`
   margin: 30px 30%;
+  @media ${devices.laptop} {
+    margin: 25px 25%;
+  }
+  @media ${devices.tablet} {
+    margin: 20px 20%;
+  }
+  @media ${devices.mobile} {
+    margin: 10px 10%;
+  }
 `;
 
 export const Form = styled.form`
