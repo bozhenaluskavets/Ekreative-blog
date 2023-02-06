@@ -61,7 +61,8 @@ export const AnnouncementDetails = () => {
             {isShownModal && (
               <Modal
                 onClose={hide}
-                item={'announcement'}
+                title={'Delete announcement'}
+                message={'Current changes will not be refunded'}
                 dispatchFunc={deleteOwnAnnouncement}
                 id={details.id}
                 route={'/announcements'}

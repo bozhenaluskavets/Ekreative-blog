@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { COLORS } from '../../globalStyles/colors';
 
 export const Container = styled.div`
   width: 100%;
@@ -24,7 +25,7 @@ const spinner = keyframes`
 export const LoaderItem = styled.span`
   width: 48px;
   height: 48px;
-  border: 5px dotted rgb(76, 76, 76);
+  border: 5px dotted ${COLORS.dark_grey};
   border-radius: 50%;
   display: inline-block;
   position: relative;

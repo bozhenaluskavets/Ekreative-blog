@@ -7,7 +7,6 @@ import ReactTextareaAutosize from 'react-textarea-autosize';
 import { createNewComment } from '../../../store/slices/postDetails';
 import { Form } from '../CreatePostForm/style';
 import { Content } from './style';
-
 import { Error } from '../../../globalStyles/forms.style';
 import { Button } from '../../../globalStyles/buttons.style';
 import '../../../globalStyles/textarea.css';

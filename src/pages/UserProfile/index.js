@@ -1,9 +1,18 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { avatarsArray } from '../../components/Avatar/avatars';
-import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
-import { Container } from '../../globalStyles/multiComponents.style';
-import { Avatar, Content, ExtraItem, Item, Name, UserInfo, General } from './style';
+import { OptionsButton } from '../../globalStyles/buttons.style';
+import {
+  Avatar,
+  Content,
+  Container,
+  ExtraItem,
+  Item,
+  Name,
+  UserInfo,
+  General,
+  Margin,
+} from './style';
 
 export const UserProfile = () => {
   const { userInfo } = useSelector((state) => {
@@ -26,21 +35,21 @@ export const UserProfile = () => {
     <Container>
       <Content>
         <UserInfo key={userInfo.id}>
+          <Avatar src={img} alt="avatar" />
           <General>
-            <Avatar src={img} alt="avatar" />
             <Name>
               <ExtraItem>{userInfo.firstname}</ExtraItem>
               <ExtraItem>{userInfo.lastname}</ExtraItem>
             </Name>
+            <Item>Email: {userInfo.email}</Item>
+            <Item>Age: {userInfo.age}</Item>
+            <Margin>
+              <Link to={`/profile/edit/${userInfo.id}`}>
+                <OptionsButton>Edit my profile info</OptionsButton>
+              </Link>
+            </Margin>
           </General>
-          <Item>Email: {userInfo.email}</Item>
-          <Item>Age: {userInfo.age}</Item>
         </UserInfo>
-        <OBcentering>
-          <Link to={`/profile/edit/${userInfo.id}`}>
-            <OptionsButton>Edit</OptionsButton>
-          </Link>
-        </OBcentering>
       </Content>
     </Container>
   );

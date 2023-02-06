@@ -2,9 +2,6 @@ import React from 'react';
 import ReactPaginate from 'react-paginate';
 import './index.css';
 
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-key */
-
 export const Paginator = ({ pageCount, handlePageClick }) => {
   const onClick = (event) => {
     event.selected += 1;

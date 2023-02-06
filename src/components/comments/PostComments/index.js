@@ -4,18 +4,18 @@ import { OBcentering, OptionsButton } from '../../../globalStyles/buttons.style'
 import { Container, Centering } from './style';
 import { Subtitle } from '../../../pages/PostDetails/style';
 import { PostComment } from '../Comment';
-import { CreateCommentForm } from '../../createForms/CreateCommentForm';
 import { Disclaimer } from '../../Disclaimer';
+import { CreateCommentForm } from '../../createForms/CreateCommentForm';
 
 export const PostComments = () => {
-  const [isShownCreateForm, setIsShownCreateForm] = useState(false);
+  const [isShownModal, setIsShownModal] = useState(false);
 
   const show = () => {
-    setIsShownCreateForm(true);
+    setIsShownModal(true);
   };
 
   const hide = () => {
-    setIsShownCreateForm(false);
+    setIsShownModal(false);
   };
 
   const reduxData = useSelector((state) => ({
@@ -24,8 +24,8 @@ export const PostComments = () => {
     comments: state.postDetails.data.comments,
   }));
 
-  const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
-  const isAuth = isShownCreateForm && reduxData.isAuthenticated;
+  const notAuth = isShownModal && !reduxData.isAuthenticated;
+  const isAuth = isShownModal && reduxData.isAuthenticated;
 
   if (reduxData.isLoading) {
     return;
@@ -46,7 +46,7 @@ export const PostComments = () => {
       <Subtitle>Comments</Subtitle>
       {renderComments()}
       <Centering>
-        {!isShownCreateForm && <OptionsButton onClick={show}>Create comment</OptionsButton>}
+        {!isShownModal && <OptionsButton onClick={show}>Create comment</OptionsButton>}
 
         {notAuth && (
           <>
