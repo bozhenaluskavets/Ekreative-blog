@@ -28,10 +28,11 @@ export const Container = styled.div`
 
 export const ExtraContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const Nav = styled.nav`
-  width: 60%;
+  width: 65%;
   margin: 0 auto;
   padding: 0 auto 100px;
   display: flex;
@@ -41,13 +42,13 @@ export const Nav = styled.nav`
     color: ${COLORS.dark_grey};
   }
   @media ${devices.laptopL} {
-    width: 65%;
-  }
-  @media ${devices.laptop} {
     width: 70%;
   }
+  @media ${devices.laptop} {
+    width: 80%;
+  }
   @media ${devices.tablet} {
-    width: 85%;
+    width: 90%;
   }
   @media ${devices.mobile} {
     width: 90%;
@@ -56,6 +57,7 @@ export const Nav = styled.nav`
 
 export const Items = styled.div`
   display: flex;
+  align-items: center;
   margin-right: 0;
 `;
 
@@ -111,11 +113,32 @@ export const Extra = styled.span`
 `;
 
 export const User = styled.span`
-  width: 20%;
+  transition: 0.3s;
+  border-radius: 23px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  :hover {
+    box-shadow: ${COLORS.black_03_opacity} 0px 5px 15px;
+  }
 `;
 
 export const Text = styled.span`
-  margin-left: 5px;
+  margin: 7px;
+`;
+
+export const Avatar = styled.img`
+  object-fit: cover;
+  width: 50px;
+  height: fit-content;
+  border-radius: 50%;
+  box-shadow: ${COLORS.black_03_opacity} 0px 7px 29px 0px;
+  @media ${devices.laptop} {
+    width: 40px;
+  }
+  @media ${devices.tablet} {
+    width: 35px;
+  }
+  @media ${devices.mobile} {
+    width: 30px;
+  }
 `;

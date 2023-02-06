@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUserInfo, logout } from '../../store/slices/auth';
+import { findAvatarSrc } from '../../utilities/findAvatar';
 import { textAbstract } from '../../utilities/textAbstract';
 import { Loader } from '../Loader';
 import {
@@ -14,6 +15,7 @@ import {
   Nav,
   Text,
   User,
+  Avatar,
 } from './style';
 
 export const Header = () => {
@@ -40,6 +42,8 @@ export const Header = () => {
     }
     return '';
   };
+
+  const img = findAvatarSrc();
 
   return (
     <Container>
@@ -80,6 +84,7 @@ export const Header = () => {
                 <Link to={'/profile'}>
                   <User>
                     <Text>{userName()}</Text>
+                    <Avatar src={img} alt="avatar" />
                   </User>
                 </Link>
               </Item>

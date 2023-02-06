@@ -4,6 +4,15 @@ import { devices } from '../../globalStyles/mediaQuery';
 export const Content = styled.div`
   margin-left: 15%;
   margin-top: 100px;
+  @media ${devices.laptopL} {
+    margin-top: 90px;
+  }
+  @media ${devices.laptop} {
+    margin-top: 80px;
+  }
+  @media ${devices.tablet} {
+    margin-top: 70px;
+  }
 `;
 
 export const InvitationBlock = styled.div`

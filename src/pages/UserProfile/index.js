@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { avatarsArray } from '../../components/Avatar/avatars';
 import { OptionsButton } from '../../globalStyles/buttons.style';
+import { findAvatarSrc } from '../../utilities/findAvatar';
 import {
   Avatar,
   Content,
@@ -18,16 +18,6 @@ export const UserProfile = () => {
   const { userInfo } = useSelector((state) => {
     return { userInfo: state.auth.userInfo };
   });
-
-  const userAvId = userInfo.avatar;
-
-  const findAvatarSrc = () => {
-    if (userAvId === undefined) {
-      return null;
-    }
-    const response = avatarsArray.find((avatar) => avatar.id === +userAvId);
-    return response.img;
-  };
 
   const img = findAvatarSrc();
 
