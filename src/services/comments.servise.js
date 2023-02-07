@@ -19,3 +19,5 @@ export const deleteComment = async (id) => {
   const resp = await api.delete(`comments/${id}`);
   return resp.data;
 };
+
+// fix use params from axios

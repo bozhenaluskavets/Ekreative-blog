@@ -44,3 +44,5 @@ export const saveUserId = (newUserID) => {
 export const getUserId = () => {
   return localStorage.getItem(USER_ID);
 };
+
+// fix do not call function in `${}`

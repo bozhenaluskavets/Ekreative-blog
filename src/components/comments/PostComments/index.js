@@ -26,7 +26,7 @@ export const PostComments = () => {
 
   const notAuth = isShownModal && !reduxData.isAuthenticated;
   const isAuth = isShownModal && reduxData.isAuthenticated;
-
+  // fix notAuth/isAuth rename
   if (reduxData.isLoading) {
     return;
   }

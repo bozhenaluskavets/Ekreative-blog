@@ -36,7 +36,7 @@ export const EditPostForm = () => {
     editedData.userId = initPost.userId;
     editedData.id = initPost.id;
   };
-
+  // fix formHandler rename to correct data, prepareDataToSubmit
   const onSubmit = (editedData) => {
     formHandler(editedData);
     dispatch(editOwnPost(editedData));
@@ -82,3 +82,5 @@ export const EditPostForm = () => {
     </Content>
   );
 };
+
+// fix ReactTextareaAutosize and error in separate component

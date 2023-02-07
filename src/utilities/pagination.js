@@ -14,3 +14,5 @@ export const addPagination = ({ list = 0, page = 1, perPage = 8 }) => {
     data,
   };
 };
+
+// fix const newList = list.reverse();

@@ -82,3 +82,4 @@ export const PostComment = ({ comment }) => {
     </Comments>
   );
 };
+// fix onClick / onClick={showEModal} is enough

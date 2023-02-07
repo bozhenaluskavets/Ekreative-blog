@@ -12,3 +12,5 @@ export const findAvatarSrc = () => {
   const response = avatarsArray.find((avatar) => avatar.id === +userAvId);
   return response.img;
 };
+
+// fix use is hook, add like userAvId params, userAvId === undefined - userAvId without undefined

@@ -36,15 +36,13 @@ export const AnnouncementsList = () => {
 
   const { announcements, pageCount } = reduxData;
 
-  const renderAnnouncements = () => {
-    return announcements.map((ann) => {
-      return (
-        <Fragment key={ann.id}>
-          <ListItem data={ann} route={'announcements'} />
-        </Fragment>
-      );
-    });
-  };
+  const announcementsComp = announcements.map((ann) => {
+    return (
+      <Fragment key={ann.id}>
+        <ListItem data={ann} route={'announcements'} />
+      </Fragment>
+    );
+  });
 
   if (reduxData.isLoading) {
     return;
@@ -52,6 +50,7 @@ export const AnnouncementsList = () => {
 
   const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
   const isAuth = isShownCreateForm && reduxData.isAuthenticated;
+  // fix notAuth/ isAuth do not correct name only part of expression
 
   return (
     <Container>
@@ -78,7 +77,7 @@ export const AnnouncementsList = () => {
             <OptionsButton onClick={hide}>Hide form</OptionsButton>
           </OBcentering>
         )}
-        {renderAnnouncements()}
+        {announcementsComp}
         <Paginator
           pageCount={pageCount}
           handlePageClick={(event) => {

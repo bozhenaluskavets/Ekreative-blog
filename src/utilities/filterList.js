@@ -6,3 +6,9 @@ export const filterList = (list) => {
     return true;
   });
 };
+
+// fix
+/*
+export const filterList = (list) => list.filter((item) => !item.createdAt || !item.title);
+
+*/

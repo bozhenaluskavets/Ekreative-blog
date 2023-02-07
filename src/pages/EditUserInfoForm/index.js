@@ -36,6 +36,7 @@ export const EditProfileForm = () => {
   const formHandler = (editedData) => {
     editedData.id = userInfo.id;
   };
+  // fix formHandler rename to correct data, prepareDataToSubmit
 
   const onSubmit = (editedData) => {
     formHandler(editedData);

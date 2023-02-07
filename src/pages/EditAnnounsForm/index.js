@@ -42,7 +42,7 @@ export const EditAnnouncementForm = () => {
     dispatch(editOwnAnnouncement(editedData));
     navigate(`/announcements/${initAnnoun.id}`);
   };
-
+  // fix formHandler rename to correct data, prepareDataToSubmit
   return (
     <Content>
       <Title>Edit announcement</Title>

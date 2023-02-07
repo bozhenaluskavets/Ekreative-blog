@@ -24,3 +24,5 @@ export const deletePost = async (id) => {
   const resp = await api.delete(`posts/${id}`);
   return resp.data;
 };
+
+// fix use params from axios
