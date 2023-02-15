@@ -27,7 +27,7 @@ export const DisclaimerMessage = styled.h4`
 export const Navigation = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 30px auto 0;
+  margin: 30px auto 10px;
   width: 300px;
   @media ${devices.laptopL} {
     width: 250px;

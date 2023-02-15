@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Content, InvitationBlock, Title, StartDetails, Text, Items, Image } from './style';
 import image from '../../assets/start-page-img.png';
-import { OptionsButton } from '../../globalStyles/buttons.style';
+import { OptionsButton } from '../UserProfile/style';
 
 export const Home = () => {
   return (

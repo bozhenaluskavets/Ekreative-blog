@@ -10,13 +10,14 @@ export const ListItem = ({ data, route }) => {
   const formatCreatedAt = formatTime(data.createdAt);
   const formatUpdatedAt = formatTime(data.updatedAt);
 
-  const abstractTitle = textAbstract(data.title, 30);
+  const abstractTitle = textAbstract(data.title, 25);
 
   if (data.isNewItem) {
     setTimeout(() => {
       setShowAsNew(false);
     }, 1000);
   }
+
   return (
     <Items key={data.id}>
       <Item showAsNew={showAsNew}>

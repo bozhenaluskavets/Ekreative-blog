@@ -1,9 +1,10 @@
 import dateFormat, { masks } from 'dateformat';
+import { timeFormat } from '../constants';
 
 export const formatTime = (time) => {
   if (time) {
-    masks.formatTime = 'dd.mm.yyyy';
-    return dateFormat(time, 'formatTime');
+    masks.formatTime = timeFormat;
+    return dateFormat(time, timeFormat);
   }
   return 'no time';
 };

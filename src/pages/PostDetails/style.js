@@ -3,7 +3,7 @@ import { COLORS } from '../../globalStyles/colors';
 import { devices } from '../../globalStyles/mediaQuery';
 
 export const Content = styled.div`
-  width: 70%;
+  width: 65%;
   margin: 0 auto;
   position: relative;
   @media ${devices.laptopL} {
@@ -16,20 +16,15 @@ export const Content = styled.div`
 
 export const Post = styled.div`
   margin: 0 auto 50px;
-  padding-top: 15vh;
-  position: relative;
-  @media ${devices.laptopL} {
-    padding: 13vh 0 0;
-  }
-  @media ${devices.laptop} {
-    padding: 12vh 0 0;
-  }
-  @media ${devices.tablet} {
-    padding: 11vh 0 0;
-  }
-  @media ${devices.mobile} {
-    padding: 10vh 0 0;
-  }
+`;
+
+export const PostContent = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  padding: 20px;
+`;
+
+export const Options = styled.div`
+  display: flex;
 `;
 
 export const Text = styled.p`
@@ -38,6 +33,7 @@ export const Text = styled.p`
   font-size: 22px;
   letter-spacing: 1.3px;
   line-height: 1.5;
+
   @media ${devices.desktop} {
     font-size: 20px;
   }
@@ -52,6 +48,17 @@ export const Text = styled.p`
     font-size: 12px;
     margin-top: 10px;
   }
+`;
+
+export const Details = styled.div`
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+`;
+
+export const Time = styled.div`
+  display: flex;
+  text-align: left;
 `;
 
 export const Subtitle = styled.h4`

@@ -32,7 +32,7 @@ const announcementsSlice = createSlice({
     });
     builder.addCase(createNewAnnouncement.fulfilled, (state, action) => {
       state.list = [{ ...action.payload, isNewItem: true }, ...state.list];
-      state.pagination = addPagination({ list: state.list.reverse(), page: 1 });
+      state.pagination = addPagination({ list: state.list, page: 1 });
     });
     builder.addCase(deleteOwnAnnouncement.fulfilled, (state, action) => {
       state.list = action.payload;

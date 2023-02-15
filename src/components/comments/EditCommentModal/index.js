@@ -1,11 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import ReactTextareaAutosize from 'react-textarea-autosize';
 import { useForm } from 'react-hook-form';
 import { Container, Content, Message, Options, Option, Title, Form } from './style';
-import { Error } from '../../../globalStyles/forms.style';
-import '../../../globalStyles/textarea.css';
 import { editOwnComment } from '../../../store/slices/postDetails';
+import { TextAreaComponent } from '../../TextArea';
 
 export const CommentModal = ({ title, onClose, action, comment }) => {
   const {
@@ -41,7 +39,7 @@ export const CommentModal = ({ title, onClose, action, comment }) => {
         <Message>
           <Title>{title}</Title>
           <Form>
-            <ReactTextareaAutosize
+            <TextAreaComponent
               {...register('body', {
                 required: 'Comment content is required',
                 minLength: {
@@ -52,9 +50,8 @@ export const CommentModal = ({ title, onClose, action, comment }) => {
               placeholder="Comment content"
               type="text"
               minRows={2}
-              className="styleTextarea"
+              error={errors.body?.message}
             />
-            <Error>{errors.body?.message}</Error>
           </Form>
           <Options>
             <Option onClick={onClose}>Close</Option>

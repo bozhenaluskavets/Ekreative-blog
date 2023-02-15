@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Disclaimer } from '../../components/Disclaimer';
@@ -10,17 +10,11 @@ import { Content } from './style';
 import { ListItem } from '../../components/ListItem';
 import { CreatePostForm } from '../../components/createForms/CreatePostForm';
 import { Paginator } from '../../components/Paginator';
+import { useToggle } from '../../utilities/toggleController';
+import { CreateOption } from '../../components/ButtonOptions';
 
 export const PostsList = () => {
-  const [isShownCreateForm, setIsShownCreateForm] = useState(false);
-
-  const show = () => {
-    setIsShownCreateForm(true);
-  };
-
-  const hide = () => {
-    setIsShownCreateForm(false);
-  };
+  const [isShown, toggle] = useToggle();
 
   const dispatch = useDispatch();
 
@@ -35,50 +29,42 @@ export const PostsList = () => {
     isLoading: state.ui.isLoading,
   }));
 
-  const { posts, pageCount } = reduxData;
+  const { posts, pageCount, isAuthenticated } = reduxData;
 
-  const renderPosts = () => {
-    return posts.map((post) => {
-      return (
-        <Fragment key={post.id}>
-          <ListItem data={post} route={'posts'} />
-        </Fragment>
-      );
-    });
-  };
+  const postsComponent = posts.map((post) => {
+    return (
+      <Fragment key={post.id}>
+        <ListItem data={post} route={'posts'} />
+      </Fragment>
+    );
+  });
+
   if (reduxData.isLoading) {
     return;
   }
 
-  const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
-  const isAuth = isShownCreateForm && reduxData.isAuthenticated;
+  const showDisclaimer = isShown && !isAuthenticated;
+  const showForm = isShown && isAuthenticated;
 
   return (
     <Container>
       <Content>
         <Title>Posts</Title>
-        {!isShownCreateForm && (
+        {!isShown && (
           <OBcentering>
-            <OptionsButton onClick={show}>Create</OptionsButton>
+            <CreateOption onClick={toggle} item={'post'} />
           </OBcentering>
         )}
 
-        {notAuth && (
-          <>
-            <Disclaimer />
-            <OBcentering>
-              <OptionsButton onClick={hide}>OK</OptionsButton>
-            </OBcentering>
-          </>
-        )}
+        {showDisclaimer && <Disclaimer toggle={toggle} />}
 
-        {isAuth && (
+        {showForm && (
           <OBcentering>
             <CreatePostForm />
-            <OptionsButton onClick={hide}>Hide form</OptionsButton>
+            <OptionsButton onClick={toggle}>Close form</OptionsButton>
           </OBcentering>
         )}
-        {renderPosts()}
+        {postsComponent}
         <Paginator
           pageCount={pageCount}
           handlePageClick={(event) => {

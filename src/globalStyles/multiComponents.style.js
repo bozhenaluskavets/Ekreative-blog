@@ -6,6 +6,19 @@ export const Container = styled.div`
   height: 100vh;
   width: 80%;
   margin: 0 auto;
+  padding-top: 130px;
+  @media ${devices.laptopL} {
+    padding-top: 115px;
+  }
+  @media ${devices.laptop} {
+    padding-top: 105px;
+  }
+  @media ${devices.tablet} {
+    padding-top: 90px;
+  }
+  @media ${devices.mobile} {
+    padding-top: 75px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -26,5 +39,21 @@ export const Title = styled.h1`
   }
   @media ${devices.mobile} {
     font-size: 20px;
+  }
+`;
+
+export const Avatar = styled.img`
+  object-fit: cover;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: ${COLORS.black_03_opacity} 0px 7px 29px 0px;
+  @media ${devices.laptop} {
+    width: 40px;
+  }
+  @media ${devices.tablet} {
+    width: 35px;
+  }
+  @media ${devices.mobile} {
+    width: 30px;
   }
 `;

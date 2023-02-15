@@ -3,6 +3,7 @@ import { COLORS } from './colors';
 import { devices } from './mediaQuery';
 
 export const Input = styled.input`
+  width: 100%;
   color: ${COLORS.black};
   font-size: 20px;
   padding: 15px 55px;

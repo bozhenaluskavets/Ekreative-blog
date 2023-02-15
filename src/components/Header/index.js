@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { getUserInfo, logout } from '../../store/slices/auth';
 import { findAvatarSrc } from '../../utilities/findAvatar';
 import { textAbstract } from '../../utilities/textAbstract';
@@ -15,8 +16,10 @@ import {
   Nav,
   Text,
   User,
-  Avatar,
+  Icon,
+  Logout,
 } from './style';
+import { Avatar } from '../../globalStyles/multiComponents.style';
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -40,10 +43,11 @@ export const Header = () => {
       const abstractUserName = textAbstract(userName, 13);
       return abstractUserName;
     }
+
     return '';
   };
 
-  const img = findAvatarSrc();
+  const img = findAvatarSrc(reduxData.userInfo);
 
   return (
     <Container>
@@ -77,7 +81,12 @@ export const Header = () => {
             <Items>
               <Item>
                 <Link to={'/'} onClick={clearLS}>
-                  Log out
+                  <Logout>
+                    Log out
+                    <Icon>
+                      <LogoutIcon fontSize="small" />
+                    </Icon>
+                  </Logout>
                 </Link>
               </Item>
               <Item>

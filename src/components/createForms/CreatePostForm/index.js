@@ -1,14 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ReactTextareaAutosize from 'react-textarea-autosize';
-
 import { Button } from '../../../globalStyles/buttons.style';
-import { Error } from '../../../globalStyles/forms.style';
 import { createNewPost } from '../../../store/slices/posts';
 import { Content, Form } from './style';
-import '../../../globalStyles/textarea.css';
 import { InputComponent } from '../../Input';
+import { TextAreaComponent } from '../../TextArea';
 
 export const CreatePostForm = () => {
   const {
@@ -26,7 +23,7 @@ export const CreatePostForm = () => {
     userInfo: state.auth.userInfo,
   }));
 
-  const formHandler = (data) => {
+  const dataToSubmit = (data) => {
     const date = new Date().toISOString();
     const userId = reduxData.userInfo.id;
     data.createdAt = date;
@@ -35,7 +32,7 @@ export const CreatePostForm = () => {
   };
 
   const onSubmit = (data) => {
-    formHandler(data);
+    dataToSubmit(data);
     dispatch(createNewPost(data));
     reset();
   };
@@ -56,7 +53,7 @@ export const CreatePostForm = () => {
           error={errors.title?.message}
         />
 
-        <ReactTextareaAutosize
+        <TextAreaComponent
           {...register('body', {
             required: 'Post content is required',
             minLength: {
@@ -67,9 +64,8 @@ export const CreatePostForm = () => {
           placeholder="Post content"
           type="text"
           minRows={4}
-          className="styleTextarea"
+          error={errors.body?.message}
         />
-        <Error>{errors.body?.message}</Error>
 
         <Button type="submit" disabled={!isValid}>
           Add post

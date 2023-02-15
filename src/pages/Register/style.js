@@ -1,22 +1,6 @@
 import styled from 'styled-components';
 import { devices } from '../../globalStyles/mediaQuery';
 
-export const Content = styled.div`
-  padding: 15vh 0 30px;
-  @media ${devices.laptopL} {
-    padding: 12vh 0 0;
-  }
-  @media ${devices.laptop} {
-    padding: 10vh 0 0;
-  }
-  @media ${devices.tablet} {
-    padding: 12vh 0 0;
-  }
-  @media ${devices.mobile} {
-    padding: 8vh 0 0;
-  }
-`;
-
 export const Form = styled.form`
   margin-top: 50px;
   display: flex;
@@ -39,6 +23,7 @@ export const Centering = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
   @media ${devices.laptopL} {
     width: 60%;
   }

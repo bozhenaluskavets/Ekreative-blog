@@ -6,6 +6,11 @@ export const Modal = ({ title, message, onClose, dispatchFunc, id, route }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const deleteHandler = () => {
+    dispatch(dispatchFunc(id));
+    navigate(`${route}`);
+  };
+
   return (
     <Container>
       <Content>
@@ -14,14 +19,7 @@ export const Modal = ({ title, message, onClose, dispatchFunc, id, route }) => {
           <Warning>{message}</Warning>
           <Options>
             <Option onClick={onClose}>No</Option>
-            <Option
-              onClick={() => {
-                dispatch(dispatchFunc(id));
-                navigate(`${route}`);
-              }}
-            >
-              Yes
-            </Option>
+            <Option onClick={deleteHandler}>Yes</Option>
           </Options>
         </Message>
       </Content>

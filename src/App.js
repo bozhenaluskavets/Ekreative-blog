@@ -11,6 +11,8 @@ import { PostsList } from './pages/PostsList';
 import { Register } from './pages/Register';
 import { UserProfile } from './pages/UserProfile';
 import { EditProfileForm } from './pages/EditUserInfoForm';
+import { ChangePassword } from './pages/ChangePassword';
+import { CurrentUserItems } from './pages/CurrentUserItems';
 
 export const App = () => {
   return (
@@ -20,6 +22,7 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="posts" element={<PostsList />} />
         <Route path="posts/:id" element={<PostDetails />} />
+        <Route path="posts/myItems" element={<CurrentUserItems />} />
         <Route path="announcements" element={<AnnouncementsList />} />
         <Route path="announcements/:id" element={<AnnouncementDetails />} />
         <Route path="register" element={<Register />} />
@@ -28,6 +31,7 @@ export const App = () => {
         <Route path="posts/edit/:id" element={<EditPostForm />} />
         <Route path="announcements/edit/:id" element={<EditAnnouncementForm />} />
         <Route path="profile/edit/:id" element={<EditProfileForm />} />
+        <Route path="profile/changePassword/:id" element={<ChangePassword />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,23 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { Options } from '../../components/comments/Comment/style';
+import { DeleteOption, EditOption } from '../../components/ButtonOptions';
 import { Modal } from '../../components/Modal';
-import { EditDeleteOptions } from '../../globalStyles/buttons.style';
+import { UserLabel } from '../../components/UserLabel';
 import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { deleteOwnAnnouncement } from '../../store/slices/announcements';
 import { fetchAnnouncementDetails } from '../../store/slices/announcementsDetails';
-import { Announcement, Content, Text } from './style';
+import { useToggle } from '../../utilities/toggleController';
+import { Announcement, Content, Text, AnnounContent } from './style';
+import { Details, Time } from '../PostDetails/style';
+import { formatTime } from '../../utilities/formatTime';
 
 export const AnnouncementDetails = () => {
-  const [isShownModal, setIsShownModal] = useState(false);
-
-  const show = () => {
-    setIsShownModal(true);
-  };
-
-  const hide = () => {
-    setIsShownModal(false);
-  };
+  const [isShown, toggle] = useToggle();
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -37,42 +34,40 @@ export const AnnouncementDetails = () => {
     return;
   }
 
-  const isUserPost = details.userId === reduxData.userId;
+  const formatCreatedAt = formatTime(details.createdAt);
+  const isUserAnnoun = details.userId === reduxData.userId;
 
   return (
     <Container>
       <Content>
         <Announcement>
-          <Title>{details.title}</Title>
-          <Text>{details.body}</Text>
+          {details.user && <UserLabel data={details} />}
+          <AnnounContent>
+            <Title>{details.title}</Title>
+            <Text>{details.body}</Text>
+            <Details>
+              <Time>{formatCreatedAt}</Time>
+              {isUserAnnoun && (
+                <Options>
+                  {!isShown && <DeleteOption onClick={toggle} />}
+                  {isShown && (
+                    <Modal
+                      onClose={toggle}
+                      title={'Delete announcement'}
+                      message={'Current changes will not be refunded'}
+                      dispatchFunc={deleteOwnAnnouncement}
+                      id={details.id}
+                      route={'/announcements'}
+                    />
+                  )}
+                  <Link to={`/announcements/edit/${details.id}`}>
+                    <EditOption />
+                  </Link>
+                </Options>
+              )}
+            </Details>
+          </AnnounContent>
         </Announcement>
-
-        {isUserPost && (
-          <>
-            {!isShownModal && (
-              <EditDeleteOptions
-                onClick={() => {
-                  show();
-                }}
-              >
-                Delete
-              </EditDeleteOptions>
-            )}
-            {isShownModal && (
-              <Modal
-                onClose={hide}
-                title={'Delete announcement'}
-                message={'Current changes will not be refunded'}
-                dispatchFunc={deleteOwnAnnouncement}
-                id={details.id}
-                route={'/announcements'}
-              />
-            )}
-            <Link to={`/announcements/edit/${details.id}`}>
-              <EditDeleteOptions>Edit</EditDeleteOptions>
-            </Link>
-          </>
-        )}
       </Content>
     </Container>
   );

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TOKEN_FROM_LS } from '../../constants';
 import {
   editUserInfo,
   getAuthorizedUser,
@@ -6,7 +7,7 @@ import {
   registerUserRequest,
   saveUserId,
 } from '../../services/auth.service';
-import { getToken, setToken } from '../../services/token.service';
+import { setToken } from '../../services/localStorage.service';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -84,8 +85,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 });
 
 export const getUserInfo = createAsyncThunk('auth/getUserInfo', async () => {
-  const token = getToken();
-  if (!token) {
+  if (!TOKEN_FROM_LS) {
     return {
       isAuthenticated: false,
     };

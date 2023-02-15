@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AvatarComponent } from '../../components/Avatar';
 import { InputComponent } from '../../components/Input';
-import { Button } from '../../globalStyles/buttons.style';
-import { Title } from '../../globalStyles/multiComponents.style';
+import { Back, Button } from '../../globalStyles/buttons.style';
+import { Container, Title } from '../../globalStyles/multiComponents.style';
+import { emailPattern } from '../../patterns';
 import { editProfileInfo } from '../../store/slices/auth';
 import { Form } from '../EditPostForm/style';
-import { Centering, Content } from '../Register/style';
-import { Back } from './style';
+import { Centering } from '../Register/style';
 
 export const EditProfileForm = () => {
   const { userInfo } = useSelector((state) => {
@@ -27,24 +27,25 @@ export const EditProfileForm = () => {
       lastname: userInfo.lastname,
       email: userInfo.email,
       age: userInfo.age,
+      avatar: userInfo.avatar,
     },
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const formHandler = (editedData) => {
+  const dataToSubmit = (editedData) => {
     editedData.id = userInfo.id;
   };
 
   const onSubmit = (editedData) => {
-    formHandler(editedData);
+    dataToSubmit(editedData);
     dispatch(editProfileInfo(editedData));
     navigate('/profile');
   };
 
   return (
-    <Content>
+    <Container>
       <Title>Edit profile</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Centering>
@@ -78,7 +79,7 @@ export const EditProfileForm = () => {
             {...register('email', {
               required: 'Please enter your Email',
               pattern: {
-                value: /\S+@\S+\.\S+/,
+                value: emailPattern,
                 message: 'Entered value does not match email format',
               },
             })}
@@ -114,6 +115,6 @@ export const EditProfileForm = () => {
           </Link>
         </Centering>
       </Form>
-    </Content>
+    </Container>
   );
 };

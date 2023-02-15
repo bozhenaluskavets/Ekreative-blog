@@ -1,12 +1,15 @@
 import { api } from './api';
 
 export const getPosts = async () => {
-  const resp = await api.get(`posts?_sort=createdAt`);
+  const params = { _sort: 'createdAt', _order: 'desc' };
+
+  const resp = await api.get('posts', { params });
   return resp.data;
 };
 
 export const getPostDetails = async (id) => {
-  const resp = await api.get(`posts/${id}`);
+  const params = { _expand: 'user' };
+  const resp = await api.get(`posts/${id}`, { params });
   return resp.data;
 };
 

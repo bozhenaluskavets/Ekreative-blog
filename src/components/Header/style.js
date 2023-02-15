@@ -63,7 +63,7 @@ export const Items = styled.div`
 
 export const ExtraItems = styled.div`
   display: flex;
-  justify-content: center;
+  align-items: center;
   margin-right: 30px;
   @media ${devices.laptop} {
     margin-right: 24px;
@@ -85,16 +85,32 @@ export const Item = styled.p`
   margin-right: 30px;
   @media ${devices.laptopL} {
     font-size: 18px;
-    margin-right: 27px;
+    margin-right: 20px;
   }
   @media ${devices.laptop} {
     font-size: 16px;
-    margin-right: 24px;
+    margin-right: 13px;
   }
   @media ${devices.tablet} {
-    font-size: 13px;
+    font-size: 15px;
     margin-right: 10px;
   }
+  @media ${devices.mobile} {
+    font-size: 14px;
+    margin-right: 5px;
+  }
+`;
+
+export const Icon = styled.div`
+  padding-left: 5px;
+  @media ${devices.mobile} {
+    padding-left: 2px;
+  }
+`;
+
+export const Logout = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const Extra = styled.span`
@@ -117,28 +133,18 @@ export const User = styled.span`
   border-radius: 23px;
   display: flex;
   align-items: center;
+  padding: 5px;
   :hover {
-    box-shadow: ${COLORS.black_03_opacity} 0px 5px 15px;
+    box-shadow: ${COLORS.medium_grey} 0px 5px 15px;
+  }
+  @media ${devices.mobile} {
+    padding: 2px;
   }
 `;
 
 export const Text = styled.span`
   margin: 7px;
-`;
-
-export const Avatar = styled.img`
-  object-fit: cover;
-  width: 50px;
-  height: fit-content;
-  border-radius: 50%;
-  box-shadow: ${COLORS.black_03_opacity} 0px 7px 29px 0px;
-  @media ${devices.laptop} {
-    width: 40px;
-  }
-  @media ${devices.tablet} {
-    width: 35px;
-  }
   @media ${devices.mobile} {
-    width: 30px;
+    margin: 2px;
   }
 `;

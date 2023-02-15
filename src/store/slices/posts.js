@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createPost, deletePost, getPosts, editPost } from '../../services/posts.service';
 import { filterList } from '../../utilities/filterList';
+import { filterUserItems } from '../../utilities/filterUserItems';
 import { addPagination } from '../../utilities/pagination';
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     list: [],
+    currentUserPosts: [],
     pagination: {
       totalPages: 0,
       currentPage: 1,
@@ -23,6 +25,7 @@ const postsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.list = filterList(action.payload);
+      state.currentUserPosts = filterUserItems(state.list);
       state.pagination = addPagination({ list: state.list });
     });
     builder.addCase(createNewPost.fulfilled, (state, action) => {
@@ -30,7 +33,7 @@ const postsSlice = createSlice({
         delete item.isNewItem;
       });
       state.list = [{ ...action.payload, isNewItem: true }, ...state.list];
-      state.pagination = addPagination({ list: state.list.reverse(), page: 1 });
+      state.pagination = addPagination({ list: state.list, page: 1 });
     });
     builder.addCase(deleteOwnPost.fulfilled, (state, action) => {
       state.list = action.payload;

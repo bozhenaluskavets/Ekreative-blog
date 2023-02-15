@@ -8,6 +8,8 @@ import { Container, Title } from '../../globalStyles/multiComponents.style';
 import { Button } from '../../globalStyles/buttons.style';
 import { InputComponent } from '../../components/Input';
 import { Error } from '../../globalStyles/forms.style';
+import { emailPattern } from '../../patterns';
+import { PasswordComponent } from '../../components/PasswordInput';
 
 export const Login = () => {
   const {
@@ -43,7 +45,7 @@ export const Login = () => {
             {...register('email', {
               required: 'Email is required',
               pattern: {
-                value: /\S+@\S+\.\S+/,
+                value: emailPattern,
                 message: 'Entered value does not match email format',
               },
             })}
@@ -52,7 +54,7 @@ export const Login = () => {
             placeholder="Email"
           />
 
-          <InputComponent
+          <PasswordComponent
             {...register('password', {
               required: 'Password is required',
               minLength: {
@@ -60,7 +62,6 @@ export const Login = () => {
                 message: 'Password must be at least 8 characters long',
               },
             })}
-            type="password"
             error={errors.password?.message}
             placeholder="Password"
           />

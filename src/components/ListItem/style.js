@@ -18,12 +18,13 @@ export const Items = styled.div`
 `;
 
 export const Item = styled.div`
-  padding: 0 30px 20px 0;
+  padding: 0 15px 20px;
   border-radius: 5px;
   margin: 0 20px 20px;
   height: 200px;
   transition: 0.8s;
   position: relative;
+  overflow: hidden;
   ${(props) => {
     if (props.showAsNew) {
       return `box-shadow: 0 5px 17px -4px ${COLORS.medium_grey};`;

@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAnnouncements, paginate } from '../../store/slices/announcements';
 import { Content } from './style';
@@ -9,17 +9,11 @@ import { OBcentering, OptionsButton } from '../../globalStyles/buttons.style';
 import { Paginator } from '../../components/Paginator';
 import { ListItem } from '../../components/ListItem';
 import { CreateAnnounsForm } from '../../components/createForms/CreateAnnounsForm';
+import { useToggle } from '../../utilities/toggleController';
+import { CreateOption } from '../../components/ButtonOptions';
 
 export const AnnouncementsList = () => {
-  const [isShownCreateForm, setIsShownCreateForm] = useState(false);
-
-  const show = () => {
-    setIsShownCreateForm(true);
-  };
-
-  const hide = () => {
-    setIsShownCreateForm(false);
-  };
+  const [isShown, toggle] = useToggle();
 
   const dispatch = useDispatch();
 
@@ -36,49 +30,47 @@ export const AnnouncementsList = () => {
 
   const { announcements, pageCount } = reduxData;
 
-  const renderAnnouncements = () => {
-    return announcements.map((ann) => {
-      return (
-        <Fragment key={ann.id}>
-          <ListItem data={ann} route={'announcements'} />
-        </Fragment>
-      );
-    });
-  };
+  const announsComponent = announcements.map((ann) => {
+    return (
+      <Fragment key={ann.id}>
+        <ListItem data={ann} route={'announcements'} />
+      </Fragment>
+    );
+  });
 
   if (reduxData.isLoading) {
     return;
   }
 
-  const notAuth = isShownCreateForm && !reduxData.isAuthenticated;
-  const isAuth = isShownCreateForm && reduxData.isAuthenticated;
+  const showDisclaimer = isShown && !reduxData.isAuthenticated;
+  const showForm = isShown && reduxData.isAuthenticated;
 
   return (
     <Container>
       <Content>
         <Title>Announcements</Title>
-        {!isShownCreateForm && (
+        {!isShown && (
           <OBcentering>
-            <OptionsButton onClick={show}>Create</OptionsButton>
+            <CreateOption onClick={toggle} item={'announcement'} />
           </OBcentering>
         )}
 
-        {notAuth && (
+        {showDisclaimer && (
           <>
             <Disclaimer />
             <OBcentering>
-              <OptionsButton onClick={hide}>OK</OptionsButton>
+              <OptionsButton onClick={toggle}>OK</OptionsButton>
             </OBcentering>
           </>
         )}
 
-        {isAuth && (
+        {showForm && (
           <OBcentering>
             <CreateAnnounsForm />
-            <OptionsButton onClick={hide}>Hide form</OptionsButton>
+            <OptionsButton onClick={toggle}>Close form</OptionsButton>
           </OBcentering>
         )}
-        {renderAnnouncements()}
+        {announsComponent}
         <Paginator
           pageCount={pageCount}
           handlePageClick={(event) => {

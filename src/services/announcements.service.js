@@ -1,12 +1,15 @@
 import { api } from './api';
 
 export const getAnnouncements = async () => {
-  const resp = await api.get('announcements?_sort=createdAt');
+  const params = { _sort: 'createdAt', _order: 'desc' };
+
+  const resp = await api.get('announcements', { params });
   return resp.data;
 };
 
 export const getAnnouncementsDetails = async (id) => {
-  const resp = await api.get(`announcements/${id}`);
+  const params = { _expand: 'user' };
+  const resp = await api.get(`announcements/${id}`, { params });
   return resp.data;
 };
 

@@ -1,32 +1,17 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useParams } from 'react-router';
 import { Comment, Comments, Options } from './style';
-import { EditDeleteOptions } from '../../../globalStyles/buttons.style';
 import { deleteOwnComment } from '../../../store/slices/postDetails';
 import { Modal } from '../../Modal';
 import { CommentModal } from '../EditCommentModal';
+import { CommentUserLabel } from '../../UserLabel';
+import { useToggle } from '../../../utilities/toggleController';
+import { DeleteOption, EditOption } from '../../ButtonOptions';
 
 export const PostComment = ({ comment }) => {
-  const [isShownEModal, setisShownEModal] = useState(false);
-  const [isShownDModal, setIsShownDModal] = useState(false);
-
-  const showDModal = () => {
-    setIsShownDModal(true);
-  };
-
-  const hideDModal = () => {
-    setIsShownDModal(false);
-  };
-
-  const showEModal = () => {
-    setisShownEModal(true);
-  };
-
-  const hideEModal = () => {
-    setisShownEModal(false);
-  };
+  const [isShownE, toggleE] = useToggle();
+  const [isShownD, toggleD] = useToggle();
 
   const params = useParams();
 
@@ -38,21 +23,16 @@ export const PostComment = ({ comment }) => {
 
   return (
     <Comments key={comment.id}>
-      <Comment>{comment.body}</Comment>
+      <Comment>
+        {comment.user && <CommentUserLabel data={comment} />}
+        {comment.body}
+      </Comment>
       {isUserComment && (
         <Options>
-          {!isShownDModal && (
-            <EditDeleteOptions
-              onClick={() => {
-                showDModal();
-              }}
-            >
-              Delete
-            </EditDeleteOptions>
-          )}
-          {isShownDModal && (
+          {!isShownD && <DeleteOption onClick={toggleD} />}
+          {isShownD && (
             <Modal
-              onClose={hideDModal}
+              onClose={toggleD}
               title={'Delete comment'}
               message={'Current changes will not be refunded'}
               dispatchFunc={deleteOwnComment}
@@ -60,18 +40,10 @@ export const PostComment = ({ comment }) => {
               route={`/posts/${params.id}`}
             />
           )}
-          {!isShownEModal && (
-            <EditDeleteOptions
-              onClick={() => {
-                showEModal();
-              }}
-            >
-              Edit
-            </EditDeleteOptions>
-          )}
-          {isShownEModal && (
+          {!isShownE && <EditOption onClick={toggleE} />}
+          {isShownE && (
             <CommentModal
-              onClose={hideEModal}
+              onClose={toggleE}
               title={'Edit comment'}
               action={'Edit'}
               comment={comment}

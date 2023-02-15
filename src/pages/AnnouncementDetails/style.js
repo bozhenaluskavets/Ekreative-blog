@@ -6,37 +6,23 @@ export const Content = styled.div`
   width: 70%;
   margin: 0 auto;
   position: relative;
-  @media ${devices.laptopL} {
-    width: 90%;
-  }
-  @media ${devices.laptop} {
-    width: 100%;
-  }
 `;
 
 export const Announcement = styled.div`
-  width: 60%;
   margin: 0 auto;
-  padding-top: 15vh;
+
   @media ${devices.laptop} {
     width: 100%;
   }
-  @media ${devices.laptopL} {
-    padding: 13vh 0 0;
-  }
-  @media ${devices.laptop} {
-    padding: 12vh 0 0;
-  }
-  @media ${devices.tablet} {
-    padding: 11vh 0 0;
-  }
-  @media ${devices.mobile} {
-    padding: 10vh 0 0;
-  }
+`;
+
+export const AnnounContent = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  padding: 20px;
 `;
 
 export const Text = styled.p`
-  margin-top: 70px;
+  margin: 70px 0 20px;
   color: ${COLORS.black};
   font-size: 20px;
   letter-spacing: 1.3px;

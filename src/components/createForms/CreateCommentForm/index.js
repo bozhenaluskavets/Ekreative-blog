@@ -2,14 +2,11 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ReactTextareaAutosize from 'react-textarea-autosize';
-
 import { createNewComment } from '../../../store/slices/postDetails';
 import { Form } from '../CreatePostForm/style';
 import { Content } from './style';
-import { Error } from '../../../globalStyles/forms.style';
 import { Button } from '../../../globalStyles/buttons.style';
-import '../../../globalStyles/textarea.css';
+import { TextAreaComponent } from '../../TextArea';
 
 export const CreateCommentForm = () => {
   const {
@@ -29,7 +26,7 @@ export const CreateCommentForm = () => {
     userInfo: state.auth.userInfo,
   }));
 
-  const formHandler = (data) => {
+  const dataToSubmit = (data) => {
     const date = new Date().toISOString();
     const userId = reduxData.userInfo.id;
     data.createdAt = date;
@@ -39,7 +36,7 @@ export const CreateCommentForm = () => {
   };
 
   const onSubmit = (data) => {
-    formHandler(data);
+    dataToSubmit(data);
     dispatch(createNewComment(data));
     reset();
   };
@@ -47,7 +44,7 @@ export const CreateCommentForm = () => {
   return (
     <Content>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <ReactTextareaAutosize
+        <TextAreaComponent
           {...register('body', {
             required: 'Comment content is required',
             minLength: {
@@ -58,9 +55,8 @@ export const CreateCommentForm = () => {
           placeholder="Comment content"
           type="text"
           minRows={2}
-          className="styleTextarea"
+          error={errors.body?.message}
         />
-        <Error>{errors.body?.message}</Error>
 
         <Button type="submit" disabled={!isValid}>
           Add comment

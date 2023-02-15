@@ -7,6 +7,7 @@ export const Button = styled.button`
   font-size: 20px;
   font-weight: 300;
   padding: 10px 27px;
+  margin-bottom: 10px;
   cursor: pointer;
   transition: 0.3s;
   border: transparent;
@@ -37,9 +38,16 @@ export const OBcentering = styled.div`
   margin: 20px 0 0;
 `;
 
+export const Centering = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+
 export const OptionsButton = styled.button`
+  display: flex;
+  justify-content: center;
+  margin: 5px auto;
   font-size: 21px;
-  margin: 4px 0 20px 0;
   color: ${COLORS.white};
   padding: 4px 10px;
   border: transparent;
@@ -64,33 +72,34 @@ export const OptionsButton = styled.button`
   }
 `;
 
-export const EditDeleteOptions = styled.span`
-  font-size: 15px;
-  position: absolute;
-  right: 0;
+export const Back = styled.button`
+  margin-top: 10px;
+  width: 100%;
   color: ${COLORS.black};
+  font-size: 20px;
+  font-weight: 300;
+  padding: 10px 27px;
   cursor: pointer;
   transition: 0.3s;
-  margin-left: 15px;
+  border: transparent;
+  opacity: 0.7;
+  background-color: ${COLORS.light_grey};
+  border-radius: 81% 19% 66% 34% / 35% 24% 76% 65%;
   :hover {
-    color: ${COLORS.dark_grey};
+    background-color: ${COLORS.medium_grey};
+    border-radius: 22% 78% 23% 47% / 37% 20% 80% 63%;
   }
-  :last-child {
-    right: 60px;
-  }
-  @media ${devices.laptop} {
-    font-size: 14px;
+  @media ${devices.laptopL} {
+    font-size: 18px;
+    padding: 8px 24px;
   }
   @media ${devices.tablet} {
-    font-size: 12px;
-    :last-child {
-      right: 50px;
-    }
+    font-size: 16px;
+    padding: 6px 20px;
   }
   @media ${devices.mobile} {
-    font-size: 10px;
-    :last-child {
-      right: 40px;
-    }
+    font-size: 14px;
+    padding: 5px 15px;
+    margin-top: 5px;
   }
 `;

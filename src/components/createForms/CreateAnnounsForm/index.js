@@ -1,13 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ReactTextareaAutosize from 'react-textarea-autosize';
 import { Button } from '../../../globalStyles/buttons.style';
-import { Error } from '../../../globalStyles/forms.style';
 import { createNewAnnouncement } from '../../../store/slices/announcements';
 import { Content, Form } from '../CreatePostForm/style';
-import '../../../globalStyles/textarea.css';
 import { InputComponent } from '../../Input';
+import { TextAreaComponent } from '../../TextArea';
 
 export const CreateAnnounsForm = () => {
   const {
@@ -25,7 +23,7 @@ export const CreateAnnounsForm = () => {
     userInfo: state.auth.userInfo,
   }));
 
-  const formHandler = (data) => {
+  const dataToSubmit = (data) => {
     const date = new Date().toISOString();
     const userId = reduxData.userInfo.id;
     data.createdAt = date;
@@ -34,7 +32,7 @@ export const CreateAnnounsForm = () => {
   };
 
   const onSubmit = (data) => {
-    formHandler(data);
+    dataToSubmit(data);
     dispatch(createNewAnnouncement(data));
     reset();
   };
@@ -55,7 +53,7 @@ export const CreateAnnounsForm = () => {
           error={errors.title?.message}
         />
 
-        <ReactTextareaAutosize
+        <TextAreaComponent
           {...register('body', {
             required: 'Announcement content is required',
             minLength: {
@@ -66,9 +64,8 @@ export const CreateAnnounsForm = () => {
           placeholder="Announcement content"
           type="text"
           minRows={3}
-          className="styleTextarea"
+          error={errors.body?.message}
         />
-        <Error>{errors.body?.message}</Error>
 
         <Button type="submit" disabled={!isValid}>
           Add announcement

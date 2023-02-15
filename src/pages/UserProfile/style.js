@@ -13,22 +13,6 @@ export const Container = styled.div`
   }
 `;
 
-export const Content = styled.div`
-  padding-top: 15vh;
-  @media ${devices.laptopL} {
-    padding: 13vh 0 0;
-  }
-  @media ${devices.laptop} {
-    padding: 12vh 0 0;
-  }
-  @media ${devices.tablet} {
-    padding: 11vh 0 0;
-  }
-  @media ${devices.mobile} {
-    padding: 10vh 0 0;
-  }
-`;
-
 export const UserInfo = styled.div`
   display: flex;
   align-items: center;
@@ -76,9 +60,9 @@ export const Name = styled.div`
 
 export const Item = styled.p`
   color: ${COLORS.black};
-  font-size: 25px;
-  letter-spacing: 1.5px;
   margin-bottom: 15px;
+  letter-spacing: 1.5px;
+  font-size: 22px;
   @media ${devices.laptopL} {
     font-size: 22px;
   }
@@ -112,9 +96,35 @@ export const ExtraItem = styled.p`
   }
 `;
 
-export const Margin = styled.div`
-  margin: 30px 0 0 -10px;
-  @media ${devices.tablet} {
-    margin-top: 10px;
+export const OptionsButton = styled.button`
+  margin: 10px auto;
+  font-size: 21px;
+  color: ${COLORS.white};
+  padding: 0 10px;
+  border: transparent;
+  color: ${COLORS.black};
+  border-radius: 88% 12% 76% 24% / 30% 30% 70% 70%;
+  background-color: ${COLORS.ultra_light_grey};
+  transition: 0.3s;
+  letter-spacing: 2px;
+  cursor: pointer;
+  :hover {
+    border-radius: 21% 79% 70% 30% / 68% 9% 91% 32%;
+    background-color: ${COLORS.light_grey};
   }
+  @media ${devices.laptopL} {
+    font-size: 17px;
+  }
+  @media ${devices.tablet} {
+    font-size: 16px;
+  }
+  @media ${devices.mobile} {
+    font-size: 15px;
+  }
+`;
+
+export const Margin = styled.div`
+  margin: 0 0 0 -10px;
+  display: flex;
+  flex-direction: column;
 `;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLORS } from '../../../globalStyles/colors';
 import { devices } from '../../../globalStyles/mediaQuery';
 
 export const Comments = styled.div`
@@ -7,10 +8,13 @@ export const Comments = styled.div`
   justify-content: space-between;
   font-size: 17px;
   position: relative;
+  align-items: flex-end;
 `;
 
 export const Comment = styled.div`
   width: 80%;
+  box-shadow: -6px -0 5px -5px ${COLORS.medium_grey};
+  padding: 5px 0 5px 10px;
   @media ${devices.desktop} {
     font-size: 18px;
   }
@@ -27,5 +31,7 @@ export const Comment = styled.div`
 
 export const Options = styled.div`
   position: absolute;
-  right: 0;
+  right: 20px;
+  display: flex;
+  justify-content: end;
 `;

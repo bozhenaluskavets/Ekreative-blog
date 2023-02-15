@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { devices } from '../../globalStyles/mediaQuery';
 
 export const Content = styled.div`
-  padding-top: 15vh;
   margin: 0 30%;
   @media ${devices.laptopL} {
     padding: 12vh 0 0;

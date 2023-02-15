@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { OBcentering, OptionsButton } from '../../../globalStyles/buttons.style';
 import { Container, Centering } from './style';
@@ -6,17 +6,10 @@ import { Subtitle } from '../../../pages/PostDetails/style';
 import { PostComment } from '../Comment';
 import { Disclaimer } from '../../Disclaimer';
 import { CreateCommentForm } from '../../createForms/CreateCommentForm';
+import { useToggle } from '../../../utilities/toggleController';
 
 export const PostComments = () => {
-  const [isShownModal, setIsShownModal] = useState(false);
-
-  const show = () => {
-    setIsShownModal(true);
-  };
-
-  const hide = () => {
-    setIsShownModal(false);
-  };
+  const [isShown, toggle] = useToggle();
 
   const reduxData = useSelector((state) => ({
     isLoading: state.ui.isLoading,
@@ -24,43 +17,34 @@ export const PostComments = () => {
     comments: state.postDetails.data.comments,
   }));
 
-  const notAuth = isShownModal && !reduxData.isAuthenticated;
-  const isAuth = isShownModal && reduxData.isAuthenticated;
+  const showDisclaimer = isShown && !reduxData.isAuthenticated;
+  const showForm = isShown && reduxData.isAuthenticated;
 
   if (reduxData.isLoading) {
     return;
   }
 
-  const renderComments = () => {
-    return reduxData.comments.map((comment) => {
-      return (
-        <Fragment key={comment.id}>
-          <PostComment comment={comment} />
-        </Fragment>
-      );
-    });
-  };
+  const commentsComponent = reduxData.comments.map((comment) => {
+    return (
+      <Fragment key={comment.id}>
+        <PostComment comment={comment} />
+      </Fragment>
+    );
+  });
 
   return (
     <Container>
       <Subtitle>Comments</Subtitle>
-      {renderComments()}
+      {commentsComponent}
       <Centering>
-        {!isShownModal && <OptionsButton onClick={show}>Create comment</OptionsButton>}
+        {!isShown && <OptionsButton onClick={toggle}>Create comment</OptionsButton>}
 
-        {notAuth && (
-          <>
-            <Disclaimer />
-            <OBcentering>
-              <OptionsButton onClick={hide}>OK</OptionsButton>
-            </OBcentering>
-          </>
-        )}
+        {showDisclaimer && <Disclaimer toggle={toggle} />}
 
-        {isAuth && (
+        {showForm && (
           <OBcentering>
             <CreateCommentForm />
-            <OptionsButton onClick={hide}>Hide form</OptionsButton>
+            <OptionsButton onClick={toggle}>Close form</OptionsButton>
           </OBcentering>
         )}
       </Centering>

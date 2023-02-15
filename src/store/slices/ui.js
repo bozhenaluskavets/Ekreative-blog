@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createNewAnnouncement, editOwnAnnouncement, fetchAnnouncements } from './announcements';
 import { fetchAnnouncementDetails } from './announcementsDetails';
-import { loginUser, logout, registerUser } from './auth';
+import { getUserInfo, loginUser, logout, registerUser } from './auth';
 import { fetchPostDetails } from './postDetails';
 import { createNewPost, editOwnPost, fetchPosts } from './posts';
 
@@ -10,7 +10,7 @@ const loaderActions = [
   fetchPostDetails,
   createNewPost,
   editOwnPost,
-
+  getUserInfo,
   fetchAnnouncements,
   fetchAnnouncementDetails,
   createNewAnnouncement,
